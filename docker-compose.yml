@@ -20,8 +20,6 @@ services:
     ports:
       - '${REDIS_PORT}:6379'
 
-
-
   mysql:
     image: mysql:8
     command: --default-authentication-plugin=mysql_native_password
@@ -37,3 +35,24 @@ services:
       - ./volumes/mysql:/var/lib/mysql
     ports:
       - '${MYSQL_FORWARD_PORT}:3306'
+
+  worker:
+    build: 
+      context: ./celery/jobqueue
+      dockerfile: Dockerfile
+    env_file:
+      - ./celery/jobqueue/.env
+    command: './wait-for-it.sh redis:6379 -t 0 -- celery -A hyip worker -E -l=INFO'
+    depends_on: 
+      - redis
+
+  worker-beat:
+    build: 
+      context: ./celery/jobqueue
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - ./celery/jobqueue/.env
+    command: './wait-for-it.sh redis:6379 -t 0 -- celery -A hyip beat -l=INFO'
+    depends_on: 
+      - redis
