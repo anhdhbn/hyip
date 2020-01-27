@@ -5,7 +5,7 @@ import sentry_sdk
 from sentry_sdk.integrations.celery import CeleryIntegration
 
 from dotenv import load_dotenv
-env_path = os.path.join(os.getcwd(),  "jobqueue", '.env')
+env_path = os.path.join(os.getcwd(), '.env')
 load_dotenv(dotenv_path=env_path, verbose=True)
 
 REDIS_HOST = os.getenv("REDIS_HOST")

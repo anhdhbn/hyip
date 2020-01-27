@@ -27,13 +27,11 @@ class Sites(Driver):
         self.driver.get(url)
         self.current_scrolls = 0
 
-        while (True):
-            total_investment,total_paid_out, total_member = self.get_data(investment_selector, paid_out_selector,  member_selector)
-            if total_investment and total_paid_out:
-                return total_investment, total_paid_out, None if total_member is None else total_member
-            if(self.scroll()):
-                break
-                
+        self.scroll()
+        total_investment,total_paid_out, total_member = self.get_data(investment_selector, paid_out_selector,  member_selector)
+        if total_investment and total_paid_out:
+            return total_investment, total_paid_out, None if total_member is None else total_member
+
         total_investment,total_paid_out, total_member = self.get_data(investment_selector, paid_out_selector,  member_selector)
 
         if total_investment != None and total_paid_out != None:

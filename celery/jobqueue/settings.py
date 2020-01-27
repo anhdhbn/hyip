@@ -16,7 +16,7 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERYBEAT_SCHEDULE = {
     'auto-crawl-data-every-day': {
       'task': 'jobqueue.tasks.crawl_data_every_day',
-      # 'schedule': crontab(minute='*'),
-      'schedule': crontab(minute=0, hour=0),
+      'schedule': crontab(minute='*'),
+      # 'schedule': crontab(minute=0, hour=0),
     },
 }

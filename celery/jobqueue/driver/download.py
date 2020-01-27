@@ -1,6 +1,5 @@
 import requests
 import re
-import requests
 import io
 import platform
 import zipfile

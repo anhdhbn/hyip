@@ -15,7 +15,7 @@ services:
     image: "redis:alpine"
     restart: always
     env_file:
-      - ./celery/jobqueue/.env
+      - ./celery/.env
     command: 'redis-server --requirepass ${REDIS_PASSWORD}'
     ports:
       - '${REDIS_PORT}:6379'
@@ -38,21 +38,21 @@ services:
 
   worker:
     build: 
-      context: ./celery/jobqueue
+      context: ./celery
       dockerfile: Dockerfile
     env_file:
-      - ./celery/jobqueue/.env
-    command: './wait-for-it.sh redis:6379 -t 0 -- celery -A hyip worker -E -l=INFO'
+      - ./celery/.env
+    command: './wait-for-it.sh redis:6379 -t 0 -- celery -A jobqueue.tasks worker -E -l=INFO'
     depends_on: 
       - redis
 
   worker-beat:
     build: 
-      context: ./celery/jobqueue
+      context: ./celery
       dockerfile: Dockerfile
     restart: always
     env_file:
-      - ./celery/jobqueue/.env
-    command: './wait-for-it.sh redis:6379 -t 0 -- celery -A hyip beat -l=INFO'
+      - ./celery/.env
+    command: './wait-for-it.sh redis:6379 -t 0 -- celery -A jobqueue.tasks beat -l=INFO'
     depends_on: 
       - redis

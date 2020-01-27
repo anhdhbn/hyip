@@ -8,8 +8,6 @@ def crawl_data_every_day():
     import requests
     from jobqueue import app_info
     result = requests.get("{}api/project/all".format(app_info.host))
-    print(result.text)
-
     result = result.json()
 
     for item in result['data']:
@@ -24,8 +22,12 @@ def crawl_data_every_day():
 def crawl_a_project(*args):
     from jobqueue import Sites
     temp = Sites()
-    total_investment, total_paid_out, total_account = temp.crawl(*args)
-    temp.quit()
-    alexa_rank = temp.get_alexa_rank()
-    # print(f"\n{total_investment}\n{total_paid_out}\n{total_account}\n{alexa_rank}")
-    temp.save_data(total_investment, total_paid_out, total_account, alexa_rank)
+    
+    try:
+        total_investment, total_paid_out, total_account = temp.crawl(*args)
+        temp.quit()
+        alexa_rank = temp.get_alexa_rank()
+        # print(f"\n{total_investment}\n{total_paid_out}\n{total_account}\n{alexa_rank}")
+        temp.save_data(total_investment, total_paid_out, total_account, alexa_rank)
+    except:
+        temp.quit()
