@@ -33,14 +33,19 @@ def get_ssl_info_from_domain(url):
     requests.get("https://www.ssllabs.com/ssltest/analyze.html?viaform=off&d={}".format(domain))
     html2 = ""
     url_ = "https://www.ssllabs.com/ssltest/analyze.html?d={}&latest".format(domain)
+    use_ip_url = False
+
     while True:
-        html2 = html.unescape(html2)
-        check  =  re.findall('(analyze\.html.*?)"',  html2)
-        if  len(check) > 1:
-            url_ = "https://www.ssllabs.com/ssltest/" + check[-1]
+        if not use_ip_url:
+            html2 = html.unescape(html2)
+            check  =  re.findall('(analyze\.html.*?)"',  html2)
+            if  len(check) > 1:
+                url_ = "https://www.ssllabs.com/ssltest/" + check[1]
+                use_ip_url = True
         html2 = requests.get(url_).text
         if "Server Key and Certificate" in html2:
             break
+        
         time.sleep(1)
     matches = re.findall('tableCell">.*,(.*)UTC.*<', html2)
     from_date = str2date_length(matches[0].strip())
