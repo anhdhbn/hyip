@@ -1,0 +1,10 @@
+python-dotenv
+easydict
+celery
+redis
+requests
+selenium
+fake_useragent
+sentry_sdk
+beautifulsoup4
+lxml
