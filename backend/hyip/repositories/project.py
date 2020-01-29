@@ -38,3 +38,8 @@ def check_exists_project_id(idProject):
 
 def get_all_project():
     return models.Project.query.all()
+
+def get_easy_project_info():
+    return models.Project.query.filter(
+        models.Project.easy_crawl == True,
+    ).all()

@@ -1,0 +1,1 @@
+from .auto_get_info import EasyProject

@@ -93,6 +93,8 @@ class ChromeDriver(Selenium):
         if app_info.headless:
             options.add_argument("--headless")
             options.add_argument("--no-sandbox")
+            options.add_argument("--disable-gpu")
+            
         options.add_argument(f'user-agent={self.getUA()}')
         # options.setBinary("/path/to/other/chrome/binary")
         return options
@@ -108,12 +110,19 @@ class ChromeDriver(Selenium):
         download_driver()
         options = self.get_options()
         try:
-            executable_path = os.path.join(os.getcwd(), 'chromedriver')
+            # if app_info.headless:
+            #     self.driver = webdriver.Chrome(options=options)
+            # else:
+            #     executable_path = os.path.join(os.getcwd(), "chromedriver")
+            #     self.driver = webdriver.Chrome(executable_path=executable_path, options=options)
+            
+            executable_path = os.path.join(os.getcwd(), "chromedriver")
             self.driver = webdriver.Chrome(executable_path=executable_path, options=options)
+
             self.driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
                 "source": injectedJavascript
             })
-            self.driver.set_window_size(1920, 1080)
+            self.driver.implicitly_wait(10)
         except Exception as e:
             print(e.with_traceback())
             self.quit(True)

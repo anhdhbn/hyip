@@ -7,27 +7,17 @@ app.config_from_object("jobqueue.settings")
 def crawl_data_every_day():
     import requests
     from jobqueue import app_info
-    result = requests.get("{}api/project/all".format(app_info.host))
+    result = requests.get("{}api/project/easy".format(app_info.host))
     result = result.json()
-
     for item in result['data']:
+        url = item['url']
         id = item['id']
-        InvesmentSelector = item['investment_selector']
-        PaidOutSelector = item['paid_out_selector']
-        MemberSelector = item['member_selector']
-        Url = item['url']
-        crawl_a_project.delay(id, InvesmentSelector, PaidOutSelector, MemberSelector, Url)
+        crawl_easy_project.delay(url=url, id=id)
+    return len(result['data'])
 
-@app.task(name='jobqueue.tasks.crawl_a_project')
-def crawl_a_project(*args):
-    from jobqueue import Sites
-    temp = Sites()
-    
-    try:
-        total_investment, total_paid_out, total_account = temp.crawl(*args)
-        temp.quit()
-        alexa_rank = temp.get_alexa_rank()
-        # print(f"\n{total_investment}\n{total_paid_out}\n{total_account}\n{alexa_rank}")
-        temp.save_data(total_investment, total_paid_out, total_account, alexa_rank)
-    except:
-        temp.quit()
+@app.task(name='jobqueue.tasks.crawl_easy_project')
+def crawl_easy_project(**kwargs):
+    from jobqueue.easy import EasyProject
+    temp = EasyProject(**kwargs)
+    result = temp.crawl()
+    return True

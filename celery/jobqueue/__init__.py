@@ -27,7 +27,8 @@ app_info = edict({
     },
     'headless': True if HEADLESS == "1" else False,
     'host': BACKEND_HOST,
-    'sentry_dsn': SENTRY_DSN
+    'sentry_dsn': SENTRY_DSN,
+    'path': os.path.join(os.getcwd(), "jobqueue")
 })
 
 def get_path(file):

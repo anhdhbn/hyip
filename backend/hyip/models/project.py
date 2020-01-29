@@ -22,11 +22,12 @@ class Project(db.Model, TimestampMixin):
     script = db.Column(ChoiceType(LicensedType, impl=db.Integer()), default=1, nullable=False)
     url = db.Column(db.String(64), nullable=False)
     
-    investment_selector = db.Column(db.String(1024), nullable=False)
-    paid_out_selector = db.Column(db.String(1024), nullable=False)
-    member_selector = db.Column(db.String(1024), nullable=False)
+    investment_selector = db.Column(db.String(1024), nullable=False,  default='')
+    paid_out_selector = db.Column(db.String(1024), nullable=False,  default='')
+    member_selector = db.Column(db.String(1024), nullable=False,  default='')
     start_date = db.Column(db.Date(), nullable=False)
     plans = db.Column(db.String(1024), nullable=True, default='')
+    easy_crawl = db.Column(db.Boolean, nullable=False, default=False)
 
     ssl =  db.relationship("SSL", uselist=False, back_populates="projects", cascade="all, delete")
     domain =  db.relationship("Domain", uselist=False, back_populates="projects", cascade="all, delete")

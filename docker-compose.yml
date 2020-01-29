@@ -40,11 +40,13 @@ services:
     build: 
       context: ./celery
       dockerfile: Dockerfile
+    restart: always
     env_file:
       - ./celery/.env
     command: './wait-for-it.sh redis:6379 -t 0 -- celery -A jobqueue.tasks worker -E -l=INFO'
     depends_on: 
       - redis
+      - backend
 
   worker-beat:
     build: 
@@ -56,3 +58,13 @@ services:
     command: './wait-for-it.sh redis:6379 -t 0 -- celery -A jobqueue.tasks beat -l=INFO'
     depends_on: 
       - redis
+
+  test-sele:
+    build: 
+      context: ./tests
+      dockerfile: alpine.Dockerfile
+    command: 'python3 test.py'
+    depends_on: 
+      - redis
+    volumes:
+      - ./tests:/app

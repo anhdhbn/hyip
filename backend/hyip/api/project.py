@@ -43,3 +43,9 @@ class GetAllProjectInfo(flask_restplus.Resource):
     @ns.marshal_with(_get_project_res)
     def get(self):
         return services.project.get_all_project_info()
+
+@ns.route('/easy', methods=['GET'])
+class GetAllProjectInfo(flask_restplus.Resource):
+    @ns.marshal_with(_get_project_res)
+    def get(self):
+        return services.project.get_easy_project_info()

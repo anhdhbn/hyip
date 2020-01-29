@@ -38,3 +38,6 @@ def get_project_info_by_id(idProject):
 
 def get_all_project_info():
     return repo.project.get_all_project()
+
+def get_easy_project_info():
+    return repo.project.get_easy_project_info()
