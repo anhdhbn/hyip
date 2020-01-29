@@ -10,7 +10,7 @@ def crawl_easy_project_every_day():
     result = requests.get(app_info.url_get_easy_project)
     result = result.json()
     for item in result['data']:
-        crawl_easy_project.delay(item)
+        crawl_easy_project.delay(**item)
     return len(result['data'])
 
 @app.task(name='jobqueue.tasks.crawl_easy_project')
