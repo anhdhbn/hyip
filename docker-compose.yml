@@ -58,13 +58,3 @@ services:
     command: './wait-for-it.sh redis:6379 -t 0 -- celery -A jobqueue.tasks beat -l=INFO'
     depends_on: 
       - redis
-
-  test-sele:
-    build: 
-      context: ./tests
-      dockerfile: alpine.Dockerfile
-    command: 'python3 test.py'
-    depends_on: 
-      - redis
-    volumes:
-      - ./tests:/app
