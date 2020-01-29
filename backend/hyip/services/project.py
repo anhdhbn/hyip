@@ -7,6 +7,9 @@ from hyip import repositories as repo
 from hyip.helpers import get_hosting_info_from_domain, get_info_from_domain, get_ip_info_from_domain, get_ssl_info_from_domain, get_domain
 from hyip.extensions.custom_exception import DomainExistsException
 
+from celery.result import AsyncResult
+from hyip.celery import cele
+
 __author__ = 'AnhDH'
 _logger = logging.getLogger(__name__)
 

@@ -17,3 +17,4 @@ flask_mail
 email_validator
 flask_jwt_extended
 requests
+celery
