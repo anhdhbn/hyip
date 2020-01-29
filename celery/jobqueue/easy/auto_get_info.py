@@ -32,7 +32,7 @@ class EasyProject:
     def save_data(self, **kwargs):
         try:
             from jobqueue import app_info
-            res = requests.post("{}api/crawldata/{}".format(app_info.host, self.id), json=kwargs)
+            res = requests.post(app_info.url_post_data_crawled(self.id), json=kwargs)
             res.raise_for_status()
         except:
             print("Data error {}".format(self.url))

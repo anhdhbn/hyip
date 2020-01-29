@@ -1,18 +1,16 @@
 from celery import Celery
+import requests
+from jobqueue import app_info
 
 app = Celery("hyip")
 app.config_from_object("jobqueue.settings")
 
-@app.task(name='jobqueue.tasks.crawl_data_every_day')
-def crawl_data_every_day():
-    import requests
-    from jobqueue import app_info
-    result = requests.get("{}api/project/easy".format(app_info.host))
+@app.task(name='jobqueue.tasks.crawl_easy_project_every_day')
+def crawl_easy_project_every_day():
+    result = requests.get(app_info.url_get_easy_project)
     result = result.json()
     for item in result['data']:
-        url = item['url']
-        id = item['id']
-        crawl_easy_project.delay(url=url, id=id)
+        crawl_easy_project.delay(item)
     return len(result['data'])
 
 @app.task(name='jobqueue.tasks.crawl_easy_project')

@@ -28,12 +28,12 @@ app_info = edict({
     'headless': True if HEADLESS == "1" else False,
     'host': BACKEND_HOST,
     'sentry_dsn': SENTRY_DSN,
-    'path': os.path.join(os.getcwd(), "jobqueue")
+    'path': os.path.join(os.getcwd(), "jobqueue"),
+    'env': os.getenv('ENV'),
+    'is_production': os.getenv('ENV') == "prod",
+    'url_get_easy_project': "{}api/project/easy".format(BACKEND_HOST)
+    'url_post_data_crawled': lambda id: "{}api/crawldata/{}".format(BACKEND_HOST, id)
 })
 
-def get_path(file):
-    return os.path.join(os.getcwd(),  "jobqueue", file)
 
 sentry_sdk.init(app_info.sentry_dsn, integrations=[CeleryIntegration()])
-
-from .sele import Sites

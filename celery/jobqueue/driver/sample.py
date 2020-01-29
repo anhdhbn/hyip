@@ -8,7 +8,7 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException
 # def get_class_by_name(class_):
 #     return getattr(sys.modules[__name__], class_)
 
-from .driver import Driver
+from .base import Driver
 import re
 import requests
 from bs4 import BeautifulSoup

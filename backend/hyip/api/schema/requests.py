@@ -16,11 +16,12 @@ login_req = {
 create_project_req = {
     'url': fields.String(required=True),
     'script': fields.Integer(required=True),
-    'investment_selector': fields.String(required=True),
-    'paid_out_selector': fields.String(required=True),
+    'investment_selector': fields.String(required=False),
+    'paid_out_selector': fields.String(required=False),
     'member_selector': fields.String(required=False),
     'start_date': fields.Date(required=True),
-    'plans': fields.String(required=True)
+    'plans': fields.String(required=True),
+    'easy_crawl': fields.Boolean(required=False),
 }
 
 post_datacrawled_req = {
