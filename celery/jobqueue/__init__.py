@@ -31,7 +31,7 @@ app_info = edict({
     'path': os.path.join(os.getcwd(), "jobqueue"),
     'env': os.getenv('ENV'),
     'is_production': os.getenv('ENV') == "prod",
-    'url_get_easy_project': "{}api/project/easy".format(BACKEND_HOST)
+    'url_get_easy_project': "{}api/project/easy".format(BACKEND_HOST),
     'url_post_data_crawled': lambda id: "{}api/crawldata/{}".format(BACKEND_HOST, id)
 })
 
