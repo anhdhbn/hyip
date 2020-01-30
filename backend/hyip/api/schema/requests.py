@@ -23,6 +23,7 @@ create_project_req = {
     'start_date': fields.Date(required=True),
     'plans': fields.String(required=True),
     'easy_crawl': fields.Boolean(required=False),
+    'status_project': fields.Integer(required=False)
 }
 
 post_datacrawled_req = {

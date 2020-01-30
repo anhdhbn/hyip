@@ -100,8 +100,13 @@ class CrawlProject:
         self.domain = None
         self.ip = None
         self.ssl = None
+        self.status = {}
         for k, v in kwargs.items():
             setattr(self.project, k, v)
+        if ('status_project' in kwargs.keys()):
+            self.status['status_project'] = self.project.status_project
+            del self.project.status_project
+
     def crawl(self):
         self.domain = get_info_from_domain(self.project.url)
         self.ip = get_ip_info_from_domain(self.project.url)
@@ -114,7 +119,8 @@ class CrawlProject:
             'project': self.project.__dict__,
             'domain': self.domain,
             'ip':  self.ip,
-            'ssl': self.ssl
+            'ssl': self.ssl,
+            'status': self.status
         })
     
     def _get_kwargs(self,  obj):
