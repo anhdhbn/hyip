@@ -4,7 +4,7 @@ import os
 
 from flask import jsonify
 from hyip import repositories as repo
-from hyip.helpers import get_hosting_info_from_domain, get_info_from_domain, get_ip_info_from_domain, get_ssl_info_from_domain, get_domain
+from hyip.helpers import get_domain
 from hyip.extensions.custom_exception import DomainExistsException
 
 from celery.result import AsyncResult
@@ -16,21 +16,30 @@ _logger = logging.getLogger(__name__)
 
 # Check exists domain
 
-def create_project(url, **kwargs):
-    domain = get_domain(url)
+def create_project(**kwargs):
+    domain = get_domain(kwargs.get('url'))
 
     if not repo.project.check_exists_domain(domain):
-        hosting = get_hosting_info_from_domain(url)
-        domain_info = get_info_from_domain(url)
-        ip_info = get_ip_info_from_domain(url)
-        ssl_info = get_ssl_info_from_domain(url)
+        result = cele.send_task("jobqueue.tasks.crawl_info_project", kwargs=kwargs)
+        return result
+    else:
+        raise DomainExistsException(errors=domain)
+
+
+def create_project_by_crawler(**kwargs):
+    project_info = kwargs.get('project')
+
+    domain = get_domain(project_info.get('url'))
+    if not repo.project.check_exists_domain(domain):
+        domain_info = kwargs.get('domain')
+        ip_info = kwargs.get('ip')
+        ssl_info = kwargs.get('ssl')
+
         project = repo.project.save_project_to_database(
-            hosting=hosting,
             domain_info=domain_info,
             ip_info=ip_info,
             ssl_info=ssl_info,
-            url=url,
-            **kwargs
+            project_info=project_info
         )
         return project
     else:

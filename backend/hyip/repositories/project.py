@@ -5,17 +5,11 @@ from hyip import models
 __author__ = 'AnhDH'
 _logger = logging.getLogger(__name__)
 
-def save_project_to_database(hosting, domain_info, ip_info, ssl_info, **kwargs):
-    name, registrar, from_date, to_date =  domain_info
-    domain =  models.Domain(name=name, registrar=registrar, from_date=from_date, to_date=to_date)
-
-    ev, from_date, to_date, description = ssl_info
-    ssl = models.SSL(ev=ev, from_date=from_date, to_date=to_date, description=description)
-
-    address, domains_of_this_ip = ip_info
-    ip = models.IP(address=address, domains_of_this_ip=domains_of_this_ip)
-    project = models.Project(hosting=hosting,ssl=ssl,domain=domain,ip=ip, **kwargs)
-    
+def save_project_to_database(domain_info, ip_info, ssl_info, project_info):
+    domain =  models.Domain(**domain_info)
+    ssl = models.SSL(**ssl_info)
+    ip = models.IP(**ip_info)
+    project = models.Project(ssl=ssl,domain=domain,ip=ip, **project_info)
     models.db.session.add(project)
     models.db.session.commit()
     return project

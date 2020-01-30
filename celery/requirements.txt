@@ -9,3 +9,4 @@ sentry_sdk
 beautifulsoup4
 lxml
 cloudscraper
+pymongo

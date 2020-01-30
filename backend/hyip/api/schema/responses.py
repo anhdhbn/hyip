@@ -20,6 +20,24 @@ register_res = {
 
 project_res = {
     'id': fields.String(),
+    'url': fields.Url(endpoint="api.processing_celery")
+    # 'hosting': fields.String(),
+    # 'script': fields.Integer(),
+    # 'url': fields.String(),
+    # 'investment_selector': fields.String(),
+    # 'paid_out_selector': fields.String(),
+    # 'member_selector': fields.String(),
+    # 'created_at': fields.Date(),
+    # 'start_date': fields.Date(),
+    # 'plans': fields.String(),
+    # 'ssl': 
+    # 'domain':
+    # 'ip':
+}
+
+
+project_crawler_res = {
+    'id': fields.String(),
     'hosting': fields.String(),
     'script': fields.Integer(),
     'url': fields.String(),

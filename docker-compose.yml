@@ -46,7 +46,7 @@ services:
     command: './wait-for-it.sh redis:6379 -t 0 -- celery -A jobqueue.tasks worker -E -l=INFO'
     depends_on: 
       - redis
-      - backend
+      # - backend
 
   worker-beat:
     build: 

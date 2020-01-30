@@ -18,3 +18,4 @@ email_validator
 flask_jwt_extended
 requests
 celery
+pymongo

@@ -9,6 +9,7 @@ from hyip.extensions import Namespace
 from hyip.extensions.custom_exception import InvalidLoginTokenException
 from . import responses, requests
 from flask_restplus import fields
+from flask import request, redirect
 
 __author__ = 'AnhDH'
 _logger = logging.getLogger(__name__)
@@ -25,9 +26,9 @@ class Create(flask_restplus.Resource):
     @ns.marshal_with(_create_project_res)
     def post(self):
         data = request.args or request.json
-        project = services.project.create_project(
+        result = services.project.create_project(
             **data)
-        return project
+        return result
 
 
 _get_project_res = ns.model('get_project_res', responses.project_res)
@@ -45,7 +46,21 @@ class GetAllProjectInfo(flask_restplus.Resource):
         return services.project.get_all_project_info()
 
 @ns.route('/easy', methods=['GET'])
-class GetAllProjectInfo(flask_restplus.Resource):
+class GetProjectEasyInfo(flask_restplus.Resource):
     @ns.marshal_with(_get_project_res)
     def get(self):
         return services.project.get_easy_project_info()
+
+
+_create_project_by_crawler_req = ns.model('create_project_by_crawler_req', requests.create_project_by_crawler_req)
+_create_project_crawler_res = ns.model('project_crawler_res', responses.project_crawler_res)
+
+@ns.route('/create-by-crawler', methods=['POST'])
+class CreateByCrawler(flask_restplus.Resource):
+    # @ns.expect(_create_project_by_crawler_req, validate=True)
+    @ns.marshal_with(_create_project_crawler_res)
+    def post(self):
+        data = request.args or request.json
+        project = services.project.create_project_by_crawler(
+            **data)
+        return project
