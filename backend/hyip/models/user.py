@@ -1,6 +1,5 @@
 # coding=utf-8
-import datetime
-
+from sqlalchemy import func
 from hyip.models import db, TimestampMixin
 
 class User(db.Model, TimestampMixin):
@@ -20,7 +19,7 @@ class User(db.Model, TimestampMixin):
 
     is_active = db.Column(db.Boolean, nullable=False, default=True)
     is_admin = db.Column(db.Boolean, nullable=False, default=False)
-    last_login = db.Column(db.TIMESTAMP, nullable=False, default=datetime.datetime.now)
+    last_login = db.Column(db.TIMESTAMP, nullable=False, default=func.now())
 
     # from hyip.models import tracking_project
     # project_tracking=db.relationship('Project', secondary=tracking_project, backref='projects' )  

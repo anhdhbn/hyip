@@ -34,12 +34,14 @@ def create_project_by_crawler(**kwargs):
         domain_info = kwargs.get('domain')
         ip_info = kwargs.get('ip')
         ssl_info = kwargs.get('ssl')
+        status_info  =  kwargs.get('status', {})
 
         project = repo.project.save_project_to_database(
             domain_info=domain_info,
             ip_info=ip_info,
             ssl_info=ssl_info,
-            project_info=project_info
+            project_info=project_info,
+            status_info=status_info
         )
         return project
     else:

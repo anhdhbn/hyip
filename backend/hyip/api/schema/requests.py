@@ -66,3 +66,8 @@ create_project_by_crawler_req = api.model('create_project_by_crawler_req', {
     'ip': fields.Nested(ip, allow_null=False),
     'ssl': fields.Nested(ssl, allow_null=False),
 })
+
+update_status_project = api.model('update_status_project', {
+    'project_id': fields.Integer(required=True),
+    'status_project': fields.Integer(required=True),
+})

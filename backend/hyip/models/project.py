@@ -5,6 +5,8 @@ from hyip.models import db, TimestampMixin
 from sqlalchemy_utils import ChoiceType
 import enum
 
+from sqlalchemy.orm import backref
+
 class LicensedType(enum.IntEnum):
     PAYING = 0
     WAITING = 1
@@ -33,7 +35,7 @@ class Project(db.Model, TimestampMixin):
     domain =  db.relationship("Domain", uselist=False, back_populates="projects", cascade="all, delete")
     ip =  db.relationship("IP", uselist=False, back_populates="projects", cascade="all, delete")
 
-    project_status = db.relationship("StatusProject", uselist=True, back_populates="projects", cascade="all, delete")
+    project_statuses = db.relationship("StatusProject",lazy='noload', uselist=True, back_populates="projects", cascade="all, delete")
     crawl_data = db.relationship("CrawlData", uselist=True, back_populates="projects", cascade="all, delete")
 
     # def to_dict(self):

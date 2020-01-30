@@ -9,6 +9,7 @@ _logger = logging.getLogger(__name__)
 from . import user
 from . import crawldata
 from . import project
+from . import status
 
 my_mail = Mail()
 

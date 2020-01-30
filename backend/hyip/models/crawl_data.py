@@ -1,9 +1,7 @@
 # coding=utf-8
-from datetime import datetime, timedelta
-
-from hyip.models import db, TimestampMixin, get_day_vn
-
+from sqlalchemy import func
 import sqlalchemy  as sq
+from hyip.models import db, TimestampMixin
 
 class CrawlData(TimestampMixin, db.Model):
     __tablename__ = 'crawldata'
@@ -15,7 +13,7 @@ class CrawlData(TimestampMixin, db.Model):
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
     projects = db.relationship("Project", back_populates="crawl_data")
     
-    tracking_day = db.Column(db.Date(), default =get_day_vn, nullable=False)
+    tracking_day = db.Column(db.Date(), default=func.now(), nullable=False)
     total_investment = db.Column(db.REAL(), nullable=False)
     total_paid_out = db.Column(db.REAL(), nullable=False)
     total_member = db.Column(db.Integer(), nullable=False, default=0)

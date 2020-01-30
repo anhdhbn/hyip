@@ -1,8 +1,6 @@
 # coding=utf-8
-import datetime
-
-
-from hyip.models import TimestampMixin, get_time_vn, db
+from sqlalchemy import func
+from hyip.models import TimestampMixin, db
 
 from sqlalchemy_utils import ChoiceType
 import enum
@@ -21,7 +19,7 @@ class StatusProject(db.Model, TimestampMixin):
             setattr(self, k, v)
             
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
-    projects = db.relationship("Project", back_populates="project_status")
+    projects = db.relationship("Project", back_populates="project_statuses")
 
     status_project = db.Column(ChoiceType(StatusType, impl=db.Integer()), default=1, nullable=False)
-    create_date = db.Column(db.Date(), default=get_time_vn, nullable=False)
+    create_date = db.Column(db.Date(), default=func.now(), nullable=False)

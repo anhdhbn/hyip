@@ -1,7 +1,4 @@
 # coding=utf-8
-import datetime
-
-
 from hyip.models import db, TimestampMixin
 from sqlalchemy.orm import relationship
 
@@ -10,7 +7,6 @@ class IP(db.Model, TimestampMixin):
 
     def __init__(self, **kwargs):
         for k, v in kwargs.items():
-            print(k)
             setattr(self, k, v)
     
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)

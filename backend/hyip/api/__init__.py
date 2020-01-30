@@ -29,11 +29,13 @@ def init_app(app, **kwargs):
     from .user import ns as user_ns
     from .crawldata import ns as crawldata_ns
     from .process import ns as process_ns
+    from .status import ns as status_ns
 
     api.add_namespace(project_ns)
     api.add_namespace(user_ns)
     api.add_namespace(crawldata_ns)
     api.add_namespace(process_ns)
+    api.add_namespace(status_ns)
 
     app.register_blueprint(api_bp)
 
