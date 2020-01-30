@@ -55,3 +55,6 @@ def get_all_project_info():
 
 def get_easy_project_info():
     return repo.project.get_easy_project_info()
+
+def get_not_scam_project_info():
+    return repo.project.get_not_scam_project_info()

@@ -45,10 +45,15 @@ app_info = edict({
     'path': os.path.join(os.getcwd(), "jobqueue"),
     'env': os.getenv('ENV'),
     'is_production': os.getenv('ENV') == "prod",
-    'url_get_easy_project': "{}api/project/easy".format(BACKEND_HOST),
-    'url_post_data_crawled': lambda id: "{}api/crawldata/{}".format(BACKEND_HOST, id),
-    'url_get_post_create_project': "{}api/project/create-by-crawler".format(BACKEND_HOST),
+    'url': {
+        'get_easy_project': "{}api/project/easy".format(BACKEND_HOST),
+        'get_all_project': "{}api/project/all".format(BACKEND_HOST),
+        'get_not_scam_project': "{}api/project/notscam".format(BACKEND_HOST),
+        'post_data_crawled': lambda id: "{}api/crawldata/{}".format(BACKEND_HOST, id),
+        'get_post_create_project': "{}api/project/create-by-crawler".format(BACKEND_HOST),
+        'post_status': "{}api/status".format(BACKEND_HOST),
+    },
+    
 })
 
-print(app_info.mongo.url)
 sentry_sdk.init(app_info.sentry_dsn, integrations=[CeleryIntegration()])

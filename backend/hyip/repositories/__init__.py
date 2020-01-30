@@ -8,3 +8,4 @@ from . import user
 from . import crawldata
 from . import project
 from . import status
+from . import domain

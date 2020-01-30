@@ -18,6 +18,10 @@ def get_info_from_domain(url):
     domain = parsed_uri.netloc
     html2 = requests.get("https://www.whois.com/whois/{}".format(domain)).text
     matches = re.findall('df-value">(.*?)<', html2)
+    if len(matches) < 4:
+        return {
+            'name': name,
+        }
     name = domain
     registrar = matches[1]
     from_date = str2date(matches[2])
@@ -115,7 +119,7 @@ class CrawlProject:
         
         self.project.easy_crawl = check_easy_crawl(self.project.url)
 
-        r = requests.post(app_info.url_get_post_create_project, json={
+        r = requests.post(app_info.url.get_post_create_project, json={
             'project': self.project.__dict__,
             'domain': self.domain,
             'ip':  self.ip,

@@ -54,7 +54,11 @@ class GetProjectEasyInfo(flask_restplus.Resource):
     def get(self):
         return services.project.get_easy_project_info()
 
-
+@ns.route('/notscam', methods=['GET'])
+class GetProjectNotScamInfo(flask_restplus.Resource):
+    @ns.marshal_with(_create_project_crawler_res)
+    def get(self):
+        return services.project.get_not_scam_project_info()
 
 
 @ns.route('/create-by-crawler', methods=['POST'])

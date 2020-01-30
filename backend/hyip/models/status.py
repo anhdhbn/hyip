@@ -22,4 +22,4 @@ class StatusProject(db.Model, TimestampMixin):
     projects = db.relationship("Project", back_populates="project_statuses")
 
     status_project = db.Column(ChoiceType(StatusType, impl=db.Integer()), default=1, nullable=False)
-    create_date = db.Column(db.Date(), default=func.now(), nullable=False)
+    create_date = db.Column(db.Date(), default=func.current_date(), nullable=False)

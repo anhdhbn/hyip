@@ -17,10 +17,10 @@ def save_project_to_database(domain_info, ip_info, ssl_info, project_info, statu
     return project
 
 def check_exists_domain(domain):
-    project = models.Project.query.filter(
+    domain = models.Domain.query.filter(
         models.Domain.name == domain,
     ).first()
-    return project is not None
+    return domain is not None
 
 def get_project_by_id(idProject):
     project = models.Project.query.get(idProject)
@@ -39,3 +39,11 @@ def get_easy_project_info():
     return models.Project.query.filter(
         models.Project.easy_crawl == True,
     ).all()
+
+def get_not_scam_project_info():
+    status_projects = models.StatusProject.query.filter(
+        models.StatusProject.status_project == 3,
+    ).all()
+    ids = [item.id for item in status_projects]
+    projects = models.Project.query.filter(models.Project.id.notin_(ids)).all()
+    return projects

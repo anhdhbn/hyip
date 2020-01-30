@@ -25,7 +25,7 @@ project_res = {
 
 
 project_crawler_res = {
-    'id': fields.String(),
+    'id': fields.Integer(),
     'hosting': fields.String(),
     'script': fields.Integer(),
     'url': fields.String(),
@@ -41,8 +41,8 @@ project_crawler_res = {
 }
 
 crawl_data_res = {
-    'id': fields.String(),
-    'project_id': fields.String(),
+    'id': fields.Integer(),
+    'project_id': fields.Integer(),
     'total_investment': fields.Float(),
     'total_paid_out': fields.Float(),
     'total_member': fields.Integer(),
@@ -50,8 +50,12 @@ crawl_data_res = {
 }
 
 status_project_res = {
-    'id': fields.String(),
-    'project_id': fields.String(),
+    'id': fields.Integer(),
+    'project_id': fields.Integer(),
     'status_project': fields.Integer(),
-    'create_date': fields.Date(),
+    # 'create_date': fields.Date(),
+}
+
+exist_domain_res = {
+    'is_exists': fields.Boolean(),
 }

@@ -22,7 +22,7 @@ class Driver(ChromeDriver):
 
     def save_data(self, **kwargs):
         try:
-            res = requests.post(app_info.url_post_data_crawled(self.id), json=kwargs)
+            res = requests.post(app_info.url.post_data_crawled(self.id), json=kwargs)
             res.raise_for_status()
         except:
             print("Data error {}".format(self.url))

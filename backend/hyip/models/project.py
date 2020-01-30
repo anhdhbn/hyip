@@ -1,6 +1,6 @@
 # coding=utf-8
 import datetime
-
+from sqlalchemy import func
 from hyip.models import db, TimestampMixin
 from sqlalchemy_utils import ChoiceType
 import enum
@@ -30,12 +30,13 @@ class Project(db.Model, TimestampMixin):
     start_date = db.Column(db.Date(), nullable=False)
     plans = db.Column(db.String(1024), nullable=True, default='')
     easy_crawl = db.Column(db.Boolean, nullable=False, default=False)
+    create_date = db.Column(db.Date(), default=func.current_date(), nullable=False)
 
     ssl =  db.relationship("SSL", uselist=False, back_populates="projects", cascade="all, delete")
     domain =  db.relationship("Domain", uselist=False, back_populates="projects", cascade="all, delete")
     ip =  db.relationship("IP", uselist=False, back_populates="projects", cascade="all, delete")
 
-    project_statuses = db.relationship("StatusProject",lazy='noload', uselist=True, back_populates="projects", cascade="all, delete")
+    project_statuses = db.relationship("StatusProject", uselist=True, back_populates="projects", cascade="all, delete")
     crawl_data = db.relationship("CrawlData", uselist=True, back_populates="projects", cascade="all, delete")
 
     # def to_dict(self):

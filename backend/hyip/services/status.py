@@ -11,7 +11,6 @@ _logger = logging.getLogger(__name__)
 
 def update_project_status(**kwargs):
     project_id = kwargs.get("project_id")
-    print(project_id, kwargs)
     if repo.project.check_exists_project_id(project_id):
         return repo.status.update_project_status(**kwargs)
     else:
