@@ -10,3 +10,4 @@ beautifulsoup4
 lxml
 cloudscraper
 pymongo
+pyOpenSSL

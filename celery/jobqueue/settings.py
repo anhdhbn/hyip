@@ -26,4 +26,9 @@ CELERYBEAT_SCHEDULE = {
     # 'schedule': crontab(minute='*'),
     'schedule': crontab(minute=0, hour=0),
   },
+  'auto-crawl-project-every-day': {
+    'task': 'jobqueue.tasks.crawl_project',
+    # 'schedule': crontab(minute='*'),
+    'schedule': crontab(minute=0, hour=0),
+  },
 }

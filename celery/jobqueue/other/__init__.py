@@ -1,1 +1,1 @@
-from .crawl_project import CrawlProject
+from .crawl_info_project import CrawlInfoProject

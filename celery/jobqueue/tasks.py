@@ -43,7 +43,7 @@ def check_scam(project):
 
 @app.task(name='jobqueue.tasks.crawl_project')
 def crawl_project():
-    from jobqueue.crawl_project import CrawProject
-    temp = CrawProject()
-    result = temp.crawl(project)
+    from jobqueue.crawl_project import CrawlProjects
+    temp = CrawlProjects()
+    result = temp.crawl()
     return result

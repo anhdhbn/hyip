@@ -16,6 +16,6 @@ class SSL(db.Model, TimestampMixin):
     projects = db.relationship("Project", back_populates="ssl", cascade="all, delete")
 
     ev = db.Column(db.Boolean(False), default=False, nullable=False)
-    from_date = db.Column(db.Date(), nullable=False)
-    to_date = db.Column(db.Date(), nullable=False)
-    description = db.Column(db.String(256), nullable=True, default='')
+    from_date = db.Column(db.Date(), nullable=True)
+    to_date = db.Column(db.Date(), nullable=True)
+    description = db.Column(db.String(256), nullable=True, default='http')

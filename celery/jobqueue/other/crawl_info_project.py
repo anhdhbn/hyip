@@ -6,6 +6,8 @@ import datetime
 import html
 import time
 from jobqueue import app_info
+import cloudscraper
+from .get_info_ssl import get_ssl_info_from_domain
 
 def str2date(str):
     return datetime.datetime.strptime(str, "%Y-%m-%d").date()
@@ -20,7 +22,7 @@ def get_info_from_domain(url):
     matches = re.findall('df-value">(.*?)<', html2)
     if len(matches) < 4:
         return {
-            'name': name,
+            'name': domain,
         }
     name = domain
     registrar = matches[1]
@@ -33,39 +35,7 @@ def get_info_from_domain(url):
         'to_date': to_date.strftime('%Y-%m-%d')
     }
 
-def get_ssl_info_from_domain(url):
-    parsed_uri = urlparse(url)
-    domain = parsed_uri.netloc
-    requests.get("https://www.ssllabs.com/ssltest/analyze.html?viaform=off&d={}".format(domain))
-    html2 = ""
-    url_ = "https://www.ssllabs.com/ssltest/analyze.html?d={}&latest".format(domain)
-    use_ip_url = False
 
-    while True:
-        if not use_ip_url:
-            html2 = html.unescape(html2)
-            check  =  re.findall('(analyze\.html.*?)"',  html2)
-            if  len(check) > 1:
-                url_ = "https://www.ssllabs.com/ssltest/" + check[1]
-                use_ip_url = True
-        html2 = requests.get(url_).text
-        if "Server Key and Certificate" in html2:
-            break
-        
-        time.sleep(1)
-    matches = re.findall('tableCell">.*,(.*)UTC.*<', html2)
-    from_date = str2date_length(matches[0].strip())
-    to_date = str2date_length(matches[1].strip())
-    match = re.findall(r'Extended Validation</(.*?)>', html2)[0]
-    ev = True if match == "font" else False
-    Issuer = re.findall(r'Issuer.*?title=".*?">(.*?)<', html2, re.DOTALL)[0].strip()
-    description = html.unescape(Issuer)
-    return {
-        'ev': ev, 
-        'from_date': from_date.strftime('%Y-%m-%d'), 
-        'to_date': to_date.strftime('%Y-%m-%d'), 
-        'description': description
-    }
 
 def get_hosting_info_from_domain(url):
     parsed_uri = urlparse(url)
@@ -74,8 +44,11 @@ def get_hosting_info_from_domain(url):
     headers = {'User-Agent': 'Mozilla/5.0', 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
     session = requests.Session()
     res = session.post("https://hostingchecker.com/wp-admin/admin-ajax.php", data=payload)
-    hosting = re.findall("is hosted on <strong>(.*?)<", res.text)[0]
-    return hosting
+    hosting = re.findall("is hosted on <strong>(.*?)<", res.text)
+    if  len(hosting) == 0:
+        return get_hosting_info_from_domain(url)
+    else:
+        return hosting[0]
 
 
 def get_ip_info_from_domain(url):
@@ -95,6 +68,11 @@ def check_easy_crawl(url):
     inves, paidout,  member = temp.get_info_project()
     return True if int(inves) != -1 and int(paidout) != -1 else False
 
+def get_source(url):
+    scraper = cloudscraper.create_scraper()
+    html = scraper.get(url, timeout=30).text
+    return html
+
 class Object(object):
     pass
 
@@ -105,11 +83,15 @@ class CrawlInfoProject:
         self.ip = None
         self.ssl = None
         self.status = {}
+        self.script = {}
         for k, v in kwargs.items():
             setattr(self.project, k, v)
         if ('status_project' in kwargs.keys()):
             self.status['status_project'] = self.project.status_project
             del self.project.status_project
+        if ('script_type' in kwargs.keys()):
+            self.script['script_type'] = self.project.script_type
+            del self.project.script_type
 
     def crawl(self):
         self.domain = get_info_from_domain(self.project.url)
@@ -117,18 +99,22 @@ class CrawlInfoProject:
         self.ssl = get_ssl_info_from_domain(self.project.url)
         self.project.hosting = get_hosting_info_from_domain(self.project.url)
         
+
         self.project.easy_crawl = check_easy_crawl(self.project.url)
+
+        self.script['source_page'] = get_source(self.project.url)
 
         r = requests.post(app_info.url.post_create_project_by_crawler, json={
             'project': self.project.__dict__,
             'domain': self.domain,
             'ip':  self.ip,
             'ssl': self.ssl,
-            'status': self.status
+            'status': self.status,
+            'script': self.script
         })
     
-    def _get_kwargs(self,  obj):
-        pass
+    def debug(self, mess):
+        print(f"{self.project.url} {mess}")
     
     def _set_attr(self, obj, dic):
         for k, v in dic.items():
