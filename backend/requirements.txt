@@ -19,3 +19,4 @@ flask_jwt_extended
 requests
 celery
 pymongo
+gunicorn[gevent]

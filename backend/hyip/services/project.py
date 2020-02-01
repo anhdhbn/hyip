@@ -27,21 +27,23 @@ def create_project(**kwargs):
 
 
 def create_project_by_crawler(**kwargs):
-    project_info = kwargs.get('project')
+    project_info = kwargs.get('project', {})
 
     domain = get_domain(project_info.get('url'))
     if not repo.project.check_exists_domain(domain):
-        domain_info = kwargs.get('domain')
-        ip_info = kwargs.get('ip')
-        ssl_info = kwargs.get('ssl')
+        domain_info = kwargs.get('domain', {})
+        ip_info = kwargs.get('ip', {})
+        ssl_info = kwargs.get('ssl', {})
         status_info  =  kwargs.get('status', {})
+        script_info  =  kwargs.get('script', {})
 
         project = repo.project.save_project_to_database(
             domain_info=domain_info,
             ip_info=ip_info,
             ssl_info=ssl_info,
             project_info=project_info,
-            status_info=status_info
+            status_info=status_info,
+            script_info=script_info
         )
         return project
     else:

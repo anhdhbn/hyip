@@ -2,15 +2,11 @@
 import logging
 import os
 
-from dotenv import load_dotenv
-
 from hyip import app
 
 __author__ = 'AnhDH'
 _logger = logging.getLogger(__name__)
 
-_DOT_ENV_PATH = os.path.join(os.path.dirname(__file__), '.env')
-load_dotenv(_DOT_ENV_PATH)
 
 from hyip.models import db, User
 

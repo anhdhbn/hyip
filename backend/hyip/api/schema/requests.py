@@ -16,7 +16,7 @@ login_req = {
 
 create_project_req = {
     'url': fields.String(required=True),
-    'script': fields.Integer(required=True),
+    'script_type': fields.Integer(required=False),
     'investment_selector': fields.String(required=False),
     'paid_out_selector': fields.String(required=False),
     'member_selector': fields.String(required=False),
@@ -35,7 +35,7 @@ post_datacrawled_req = {
 
 project = api.model('project_sub', {
     'url' : fields.String(required=True),
-    'script' : fields.Integer(required=True),
+    'script_type' : fields.Integer(required=False),
     'start_date' : fields.Date(required=True),
     'plans' : fields.String(required=True),
     'easy_crawl' : fields.Boolean(required=True),
@@ -69,6 +69,6 @@ create_project_by_crawler_req = api.model('create_project_by_crawler_req', {
 })
 
 update_status_project = api.model('update_status_project', {
-    'project_id': fields.Integer(required=True),
+    'project_id': fields.String(required=True),
     'status_project': fields.Integer(required=True),
 })

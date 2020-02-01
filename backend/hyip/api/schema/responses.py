@@ -20,14 +20,14 @@ register_res = {
 
 project_res = {
     'id': fields.String(),
-    'url': fields.Url(endpoint="api.processing_celery")
+    # 'url': fields.Url(endpoint="api.processing_celery")
 }
 
 
 project_crawler_res = {
-    'id': fields.Integer(),
+    'id': fields.String(),
     'hosting': fields.String(),
-    'script': fields.Integer(),
+    # 'script': fields.Integer(),
     'url': fields.String(),
     'investment_selector': fields.String(),
     'paid_out_selector': fields.String(),
@@ -41,8 +41,8 @@ project_crawler_res = {
 }
 
 crawl_data_res = {
-    'id': fields.Integer(),
-    'project_id': fields.Integer(),
+    'id': fields.String(),
+    'project_id': fields.String(),
     'total_investment': fields.Float(),
     'total_paid_out': fields.Float(),
     'total_member': fields.Integer(),
@@ -50,8 +50,8 @@ crawl_data_res = {
 }
 
 status_project_res = {
-    'id': fields.Integer(),
-    'project_id': fields.Integer(),
+    'id': fields.String(),
+    'project_id': fields.String(),
     'status_project': fields.Integer(),
     # 'create_date': fields.Date(),
 }

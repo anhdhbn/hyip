@@ -15,8 +15,8 @@ def crawl_easy_project_every_day():
 
 @app.task(name='jobqueue.tasks.crawl_info_project')
 def crawl_info_project(**kwargs):
-    from jobqueue.other import CrawlProject
-    temp = CrawlProject(**kwargs)
+    from jobqueue.other import CrawlInfoProject
+    temp = CrawlInfoProject(**kwargs)
     temp.crawl()
     return True
 
@@ -40,3 +40,10 @@ def check_scam(project):
     temp = CheckStatusProject()
     result = temp.check(project)
     return "{} scam is {}".format(project['url'], result)
+
+@app.task(name='jobqueue.tasks.crawl_project')
+def crawl_project():
+    from jobqueue.crawl_project import CrawProject
+    temp = CrawProject()
+    result = temp.crawl(project)
+    return result

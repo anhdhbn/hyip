@@ -1,6 +1,5 @@
 # coding=utf-8
 
-from .env import get_environ
 from .validator import validate_register
 from .password import hash_password, verify_password, gen_new_password
 from .token import encode_token, decode_token

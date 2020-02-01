@@ -98,7 +98,7 @@ def check_easy_crawl(url):
 class Object(object):
     pass
 
-class CrawlProject:
+class CrawlInfoProject:
     def __init__(self, **kwargs):
         self.project = Object()
         self.domain = None
@@ -119,7 +119,7 @@ class CrawlProject:
         
         self.project.easy_crawl = check_easy_crawl(self.project.url)
 
-        r = requests.post(app_info.url.get_post_create_project, json={
+        r = requests.post(app_info.url.post_create_project_by_crawler, json={
             'project': self.project.__dict__,
             'domain': self.domain,
             'ip':  self.ip,

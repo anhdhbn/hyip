@@ -2,14 +2,12 @@
 import logging
 
 import flask
-import sentry_sdk
 from flask_cors import CORS
-from sentry_sdk.integrations.flask import FlaskIntegration
+
 
 from hyip.extensions.exceptions import NotFoundException, \
     UnAuthorizedException, BadRequestException, ForbiddenException
 from hyip.extensions.custom_exception import  UserExistsException, DomainExistsException
-from hyip.extensions.sentry import before_send
 
 __author__ = 'AnhDH'
 _logger = logging.getLogger(__name__)
@@ -19,7 +17,7 @@ def create_app():
     import logging.config
     import os
     from flask_jwt_extended import JWTManager
-
+    
     from . import api, models, services
 
     def load_app_config(app):
@@ -40,8 +38,7 @@ def create_app():
 
     # Register new flask project here and get new dsn: https://sentry.io
 
-    dsn = os.environ.get('SENTRY_DSN') if os.environ.get(
-        'SEND_REPORT') == 'true' else None
+    
 
     app.config['SENTRY_CONFIG'] = {
         'ignore_exceptions':    [NotFoundException, UnAuthorizedException,
@@ -50,23 +47,17 @@ def create_app():
         'level': logging.ERROR,
     }
 
-    sentry_sdk.init(
-        dsn=dsn,
-        integrations=[FlaskIntegration()],
-        environment=app.config['ENV_MODE'],
-        in_app_exclude=['app.extensions.exceptions'],
-        before_send=before_send
-    )
+    
 
     # setup jwt extended
-    app.config['JWT_SECRET_KEY'] = os.getenv("SECRET_KEY", "MY_SECRET_KEY")
-    app.config['JWT_TOKEN_LOCATION'] = ['cookies']
+    # app.config['JWT_SECRET_KEY'] = os.getenv("SECRET_KEY", "MY_SECRET_KEY")
+    # app.config['JWT_TOKEN_LOCATION'] = ['cookies']
     # How long an access token should live before it expires. Set by minutes (int)
-    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = int(os.getenv('TOKEN_UPTIME', 24)) * 60
+    # app.config['JWT_ACCESS_TOKEN_EXPIRES'] = int(os.getenv('TOKEN_UPTIME', 24)) * 60
     # app.config['JWT_REFRESH_COOKIE_PATH'] = '/token/refresh'
-    # app.config['JWT_ACCESS_COOKIE_PATH'] = '/api/'
+
     # should not, but i will use it in this app.
-    app.config['JWT_COOKIE_CSRF_PROTECT'] = False
+    # app.config['JWT_COOKIE_CSRF_PROTECT'] = False
 
     jwt = JWTManager(app)
 

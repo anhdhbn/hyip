@@ -2,6 +2,7 @@
 import sqlalchemy as _sa
 from sqlalchemy import func
 from sqlalchemy.ext.declarative import declared_attr
+import uuid
 
 
 class TimestampMixin(object):
@@ -23,5 +24,4 @@ class TimestampMixin(object):
 
     @declared_attr
     def id(self):
-        return _sa.Column(_sa.Integer, primary_key=True, autoincrement=True, 
-                            nullable=False)
+        return _sa.Column(_sa.String(64), primary_key=True, default=lambda: str(uuid.uuid4()), nullable=False)

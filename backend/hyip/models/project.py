@@ -7,11 +7,6 @@ import enum
 
 from sqlalchemy.orm import backref
 
-class LicensedType(enum.IntEnum):
-    PAYING = 0
-    WAITING = 1
-    PROBLEM = 2
-    SCAM = 3
 
 class Project(db.Model, TimestampMixin):
     __tablename__ = 'projects'
@@ -21,7 +16,6 @@ class Project(db.Model, TimestampMixin):
             setattr(self, k, v)
 
     hosting = db.Column(db.String(64), nullable=False)
-    script = db.Column(ChoiceType(LicensedType, impl=db.Integer()), default=1, nullable=False)
     url = db.Column(db.String(64), nullable=False)
     
     investment_selector = db.Column(db.String(1024), nullable=False,  default='')
@@ -35,6 +29,7 @@ class Project(db.Model, TimestampMixin):
     ssl =  db.relationship("SSL", uselist=False, back_populates="projects", cascade="all, delete")
     domain =  db.relationship("Domain", uselist=False, back_populates="projects", cascade="all, delete")
     ip =  db.relationship("IP", uselist=False, back_populates="projects", cascade="all, delete")
+    script =  db.relationship("Script", uselist=False, back_populates="projects", cascade="all, delete")
 
     project_statuses = db.relationship("StatusProject", uselist=True, back_populates="projects", cascade="all, delete")
     crawl_data = db.relationship("CrawlData", uselist=True, back_populates="projects", cascade="all, delete")

@@ -11,7 +11,7 @@ _logger = logging.getLogger(__name__)
 @pytest.fixture(autouse=True)
 def app(request):
     from hyip import app
-    from hyip.models import db, redis_client
+    from hyip.models import db
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
 
     # Establish an application context before running the tests.
@@ -20,7 +20,6 @@ def app(request):
 
     # test db initializations go below here
     db.create_all()
-    redis_client.init_app(app)
 
     def teardown():
         db.session.remove()

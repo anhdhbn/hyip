@@ -10,7 +10,7 @@ class CrawlData(TimestampMixin, db.Model):
         for k, v in kwargs.items():
             setattr(self, k, v)
 
-    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
+    project_id = db.Column(db.String(64), db.ForeignKey('projects.id'), nullable=False)
     projects = db.relationship("Project", back_populates="crawl_data")
     
     tracking_day = db.Column(db.Date(), default=func.now(), nullable=False)

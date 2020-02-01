@@ -49,8 +49,10 @@ app_info = edict({
         'get_easy_project': "{}api/project/easy".format(BACKEND_HOST),
         'get_all_project': "{}api/project/all".format(BACKEND_HOST),
         'get_not_scam_project': "{}api/project/notscam".format(BACKEND_HOST),
+        'get_check_exists_domain': lambda domain: "{}api/domain/check-exists/{}".format(BACKEND_HOST, domain),
         'post_data_crawled': lambda id: "{}api/crawldata/{}".format(BACKEND_HOST, id),
-        'get_post_create_project': "{}api/project/create-by-crawler".format(BACKEND_HOST),
+        'post_create_project_by_crawler': "{}api/project/create-by-crawler".format(BACKEND_HOST),
+        'post_create_project': "{}api/project/create".format(BACKEND_HOST),
         'post_status': "{}api/status".format(BACKEND_HOST),
     },
     
