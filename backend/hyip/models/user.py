@@ -21,8 +21,9 @@ class User(db.Model, TimestampMixin):
     is_admin = db.Column(db.Boolean, nullable=False, default=False)
     last_login = db.Column(db.TIMESTAMP, nullable=False, default=func.now())
 
-    # from hyip.models import tracking_project
-    # project_tracking=db.relationship('Project', secondary=tracking_project, backref='projects' )  
+    # from hyip.models import tracking_project as tp
+    # tracking_projects = db.relationship('Project', secondary="tracking_projects")
+    tracking_projects = db.relationship("TrackingProject", uselist=True, cascade="all, delete-orphan", backref="projects")
     
     def to_dict(self):
         return {

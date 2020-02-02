@@ -26,13 +26,14 @@ class Project(db.Model, TimestampMixin):
     easy_crawl = db.Column(db.Boolean, nullable=False, default=False)
     create_date = db.Column(db.Date(), default=func.current_date(), nullable=False)
 
-    ssl =  db.relationship("SSL", uselist=False, back_populates="projects", cascade="all, delete")
-    domain =  db.relationship("Domain", uselist=False, back_populates="projects", cascade="all, delete")
-    ip =  db.relationship("IP", uselist=False, back_populates="projects", cascade="all, delete")
-    script =  db.relationship("Script", uselist=False, back_populates="projects", cascade="all, delete")
+    ssl =  db.relationship("SSL", uselist=False, back_populates="project", cascade="all, delete")
+    domain =  db.relationship("Domain", uselist=False, back_populates="project", cascade="all, delete")
+    ip =  db.relationship("IP", uselist=False, back_populates="project", cascade="all, delete")
+    script =  db.relationship("Script", uselist=False, back_populates="project", cascade="all, delete")
 
-    project_statuses = db.relationship("StatusProject", uselist=True, back_populates="projects", cascade="all, delete")
-    crawl_data = db.relationship("CrawlData", uselist=True, back_populates="projects", cascade="all, delete")
+    project_statuses = db.relationship("StatusProject", uselist=True, cascade="all, delete", backref="projects")
+    crawl_data = db.relationship("CrawlData", uselist=True, cascade="all, delete", backref="projects")
+    tracking_projects = db.relationship("TrackingProject", uselist=True, cascade="all, delete-orphan", backref="projects")
 
     # def to_dict(self):
     #     return {

@@ -17,6 +17,6 @@ class Script(db.Model, TimestampMixin):
             setattr(self, k, v)
     
     project_id = db.Column(db.String(64), db.ForeignKey('projects.id'), nullable=False)
-    projects = db.relationship("Project", back_populates="script", cascade="all, delete")
+    project = db.relationship("Project", back_populates="script", cascade="all, delete")
     source_page = db.Column(db.Text(4294000000), nullable=False)
     script_type = db.Column(ChoiceType(LicensedType, impl=db.Integer()), default=1, nullable=False)

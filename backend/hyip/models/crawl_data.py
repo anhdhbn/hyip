@@ -11,9 +11,8 @@ class CrawlData(TimestampMixin, db.Model):
             setattr(self, k, v)
 
     project_id = db.Column(db.String(64), db.ForeignKey('projects.id'), nullable=False)
-    projects = db.relationship("Project", back_populates="crawl_data")
     
-    tracking_day = db.Column(db.Date(), default=func.now(), nullable=False)
+    tracking_day = db.Column(db.Date(), default=func.current_date(), nullable=False)
     total_investment = db.Column(db.REAL(), nullable=False)
     total_paid_out = db.Column(db.REAL(), nullable=False)
     total_member = db.Column(db.Integer(), nullable=False, default=0)

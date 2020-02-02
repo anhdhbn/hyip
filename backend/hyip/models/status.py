@@ -19,7 +19,6 @@ class StatusProject(db.Model, TimestampMixin):
             setattr(self, k, v)
             
     project_id = db.Column(db.String(64), db.ForeignKey('projects.id'), nullable=False)
-    projects = db.relationship("Project", back_populates="project_statuses")
 
     status_project = db.Column(ChoiceType(StatusType, impl=db.Integer()), default=1, nullable=False)
     create_date = db.Column(db.Date(), default=func.current_date(), nullable=False)

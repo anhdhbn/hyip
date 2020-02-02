@@ -3,25 +3,24 @@ import datetime
 
 from hyip.models import db, TimestampMixin
 
-from sqlalchemy_utils import ChoiceType
-import enum
+class TrackingProject(db.Model, TimestampMixin):    
+    __tablename__ = 'tracking_projects'
 
-class StatusType(enum.Enum):
-    Playing = 1
-    Tracking = 2
+    def __init__(self, **kwargs):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
 
-# class TrackingProject(db.Model, TimestampMixin):    
-#     __tablename__ = 'tracking_projects'
+    project_id = db.Column(db.String(64), db.ForeignKey('projects.id'), nullable=False)
+    user_id = db.Column(db.String(64), db.ForeignKey('users.id'),nullable=False)
 
-#     def __init__(self, **kwargs):
-#         for k, v in kwargs.items():
-#             setattr(self, k, v)
+    is_playing = db.Column(db.Boolean, default=0, nullable=False)
 
-#     id = db.Column(db.String(64), primary_key=True, default=uuid4())
-#     status_tracking = db.Column(ChoiceType(StatusType, impl=sa.Integer()), default=1, nullable=False)
+    # db.PrimaryKeyConstraint('project_id', 'user_id')
+    users = db.relationship("User", backref=db.backref("tracking_projects", cascade="all, delete-orphan", uselist=True))
+    projects = db.relationship("Project", backref=db.backref("tracking_projects", cascade="all, delete-orphan", uselist=True))
 
-tracking_project = db.Table('tracking_project', 
-    db.Column('project_id', db.String(64), db.ForeignKey('projects.id'), nullable=False),
-    db.Column('user_id',db.String(64), db.ForeignKey('users.id'),nullable=False),
-    db.Column(ChoiceType(StatusType, impl=db.Integer()), default=1, nullable=False),
-    db.PrimaryKeyConstraint('project_id', 'user_id') )
+# tracking_project = db.Table('tracking_project', TimestampMixin.metadata,
+#     db.Column('project_id', db.String(64), db.ForeignKey('projects.id'), nullable=False),
+#     db.Column('user_id',db.String(64), db.ForeignKey('users.id'),nullable=False),
+#     db.Column('is_playing', db.Boolean, default=0, nullable=False),
+#     db.PrimaryKeyConstraint('project_id', 'user_id') )
