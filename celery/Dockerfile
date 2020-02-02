@@ -11,6 +11,7 @@ RUN echo "https://dl-4.alpinelinux.org/alpine/v3.10/main" >> /etc/apk/repositori
 
 # install chromedriver
 RUN apk update
+RUN apk add --no-cache libressl-dev musl-dev libffi-dev
 RUN apk add chromium chromium-chromedriver libxslt-dev g++ gcc bash
 
 COPY requirements.txt ./
