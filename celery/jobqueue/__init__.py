@@ -46,9 +46,9 @@ app_info = edict({
     'env': os.getenv('ENV'),
     'is_production': os.getenv('ENV') == "prod",
     'url': {
-        'get_easy_project': "{}api/project/easy".format(BACKEND_HOST),
-        'get_all_project': "{}api/project/all".format(BACKEND_HOST),
-        'get_not_scam_project': "{}api/project/notscam".format(BACKEND_HOST),
+        'get_easy_project': "{}api/project?type=easy".format(BACKEND_HOST),
+        'get_all_project': "{}api/project?type=all".format(BACKEND_HOST),
+        'get_not_scam_project': "{}api/project?type=notscam".format(BACKEND_HOST),
         'get_check_exists_domain': lambda domain: "{}api/domain/check-exists/{}".format(BACKEND_HOST, domain),
         'post_data_crawled': lambda id: "{}api/crawldata/{}".format(BACKEND_HOST, id),
         'post_create_project_by_crawler': "{}api/project/create-by-crawler".format(BACKEND_HOST),
