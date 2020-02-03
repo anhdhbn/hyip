@@ -28,7 +28,7 @@ class EasyProject:
         alexa_rank = int(self.get_alexa_rank())
         total_investment, total_paid_out, total_member = self.get_info_project()
         self.save_data(alexa_rank=alexa_rank, total_investment=total_investment, total_member=total_member, total_paid_out=total_paid_out)
-    
+
     def save_data(self, **kwargs):
         try:
             from jobqueue import app_info
@@ -42,6 +42,14 @@ class EasyProject:
         domain = parsed_uri.netloc
         txt = requests.get("http://data.alexa.com/data?cli=10&dat=s&url="+ domain).text
         return BeautifulSoup(txt, "xml").find("REACH")['RANK']
+
+    def get_onyl_info_project(self):
+        total_investment, total_paid_out, total_member = self.get_info_project()
+        return {
+            'total_investment': total_investment,
+            'total_paid_out': total_paid_out,
+            'total_member': total_member,
+        }
 
     def get_info_project(self):
         scraper = cloudscraper.create_scraper()

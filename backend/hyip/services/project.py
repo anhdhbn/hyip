@@ -3,6 +3,7 @@ import logging
 import os
 
 from flask import jsonify
+from flask import request
 from hyip import repositories as repo
 from hyip.helpers import get_domain
 from hyip.extensions.custom_exception import DomainExistsException

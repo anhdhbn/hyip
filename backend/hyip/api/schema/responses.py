@@ -40,12 +40,16 @@ project_crawler_res = {
     # 'ip':
 }
 
-crawl_data_res = {
-    'id': fields.String(),
-    'project_id': fields.String(),
+check_selector_res  = {
     'total_investment': fields.Float(),
     'total_paid_out': fields.Float(),
     'total_member': fields.Integer(),
+}
+
+crawl_data_res = {
+    'id': fields.String(),
+    'project_id': fields.String(),
+    **check_selector_res,
     'alexa_rank': fields.Integer(),
 }
 

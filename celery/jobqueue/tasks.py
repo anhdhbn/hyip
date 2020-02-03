@@ -47,3 +47,16 @@ def crawl_project():
     temp = CrawlProjects()
     result = temp.crawl()
     return result
+
+
+@app.task(name="jobqueue.tasks.check_selector")
+def check_selector(**kwargs):
+    from jobqueue.other import CheckSelector
+    temp = CheckSelector(**kwargs)
+    return temp.check()
+
+@app.task(name="jobqueue.tasks.check_easy")
+def check_easy(**kwargs):
+    from jobqueue.easy import EasyProject
+    temp = EasyProject(**kwargs)
+    return temp.get_onyl_info_project()
