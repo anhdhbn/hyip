@@ -56,7 +56,7 @@ class DEVConfig(BaseConfig):
     
 
 class PRODConfig(BaseConfig):
-    FLASK_ENV = 'production'
+    FLASK_ENV = 'development'
     DEBUG = True
     dsn = os.environ.get('SENTRY_DSN')
     sentry_sdk.init(
