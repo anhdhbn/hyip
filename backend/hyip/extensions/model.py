@@ -4,7 +4,7 @@ from flask_restplus.model import RawModel as OriginalRawModel
 from jsonschema import Draft4Validator
 from jsonschema.exceptions import ValidationError
 
-from hyip.extensions.exceptions import BadRequestException
+
 
 
 class RawModel(OriginalRawModel):
@@ -14,6 +14,7 @@ class RawModel(OriginalRawModel):
         try:
             validator.validate(data)
         except ValidationError:
+            from hyip.extensions.exceptions import BadRequestException
             raise BadRequestException(message='Input payload validation failed',
                                       errors=dict(self.format_error(e) for e in
                                                   validator.iter_errors(data)))

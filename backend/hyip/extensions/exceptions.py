@@ -2,7 +2,7 @@ import logging
 
 from werkzeug.exceptions import HTTPException as BaseHTTPException
 
-from hyip import models as m
+
 from hyip.extensions.response_wrapper import wrap_response
 
 _logger = logging.getLogger(__name__)
@@ -38,6 +38,7 @@ class ForbiddenException(HTTPException):
 
 def global_error_handler(e):
     # traceback.print_exc()
+    from hyip import models as m
     m.db.session.rollback()
     code = 500
     errors = None
