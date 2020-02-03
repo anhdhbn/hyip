@@ -33,7 +33,6 @@ class Project(db.Model, TimestampMixin):
 
     project_statuses = db.relationship("StatusProject", uselist=True, cascade="all, delete", backref="projects")
     crawl_data = db.relationship("CrawlData", uselist=True, cascade="all, delete", backref="projects")
-    tracking_projects = db.relationship("TrackingProject", uselist=True, cascade="all, delete-orphan", backref="projects")
 
     # def to_dict(self):
     #     return {

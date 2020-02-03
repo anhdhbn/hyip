@@ -16,8 +16,8 @@ class TrackingProject(db.Model, TimestampMixin):
     is_playing = db.Column(db.Boolean, default=0, nullable=False)
 
     # db.PrimaryKeyConstraint('project_id', 'user_id')
-    users = db.relationship("User", backref=db.backref("tracking_projects", cascade="all, delete-orphan", uselist=True))
-    projects = db.relationship("Project", backref=db.backref("tracking_projects", cascade="all, delete-orphan", uselist=True))
+    # users = db.relationship("User", backref=db.backref("tracking_projects", cascade="all, delete-orphan", uselist=True))
+    project_tracked_by_users = db.relationship("User", uselist=True, cascade="all, delete", backref="tracking_projects")
 
 # tracking_project = db.Table('tracking_project', TimestampMixin.metadata,
 #     db.Column('project_id', db.String(64), db.ForeignKey('projects.id'), nullable=False),

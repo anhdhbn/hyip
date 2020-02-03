@@ -23,7 +23,7 @@ class User(db.Model, TimestampMixin):
 
     # from hyip.models import tracking_project as tp
     # tracking_projects = db.relationship('Project', secondary="tracking_projects")
-    tracking_projects = db.relationship("TrackingProject", uselist=True, cascade="all, delete-orphan", backref="projects")
+    # tracking_projects = db.relationship("TrackingProject", uselist=True, cascade="all, delete", backref="project_tracked_by_users")
     
     def to_dict(self):
         return {
