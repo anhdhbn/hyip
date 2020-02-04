@@ -50,3 +50,13 @@ class CheckEasyInfo(flask_restplus.Resource):
         result = cele.send_task("jobqueue.tasks.check_easy", kwargs=request.args)
         result = AsyncResult(id=result.id, app=cele)
         return result.get()
+
+@ns.route('/test', methods=['GET'])
+class Test(flask_restplus.Resource):
+    @ns.expect(_check_selector_parser, validate=True)
+    @ns.marshal_with(_check_selector_res)
+    def get(self):
+        import celery
+        result = cele.send_task("jobqueue.tasks.test", kwargs=request.args)
+        result = AsyncResult(id=result.id, app=cele)
+        return result.get()

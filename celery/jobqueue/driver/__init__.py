@@ -1,1 +1,1 @@
-from .base import Driver
+from .base import Driver, handle_exceptions

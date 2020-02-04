@@ -8,7 +8,7 @@ services:
       - ./backend/.env
     ports:
       - "5000:5000"
-    restart: always
+    # restart: always
     # volumes:
     #   - ./backend:/app
   redis:
@@ -23,7 +23,7 @@ services:
   mysql:
     image: mysql:8
     command: --default-authentication-plugin=mysql_native_password --max_allowed_packet=32505856
-    restart: always
+    # restart: always
     env_file:
       - .env
     environment:
@@ -40,7 +40,7 @@ services:
     build: 
       context: ./celery
       dockerfile: Dockerfile
-    restart: always
+    # restart: always
     env_file:
       - ./celery/.env
     command: './wait-for-it.sh redis:6379 -t 0 -- celery -A jobqueue.tasks worker -E -l=INFO'
@@ -49,12 +49,41 @@ services:
       # - backend
 
   worker-beat:
-    build: 
+    build:
       context: ./celery
       dockerfile: Dockerfile
-    restart: always
+    # restart: always
     env_file:
       - ./celery/.env
     command: './wait-for-it.sh redis:6379 -t 0 -- celery -A jobqueue.tasks beat -l=INFO'
     depends_on: 
       - redis
+  hub:
+    image: selenium/hub
+    restart: always
+    ports:
+      - 4444:4444
+
+  chrome:
+    image: selenium/node-chrome-debug
+    restart: always
+    ports:
+      - 5555:5900
+    environment:
+      HUB_HOST: hub
+      HUB_PORT: 4444
+    depends_on: 
+      - hub
+    entrypoint: bash -c 'SE_OPTS="-host $$HOSTNAME" /opt/bin/entry_point.sh'
+
+  firefox:
+    image: selenium/node-firefox-debug
+    restart: always
+    ports:
+      - 5556:5900
+    environment:
+      HUB_HOST: hub
+      HUB_PORT: 4444
+    depends_on: 
+      - hub
+    entrypoint: bash -c 'SE_OPTS="-host $$HOSTNAME" /opt/bin/entry_point.sh'

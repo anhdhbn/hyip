@@ -27,6 +27,12 @@ def crawl_easy_project(**kwargs):
     result = temp.crawl()
     return True
 
+@app.task(name="jobqueue.tasks.crawl_diff_project")
+def crawl_diff_project(**kwargs):
+    from jobqueue.diff import DiffProject
+    temp = DiffProject(**kwargs)
+    return temp.crawl()
+
 @app.task(name='jobqueue.tasks.check_scam_all')
 def check_scam_all():
     result = requests.get(app_info.url.get_not_scam_project).json()
@@ -60,3 +66,5 @@ def check_easy(**kwargs):
     from jobqueue.easy import EasyProject
     temp = EasyProject(**kwargs)
     return temp.get_onyl_info_project()
+
+

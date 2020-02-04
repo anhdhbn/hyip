@@ -7,7 +7,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
-
 class Selenium:
     def __init__(self):
         raise NotImplementedError
@@ -15,9 +14,8 @@ class Selenium:
     def init_selenium(self):
         raise NotImplementedError
     
-    def quit(self, e=False):
-        self.driver.close()
-        if(e): exit()
+    def quit(self):
+        self.driver.quit()
 
     def convert_to_dict(self, obj):
         return obj.__dict__
@@ -32,7 +30,7 @@ class Selenium:
         try:
             return self.driver.find_element_by_css_selector(css_selector)
         except Exception as e:
-            # print(e)
+            print(e)
             pass
     
     def safe_get_elements_by_css_selector(self, css_selector):
