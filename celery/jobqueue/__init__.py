@@ -59,9 +59,9 @@ app_info = edict({
     },
     'hub': {
         'host': HUB_HOST,
-        'port': HUB_PORT
+        'port': HUB_PORT,
         'url': f"http://{HUB_HOST}:{HUB_PORT}/wd/hub"
-    }
+    },
 })
 
 # sentry_sdk.init(app_info.sentry_dsn, integrations=[CeleryIntegration()])
