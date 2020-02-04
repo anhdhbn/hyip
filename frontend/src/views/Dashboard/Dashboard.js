@@ -581,6 +581,7 @@ class Dashboard extends Component {
             </Card>
           </Col>
         </Row>
+        
         <Row>
           <Col>
             <Card>

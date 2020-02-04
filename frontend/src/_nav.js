@@ -1,22 +1,22 @@
 export default {
   items: [
     {
-      name: 'Dashboard',
-      url: '/dashboard',
-      icon: 'icon-speedometer',
+      name: "Dashboard",
+      url: "/dashboard",
+      icon: "icon-speedometer",
       badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
+        variant: "info",
+        text: "NEW"
+      }
     },
     {
-      name: 'Create new',
-      url: '/dashboard',
-      icon: 'icon-speedometer',
+      name: "Create new",
+      url: "/create",
+      icon: "icon-speedometer",
       badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
+        variant: "info",
+        text: "NEW"
+      }
     }
     // {
     //   title: true,
@@ -285,5 +285,5 @@ export default {
     //   variant: 'danger',
     //   attributes: { target: '_blank', rel: "noopener" },
     // },
-  ],
+  ]
 };
