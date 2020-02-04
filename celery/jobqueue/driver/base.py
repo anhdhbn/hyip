@@ -11,18 +11,18 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import *
 import re
 
+import requests
 
 def handle_exceptions(fn):
+    print(f"{fn.__name__}")
     from functools import wraps
     @wraps(fn)
     def wrapper(self, *args, **kw):
+        print(self, args)
         try:
             return fn(self, *args, **kw)
         except Exception as e:
-            try:
-                self.quit()
-            except:
-                pass
+            self.quit()
             print(f"Exception was raise in {self.__class__.__name__}->{fn.__name__}")
             raise(e)
 
@@ -34,28 +34,25 @@ class Driver(ChromeDriver):
         self.driver = None
         self.init_selenium()   
 
-
     def crawl(self):
-        alexa_rank = int(self.get_alexa_rank())
+        alexa_rank = self.get_alexa_rank()
         total_investment, total_paid_out, total_member = self.get_info_project()
         self.quit()
         return self.save_data(alexa_rank=alexa_rank, total_investment=total_investment, total_member=total_member, total_paid_out=total_paid_out)
 
-    @handle_exceptions
-    def get_info_project(self):
-        raise NotImplementedError
-
-    @handle_exceptions
+    # @handle_exceptions
     def save_data(self, **kwargs):
         res = requests.post(app_info.url.post_data_crawled(self.id), json=kwargs)
         res.raise_for_status()
         return True
 
+    # @handle_exceptions
     def get_alexa_rank(self):
         parsed_uri = urlparse(self.url)
         domain = parsed_uri.netloc
         txt = requests.get("http://data.alexa.com/data?cli=10&dat=s&url="+ domain).text
-        return BeautifulSoup(txt, "xml").find("REACH")['RANK']
+        result = BeautifulSoup(txt, "xml").find("REACH")['RANK']
+        return int(result)
     
     def preprocess_data(self, data):
         return re.sub("[^0-9\.]", "", data)

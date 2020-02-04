@@ -1,8 +1,8 @@
 from easydict import EasyDict as edict
 from pathlib import Path
 import os
-import sentry_sdk
-from sentry_sdk.integrations.celery import CeleryIntegration
+# import sentry_sdk
+# from sentry_sdk.integrations.celery import CeleryIntegration
 
 from dotenv import load_dotenv
 env_path = os.path.join(os.getcwd(), '.env')
@@ -58,4 +58,4 @@ app_info = edict({
     
 })
 
-sentry_sdk.init(app_info.sentry_dsn, integrations=[CeleryIntegration()])
+# sentry_sdk.init(app_info.sentry_dsn, integrations=[CeleryIntegration()])

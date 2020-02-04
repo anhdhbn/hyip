@@ -2,9 +2,8 @@ from jobqueue.driver import  Driver, handle_exceptions
 
 
 class DiffProject(Driver):
-    @handle_exceptions
+    # @handle_exceptions
     def get_info_project(self):
-        self.driver.maximize_window()
         self.driver.get(self.url)
         self.scroll()
         

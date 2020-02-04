@@ -15,7 +15,11 @@ class Selenium:
         raise NotImplementedError
     
     def quit(self):
-        self.driver.quit()
+        try:
+            print("driver was exited")
+            self.driver.quit()
+        except:
+            pass
 
     def convert_to_dict(self, obj):
         return obj.__dict__
