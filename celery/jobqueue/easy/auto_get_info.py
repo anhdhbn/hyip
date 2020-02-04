@@ -43,7 +43,7 @@ class EasyProject:
         txt = requests.get("http://data.alexa.com/data?cli=10&dat=s&url="+ domain).text
         return BeautifulSoup(txt, "xml").find("REACH")['RANK']
 
-    def get_onyl_info_project(self):
+    def get_only_info_project(self):
         total_investment, total_paid_out, total_member = self.get_info_project()
         return {
             'total_investment': total_investment,

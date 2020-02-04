@@ -51,12 +51,12 @@ class CheckEasyInfo(flask_restplus.Resource):
         result = AsyncResult(id=result.id, app=cele)
         return result.get()
 
-@ns.route('/test', methods=['GET'])
+@ns.route('/check-diff', methods=['GET'])
 class Test(flask_restplus.Resource):
     @ns.expect(_check_selector_parser, validate=True)
     @ns.marshal_with(_check_selector_res)
     def get(self):
         import celery
-        result = cele.send_task("jobqueue.tasks.test", kwargs=request.args)
+        result = cele.send_task("jobqueue.tasks.check_diff", kwargs=request.args)
         result = AsyncResult(id=result.id, app=cele)
         return result.get()

@@ -66,6 +66,12 @@ def check_selector(**kwargs):
 def check_easy(**kwargs):
     from jobqueue.easy import EasyProject
     temp = EasyProject(**kwargs)
-    return temp.get_onyl_info_project()
+    return temp.get_only_info_project()
 
 
+@app.task(name="jobqueue.tasks.check_diff")
+def check_diff(**kwargs):
+    from jobqueue.diff import DiffProject
+    from jobqueue.driver import Wrapper
+    temp = Wrapper(DiffProject(**kwargs))
+    return temp.get_only_info_project()
