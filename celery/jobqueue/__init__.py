@@ -17,6 +17,8 @@ BACKEND_HOST = os.getenv("BACKEND_HOST")
 
 SENTRY_DSN=os.getenv("SENTRY_DSN")
 
+HUB_HOST=os.getenv("HUB_HOST")
+HUB_PORT=os.getenv("HUB_PORT")
 
 MONGO_HOST = os.getenv("MONGO_HOST") 
 MONGO_PORT = os.getenv("MONGO_PORT") 
@@ -55,7 +57,11 @@ app_info = edict({
         'post_create_project': "{}api/project/create".format(BACKEND_HOST),
         'post_status': "{}api/status".format(BACKEND_HOST),
     },
-    
+    'hub': {
+        'host': HUB_HOST,
+        'port': HUB_PORT
+        'url': f"http://{HUB_HOST}:{HUB_PORT}/wd/hub"
+    }
 })
 
 # sentry_sdk.init(app_info.sentry_dsn, integrations=[CeleryIntegration()])
