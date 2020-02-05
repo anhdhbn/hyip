@@ -33,8 +33,6 @@ class Create(flask_restplus.Resource):
             **data)
         return result
 
-
-
 @ns.route('/<projectId>', methods=['GET'])
 class GetProjectInfo(flask_restplus.Resource):
     @ns.marshal_with(_create_project_crawler_res)
@@ -42,7 +40,7 @@ class GetProjectInfo(flask_restplus.Resource):
         return services.project.get_project_info_by_id(projectId)
 
 _get_projects_parser = reqparse.RequestParser()
-_get_projects_parser.add_argument('type', required=True, help="type can be all, easy, notscam")
+_get_projects_parser.add_argument('type', required=True, help="type can be all, easy, notscam, verified, unverified")
 
 @ns.route('', methods=['GET'])
 class GetAllProjectInfo(flask_restplus.Resource):
@@ -56,6 +54,10 @@ class GetAllProjectInfo(flask_restplus.Resource):
             return services.project.get_easy_project_info()
         elif type_get == "notscam":
             return services.project.get_not_scam_project_info()
+        elif type_get == "verified":
+            return services.project.get_verified_projects()
+        elif type_get == "unverified":
+            return services.project.get_unverified_projects()
         else:
             raise BadRequestException
 
@@ -69,3 +71,15 @@ class CreateByCrawler(flask_restplus.Resource):
         project = services.project.create_project_by_crawler(
             **data)
         return project
+
+@ns.route('/verified/<projectId>', methods=['POST'])
+class MakeVerified(flask_restplus.Resource):
+    @ns.marshal_with(_create_project_crawler_res)
+    def post(self, projectId):
+        return services.project.verify_project(projectId)
+
+@ns.route('/remove/<projectId>', methods=['POST'])
+class MakeVerified(flask_restplus.Resource):
+    @ns.marshal_with(_create_project_crawler_res)
+    def post(self, projectId):
+        return services.project.remove_project(projectId)

@@ -48,3 +48,27 @@ def get_not_scam_project_info():
     ids = [item.id for item in status_projects]
     projects = models.Project.query.filter(models.Project.id.notin_(ids)).all()
     return projects
+
+def get_unverified_projects():
+    return models.Project.query.filter(
+        models.Project.is_verified == False,
+    ).all()
+
+def get_verified_projects():
+    return models.Project.query.filter(
+        models.Project.is_verified == True,
+    ).all()
+
+def verify_project(id_project):
+    project = models.Project.query.get(id_project)
+    project.is_verified = True
+    models.db.session.commit()
+    return project
+
+def remove_project(id_project):
+    # models.Project.query.filter(
+    #     models.Project.id == id_project,
+    # ).delete()
+    models.db.session.delete(get_project_by_id(id_project))
+    models.db.session.commit()
+    return models.Project.query.all()

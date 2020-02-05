@@ -7,6 +7,7 @@ from flask import request
 from hyip import repositories as repo
 from hyip.helpers import get_domain
 from hyip.extensions.custom_exception import DomainExistsException
+from hyip.extensions.exceptions import BadRequestException
 
 from celery.result import AsyncResult
 from hyip.celery import cele
@@ -48,7 +49,7 @@ def create_project_by_crawler(**kwargs):
         )
         return project
     else:
-        raise DomainExistsException(errors=domain)
+        raise DomainExistsException(message=domain)
 
 def get_project_info_by_id(idProject):
     return repo.project.get_project_by_id(idProject)
@@ -61,3 +62,21 @@ def get_easy_project_info():
 
 def get_not_scam_project_info():
     return repo.project.get_not_scam_project_info()
+
+def verify_project(id_project):
+    if repo.project.check_exists_project_id(id_project):
+        return repo.project.verify_project(id_project)
+    else:
+        raise BadRequestException(message="Project was not found")
+
+def get_verified_projects():
+    return repo.project.get_verified_projects()
+
+def get_unverified_projects():
+    return repo.project.get_unverified_projects()
+
+def remove_project(id_project):
+    if repo.project.check_exists_project_id(id_project):
+        return repo.project.remove_project(id_project)
+    else:
+        raise BadRequestException(message="Project was not found")

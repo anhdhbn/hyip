@@ -23,18 +23,19 @@ class Project(db.Model, TimestampMixin):
     member_selector = db.Column(db.String(1024), nullable=False,  default='')
     start_date = db.Column(db.Date(), nullable=True)
     plans = db.Column(db.String(1024), nullable=True, default='')
-    easy_crawl = db.Column(db.Boolean, nullable=False, default=False)
+    easy_crawl = db.Column(db.Boolean(), nullable=False, default=False)
     create_date = db.Column(db.Date(), default=func.current_date(), nullable=False)
+    is_verified = db.Column(db.Boolean(), default=False, nullable=False)
 
     # ssl =  db.relationship("SSL", uselist=False, back_populates="project", cascade="all, delete")
-    ssl =  db.relationship("SSL", uselist=False, cascade="all, delete, delete-orphan")
-    domain =  db.relationship("Domain", uselist=False, cascade="all, delete, delete-orphan, delete-orphan")
-    ip =  db.relationship("IP", uselist=False, cascade="all, delete, delete-orphan")
-    script =  db.relationship("Script", uselist=False, cascade="all, delete, delete-orphan")
+    ssl =  db.relationship("SSL", uselist=False, cascade="all, delete-orphan")
+    domain =  db.relationship("Domain", uselist=False, cascade="all, delete-orphan, delete-orphan")
+    ip =  db.relationship("IP", uselist=False, cascade="all, delete-orphan")
+    script =  db.relationship("Script", uselist=False, cascade="all, delete-orphan")
 
-    # project_statuses = db.relationship("StatusProject", uselist=True, cascade="all, delete, delete-orphan", backref="projects")
-    project_statuses = db.relationship("StatusProject", uselist=True, cascade="all, delete, delete-orphan")
-    crawl_data = db.relationship("CrawlData", uselist=True, cascade="all, delete, delete-orphan")
+    # project_statuses = db.relationship("StatusProject", uselist=True, cascade="all, delete-orphan", backref="projects")
+    project_statuses = db.relationship("StatusProject", uselist=True, cascade="all, delete-orphan")
+    crawl_data = db.relationship("CrawlData", uselist=True, cascade="all, delete-orphan")
 
     # def to_dict(self):
     #     return {

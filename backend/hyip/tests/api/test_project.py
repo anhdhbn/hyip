@@ -146,3 +146,29 @@ class CrawlDataApiTestCase(APITestCase):
     def test_get_info_project(self):
         result = self.get('/api/project/' + self.id)
         self.assertEqual(result['success'], True)
+
+    def test_make_a_project_was_verified(self):
+        result = self.post('/api/project/verified/' + self.id, data={})
+        print(result)
+        self.assertEqual(result['success'], True)
+
+        result = self.get('/api/project?type=verified')
+        self.assertEqual(result['success'], True)
+        self.assertEqual(len(result['data']), 1)
+
+    def test_get_verified_project(self):
+        result = self.get('/api/project?type=verified')
+        self.assertEqual(result['success'], True)
+        self.assertEqual(len(result['data']), 0)
+
+    def test_get_unverified_project(self):
+        result = self.get('/api/project?type=unverified')
+        self.assertEqual(result['success'], True)
+        self.assertEqual(len(result['data']), 2)
+
+    def test_remove_project(self):
+        result = self.post('/api/project/remove/' + self.id, {})
+        self.assertEqual(result['success'], True)
+        self.assertEqual(len(result['data']), 1)
+        result = self.get('/api/domain/check-exists/google.com')
+        self.assertEqual(result['data']['is_exists'], False)
