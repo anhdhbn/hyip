@@ -62,7 +62,16 @@ class EasyProject:
 
         visible_texts = [item for item in visible_texts if item is not None]
         visible_texts = [item for item in visible_texts if len(item) <= 25 and len(item) >= 4]
-        return self._check_in_list(visible_texts, investment), self._check_in_list(visible_texts, paid_out), self._check_in_list(visible_texts, member, int)
+        total_investment = self._check_in_list(visible_texts, investment)
+        total_paid_out = self._check_in_list(visible_texts, paid_out)
+        total_member = self._check_in_list(visible_texts, member, int)
+        if abs(total_investment - total_paid_out) <= 0.0001:
+            total_investment = -1
+            total_paid_out = -1
+        elif total_investment/total_paid_out > 10000:
+            total_investment = -1
+            total_paid_out = -1
+        return total_investment, total_paid_out, total_member
 
 
     def _tag_visible(self, element):
