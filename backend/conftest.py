@@ -12,7 +12,6 @@ _logger = logging.getLogger(__name__)
 def app(request):
     from hyip import app
     from hyip.models import db
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
 
     # Establish an application context before running the tests.
     ctx = app.app_context()

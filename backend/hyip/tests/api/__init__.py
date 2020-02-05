@@ -18,9 +18,6 @@ class APITestCase(unittest.TestCase):
         return res
 
     def post(self, url, data):
-        """
-        Tự động send request theo method và url
-        """
         content_type = 'application/json'
         data = json.dumps(data)
 

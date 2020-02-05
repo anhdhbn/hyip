@@ -11,7 +11,7 @@ class Domain(db.Model, TimestampMixin):
             setattr(self, k, v)
 
     project_id = db.Column(db.String(64), db.ForeignKey('projects.id'), nullable=False)
-    project = db.relationship("Project", back_populates="domain", cascade="all, delete")
+    # project = db.relationship("Project", back_populates="domain", cascade="all, delete")
 
     name = db.Column(db.String(64), nullable=False)
     registrar = db.Column(db.String(64), nullable=True)

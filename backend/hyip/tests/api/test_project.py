@@ -3,7 +3,7 @@ import json
 import logging
 from unittest.mock import patch
 
-from hyip import services
+from hyip import services,  app
 from hyip import repositories as repo
 from hyip.tests.api import APITestCase
 from datetime import datetime
@@ -80,7 +80,7 @@ class CrawlDataApiTestCase(APITestCase):
         self.id = result.id
 
     def test_get_all_project(self):
-        result = self.get('/api/project/all')
+        result = self.get('/api/project?type=all')
         self.assertEqual(result['success'], True)
         self.assertEqual(len(result['data']), 2)
 
@@ -134,12 +134,12 @@ class CrawlDataApiTestCase(APITestCase):
     #     self.assertEqual(result, True)
         
     def test_get_all_easy_project(self):
-        result = self.get('/api/project/easy')
+        result = self.get('/api/project?type=easy')
         self.assertEqual(result['success'], True)
         self.assertEqual(len(result['data']), 1)
 
     def test_get_all_not_scam_project(self):
-        result = self.get('/api/project/notscam')
+        result = self.get('/api/project?type=notscam')
         self.assertEqual(result['success'], True)
         self.assertEqual(len(result['data']), 2)
 

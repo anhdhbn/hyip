@@ -5,12 +5,11 @@ import sys
 
 from dotenv import load_dotenv
 
-_DOT_ENV_PATH = os.path.join(os.path.dirname(__file__), '.env')
-load_dotenv(_DOT_ENV_PATH)
-
 __author__ = 'AnhDH'
 _logger = logging.getLogger(__name__)
 
+_DOT_ENV_PATH = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv(_DOT_ENV_PATH)
 # create settings object corresponding to specified env
 APP_ENV = os.environ.get('APP_ENV', 'DEV').upper()
 os.environ['APP_ENV'] = APP_ENV
@@ -21,8 +20,7 @@ for k, v in os.environ.items():
         os.environ[k] = v
 
 import settings
-_current = getattr(sys.modules['settings'], '{0}Config'.format(APP_ENV))()
-
+_current = getattr(sys.modules['settings'], '{0}'.format(APP_ENV))()
 # copy attributes to the module for convenience
 for atr in [f for f in dir(_current) if not '__' in f]:
     # environment can override anything

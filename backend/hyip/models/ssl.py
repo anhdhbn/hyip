@@ -13,7 +13,7 @@ class SSL(db.Model, TimestampMixin):
     
 
     project_id = db.Column(db.String(64), db.ForeignKey('projects.id'), nullable=False)
-    project = db.relationship("Project", back_populates="ssl", cascade="all, delete")
+    # project = db.relationship("Project", back_populates="ssl", cascade="all, delete")
 
     ev = db.Column(db.Boolean(False), default=False, nullable=False)
     from_date = db.Column(db.Date(), nullable=True)

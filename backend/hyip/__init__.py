@@ -3,7 +3,8 @@ import logging
 
 import flask
 from flask_cors import CORS
-
+import sentry_sdk
+from sentry_sdk.integrations.flask import FlaskIntegration
 
 from hyip.extensions.exceptions import NotFoundException, \
     UnAuthorizedException, BadRequestException, ForbiddenException
@@ -47,6 +48,14 @@ def create_app():
         'level': logging.ERROR,
     }
 
+    if app.config["APP_ENV"] == "PROD":
+        dsn = app.config['SENTRY_DSN']
+        sentry_sdk.init(
+            dsn=dsn,
+            integrations=[FlaskIntegration()],
+            environment=os.getenv('APP_ENV'),
+            in_app_exclude=['app.extensions.exceptions'],
+        )
     
 
     # setup jwt extended

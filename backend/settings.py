@@ -1,6 +1,4 @@
 import os
-import sentry_sdk
-from sentry_sdk.integrations.flask import FlaskIntegration
 
 
 class BaseConfig():
@@ -14,13 +12,14 @@ class BaseConfig():
 
     LOGGING_CONFIG_FILE = os.path.join(ROOT_DIR, 'etc', 'logging.ini')
 
-    FLASK_APP_SECRET_KEY = os.getenv('SECRET_KEY', 'MY_SECRET_KEY')
 
-    MYSQL_DATABASE = os.environ['MYSQL_DATABASE']
-    MYSQL_HOST = os.environ['MYSQL_HOST']
-    MYSQL_USER = os.environ['MYSQL_USER']
-    MYSQL_PASSWORD = os.environ['MYSQL_PASSWORD']
-    MYSQL_PORT = os.environ['MYSQL_PORT']
+    FLASK_APP_SECRET_KEY = os.urandom(24)
+
+    MYSQL_DATABASE = os.getenv('MYSQL_DATABASE', '')
+    MYSQL_HOST = os.getenv('MYSQL_HOST', '')
+    MYSQL_USER = os.getenv('MYSQL_USER', '')
+    MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD', '') 
+    MYSQL_PORT = os.getenv('MYSQL_PORT', '')
 
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 465
@@ -29,9 +28,9 @@ class BaseConfig():
     MAIL_USERNAME = os.getenv('EMAIL_USER')
     MAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
 
-    REDIS_HOST = os.environ['REDIS_HOST']
-    REDIS_PASSWORD = os.environ['REDIS_PASSWORD']
-    REDIS_PORT = os.environ['REDIS_PORT']
+    REDIS_HOST = os.getenv('REDIS_HOST', '')
+    REDIS_PASSWORD = os.getenv('REDIS_PASSWORD', '')
+    REDIS_PORT = os.getenv('REDIS_PORT', '')
 
 
     REDIS_URL = 'redis://:{0}@{1}:{2}/0'.format(
@@ -46,25 +45,23 @@ class BaseConfig():
 
     
 
-class DEVConfig(BaseConfig):
+class DEV(BaseConfig):
     FLASK_ENV = 'development'
     DEBUG = True
     # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://db_user:db_password@db-postgres:5432/flask-deploy'
     # CELERY_BROKER = 'redis://h:12345678@localhost:6379'
     # CELERY_RESULT_BACKEND = 'redis://h:12345678@localhost:6379'
 
-    
-
-class PRODConfig(BaseConfig):
+class STAG(BaseConfig):
     FLASK_ENV = 'development'
     DEBUG = True
-    dsn = os.environ.get('SENTRY_DSN')
-    sentry_sdk.init(
-        dsn=dsn,
-        integrations=[FlaskIntegration()],
-        environment=os.getenv('APP_ENV'),
-        in_app_exclude=['app.extensions.exceptions'],
-    )
+    FLASK_DEBUG = True
+    
+
+class PROD(BaseConfig):
+    FLASK_ENV = 'production'
+    DEBUG = False
+    SENTRY_DSN = os.environ["SENTRY_DSN"]
     # SQLALCHEMY_DATABASE_URI = 'postgresql://db_user:db_password@db-postgres:5432/flask-deploy'
     # CELERY_BROKER = 'pyamqp://rabbit_user:rabbit_password@broker-rabbitmq//'
     # CELERY_RESULT_BACKEND = 'rpc://rabbit_user:rabbit_password@broker-rabbitmq//'
@@ -75,9 +72,10 @@ class PRODConfig(BaseConfig):
 #     CELERY_BROKER = 'pyamqp://rabbit_user:rabbit_password@broker-rabbitmq//'
 #     CELERY_RESULT_BACKEND = 'rpc://rabbit_user:rabbit_password@broker-rabbitmq//'
 
-class TESTConfig(BaseConfig):
+class TEST(BaseConfig):
     FLASK_ENV = 'development'
     TESTING = True
-    DEBUG = True
+    FLASK_DEBUG = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite://'
     # make celery execute tasks synchronously in the same process
     CELERY_ALWAYS_EAGER = True

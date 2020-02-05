@@ -16,7 +16,7 @@ class CrawlDataApiTestCase(APITestCase):
     def setUp(self):
         services.project.create_project_by_crawler(**{
             'project': {
-                "url": "https://keeper-money.com/",
+                "url": "https://google.com/",
                 "investment_selector": "investment_selector asdasd ",
                 "paid_out_selector": "paid_out_selector asdsa",
                 "member_selector": "",
@@ -50,7 +50,6 @@ class CrawlDataApiTestCase(APITestCase):
 
     def test_get_check_exists(self):
         result = self.get('/api/domain/check-exists/google.com')
-        print(result)
         self.assertEqual(result['data']['is_exists'], True)
 
         

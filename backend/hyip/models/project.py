@@ -26,13 +26,15 @@ class Project(db.Model, TimestampMixin):
     easy_crawl = db.Column(db.Boolean, nullable=False, default=False)
     create_date = db.Column(db.Date(), default=func.current_date(), nullable=False)
 
-    ssl =  db.relationship("SSL", uselist=False, back_populates="project", cascade="all, delete")
-    domain =  db.relationship("Domain", uselist=False, back_populates="project", cascade="all, delete")
-    ip =  db.relationship("IP", uselist=False, back_populates="project", cascade="all, delete")
-    script =  db.relationship("Script", uselist=False, back_populates="project", cascade="all, delete")
+    # ssl =  db.relationship("SSL", uselist=False, back_populates="project", cascade="all, delete")
+    ssl =  db.relationship("SSL", uselist=False, cascade="all, delete, delete-orphan")
+    domain =  db.relationship("Domain", uselist=False, cascade="all, delete, delete-orphan, delete-orphan")
+    ip =  db.relationship("IP", uselist=False, cascade="all, delete, delete-orphan")
+    script =  db.relationship("Script", uselist=False, cascade="all, delete, delete-orphan")
 
-    project_statuses = db.relationship("StatusProject", uselist=True, cascade="all, delete", backref="projects")
-    crawl_data = db.relationship("CrawlData", uselist=True, cascade="all, delete", backref="projects")
+    # project_statuses = db.relationship("StatusProject", uselist=True, cascade="all, delete, delete-orphan", backref="projects")
+    project_statuses = db.relationship("StatusProject", uselist=True, cascade="all, delete, delete-orphan")
+    crawl_data = db.relationship("CrawlData", uselist=True, cascade="all, delete, delete-orphan")
 
     # def to_dict(self):
     #     return {
