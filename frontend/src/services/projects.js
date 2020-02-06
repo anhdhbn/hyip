@@ -1,4 +1,4 @@
-import { requestServices } from 'services';
+import { requestServices } from './index';
 
 const fetchEasyProjects = () => requestServices.customAxios.get('project?type=easy').then((res) => res.data);
 const fetchAllProjects = () => requestServices.customAxios.get('project?type=all').then((res) => res.data);
@@ -13,13 +13,13 @@ const removeProject = (id, param) => requestServices.customAxios.post(`projects/
 const makeProjectVerified = (id, param) => requestServices.customAxios.post(`projects/verified/${id}`, param).then((res) => res.data);
 
 export default {
-    fetchEasyProjects,
-    fetchAllProjects,
-    fetchNotScamProjects,
-    fetchVerifiedProjects,
-    fetchUnVerifiedProjects,
-    fetchInfoProject,
-    createProject,
-    removeProject,
-    makeProjectVerified
-  };
+  fetchEasyProjects,
+  fetchAllProjects,
+  fetchNotScamProjects,
+  fetchVerifiedProjects,
+  fetchUnVerifiedProjects,
+  fetchInfoProject,
+  createProject,
+  removeProject,
+  makeProjectVerified
+};

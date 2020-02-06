@@ -10,13 +10,9 @@ export default {
       }
     },
     {
-      name: "Create new",
-      url: "/create",
-      icon: "icon-speedometer",
-      badge: {
-        variant: "info",
-        text: "NEW"
-      }
+      name: "Project manager",
+      url: "/project-manager",
+      icon: "icon-wrench",
     }
     // {
     //   title: true,
