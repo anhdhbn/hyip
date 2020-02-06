@@ -51,13 +51,14 @@ crawl_data_res = {
     'project_id': fields.String(),
     **check_selector_res,
     'alexa_rank': fields.Integer(),
+    'create_date': fields.Date(),
 }
 
 status_project_res = {
     'id': fields.String(),
     'project_id': fields.String(),
     'status_project': fields.Integer(),
-    'create_date': fields.Date(),
+   # 'create_date': fields.Date(),
 }
 
 exist_domain_res = {
