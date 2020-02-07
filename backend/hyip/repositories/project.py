@@ -76,7 +76,6 @@ def remove_project(id_project):
 def update_selector(id_project, **kwargs):
     project = get_project_by_id(id_project)
     project.veriried  = True
-    print(kwargs)
     project.investment_selector = kwargs.get('investment_selector') or project.investment_selector
     project.paid_out_selector = kwargs.get('paid_out_selector') or project.paid_out_selector
     project.member_selector = kwargs.get('member_selector') or project.member_selector
