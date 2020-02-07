@@ -13,16 +13,29 @@ import Card from "react-bootstrap/Card";
 
 import projectServices from '../../../../services/projects'
 
+import SearchDomain from '../../../Base/SearchDomain'
+
 class RemoveProject extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      selectedOption: null,
+    };
+  }
+
+  handleChange = (selectedOption) => {
+    this.setState({ selectedOption });
+    console.log(selectedOption)
   }
 
   render() {
     return (
       <CardBody>
-          
+        <Row>
+          <Col md="12">
+            <SearchDomain handleChange={this.handleChange}/>
+          </Col>
+        </Row>
       </CardBody>
     )
   }

@@ -10,24 +10,20 @@ import {
 } from "reactstrap";
 
 import Form from "react-bootstrap/Form";
-import AsyncSelect from 'react-select/async';
-
-import domainService from '../../../../services/domains'
+import SearchDomain from '../../../Base/SearchDomain'
 
 class EditProject extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.handleChange = this.handleChange.bind(this)
+    this.state = {
+      selectedOption: null,
+    };
   }
 
-  searchDomain(input){
-    return new Promise((resolve, reject) => {
-      if(!input) return reject("Empty")
-      domainService.searchDomain(input).then(res => {
-        if (!res.success) return reject(res)
-        resolve(res.data)
-      })
-    })
+  handleChange = (selectedOption) => {
+    this.setState({ selectedOption });
+    console.log(selectedOption)
   }
 
   render() {
@@ -35,7 +31,7 @@ class EditProject extends Component {
       <CardBody>
         <Row>
           <Col md="12">
-            <AsyncSelect cacheOptions defaultOptions loadOptions={this.searchDomain} />
+            <SearchDomain handleChange={this.handleChange}/>
           </Col>
         </Row>
       </CardBody>
