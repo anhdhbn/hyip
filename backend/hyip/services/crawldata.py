@@ -15,8 +15,15 @@ def create_crawldata(project_id, **kwargs):
     else:
         raise ProjectNotFoundException()
 
-def get_data_crawled(project_id):
+def parse_number(s):
+    try:
+        return int(s)
+    except ValueError:
+        return 100000000
+
+def get_data_crawled(project_id, limit='7'):
+    limit = parse_number(limit)
     if repo.project.check_exists_project_id(project_id):
-        return repo.crawldata.get_data_crawled(project_id)
+        return repo.crawldata.get_data_crawled(project_id, limit)
     else:
         raise ProjectNotFoundException()

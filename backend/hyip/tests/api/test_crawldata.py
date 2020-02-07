@@ -57,8 +57,22 @@ class CrawlDataApiTestCase(APITestCase):
         })
 
     def test_get_data_crawled(self):
-        result = self.get('/api/crawldata/' + self.id)
+        data = {
+            'total_investment' : 213321,
+            'total_paid_out': 2313213,
+            'total_member': 31,
+            'alexa_rank': 30
+        }
+        result = self.post('/api/crawldata/' + self.id, data=data)
+        result = self.post('/api/crawldata/' + self.id, data=data)
+
+        result = self.get('/api/crawldata/' + self.id + '?limit=all')
         self.assertEqual(result['success'], True)
+        self.assertEqual(len(result['data']), 3)
+
+        result = self.get('/api/crawldata/' + self.id + '?limit=2')
+        self.assertEqual(result['success'], True)
+        self.assertEqual(len(result['data']), 2)
 
     def test_post_data_crawled(self):
         data = {
