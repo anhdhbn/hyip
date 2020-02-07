@@ -52,8 +52,11 @@ class CrawlDataApiTestCase(APITestCase):
         result = self.get('/api/domain/check-exists/google.com')
         self.assertEqual(result['data']['is_exists'], True)
 
-    def test_get_all(self):
-        result = self.get('/api/domain/all')
+    def test_search(self):
+        result = self.get('/api/domain/search?input=goo')
+        print(result)
         self.assertEqual(len(result['data']), 1)
+        data = [item['label'] for item in result['data']]
+        self.assertEqual("google.com" in data, True)
 
         

@@ -69,3 +69,8 @@ get_all_domain = {
     'from_date': fields.Date(),
     'to_date': fields.Date(),
 }
+
+search_domain = api.model("search_domain", {
+    'value': fields.String(attribute='project_id'),
+    'label': fields.String(attribute='name')
+}) 

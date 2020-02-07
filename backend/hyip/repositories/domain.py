@@ -15,3 +15,8 @@ def check_exists_domain(domain):
 
 def get_all_domain():
     return models.Domain.query.all()
+
+def search_domains(inputValue, page, ipp):
+    return models.Domain.query.filter(
+        models.Domain.name.like(inputValue + '%')
+    ).paginate(int(page), int(ipp), error_out=False).items

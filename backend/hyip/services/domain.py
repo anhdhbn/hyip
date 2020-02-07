@@ -14,3 +14,6 @@ def check_exists_domain(domain):
 
 def get_all_domain():
     return repo.domain.get_all_domain()
+
+def search_domains(input='', page=1, ipp=10):
+    return repo.domain.search_domains(input, page, ipp)
