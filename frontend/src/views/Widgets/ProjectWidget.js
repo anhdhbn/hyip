@@ -91,9 +91,11 @@ class ProjectWidget extends Component {
 
   componentDidMount() {
     projectServices.fetchInfoProject(this.props.id).then(res => {
-      this.setState({...this.state, dataProject: res.data})
-      let domain = parse(this.state.dataProject.url).hostname
-      this.setState({dataProject: {...this.state.dataProject, domain: domain}})
+      if (res.success) {
+        this.setState({...this.state, dataProject: res.data})
+        let domain = parse(this.state.dataProject.url).hostname
+        this.setState({dataProject: {...this.state.dataProject, domain: domain}})
+      }
     })
     this.fetchData()
   }
@@ -104,7 +106,7 @@ class ProjectWidget extends Component {
       this.setState({...this.state, crawldata: res.data})
 
       let data = this.state.crawldata
-      let dates = data.map(e => new Date(e.create_date))
+      let dates = data.map(e => new Date(e.created_date))
       let labels = dates.map(e => `${e.getDate()}/${e.getMonth()+1}`)
       let total_investment = data.map(e => e.total_investment)
       let total_paid_out = data.map(e => e.total_paid_out)

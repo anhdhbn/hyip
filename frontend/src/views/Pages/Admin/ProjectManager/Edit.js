@@ -6,12 +6,13 @@ import {
   CardHeader,
   Col,
   Row,
+  Input
 } from "reactstrap";
 
 import Form from "react-bootstrap/Form";
-import Card from "react-bootstrap/Card";
+import AsyncSelect from 'react-select/async';
 
-import projectServices from '../../../../services/projects'
+import domainService from '../../../../services/domains'
 
 class EditProject extends Component {
   constructor(props) {
@@ -19,14 +20,25 @@ class EditProject extends Component {
     this.state = {};
   }
 
+  searchDomain(input){
+    return new Promise((resolve, reject) => {
+      if(!input) return reject("Empty")
+      domainService.searchDomain(input).then(res => {
+        if (!res.success) return reject(res)
+        resolve(res.data)
+      })
+    })
+  }
+
   render() {
     return (
-      <Card>
-        <CardHeader>Edit project</CardHeader>
-        <CardBody>
-
-        </CardBody>
-      </Card>
+      <CardBody>
+        <Row>
+          <Col md="12">
+            <AsyncSelect cacheOptions defaultOptions loadOptions={this.searchDomain} />
+          </Col>
+        </Row>
+      </CardBody>
     )
   }
 }

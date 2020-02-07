@@ -21,12 +21,9 @@ class RemoveProject extends Component {
 
   render() {
     return (
-      <Card>
-        <CardHeader>Edit project</CardHeader>
-        <CardBody>
-
-        </CardBody>
-      </Card>
+      <CardBody>
+          
+      </CardBody>
     )
   }
 }
