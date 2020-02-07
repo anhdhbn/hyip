@@ -52,7 +52,10 @@ def create_project_by_crawler(**kwargs):
         raise DomainExistsException(message=domain)
 
 def get_project_info_by_id(idProject):
-    return repo.project.get_project_by_id(idProject)
+    if repo.project.check_exists_project_id(idProject):
+        return repo.project.get_project_by_id(idProject)
+    else:
+        raise ProjectNotFoundException()
 
 def get_all_project_info():
     return repo.project.get_all_project()
