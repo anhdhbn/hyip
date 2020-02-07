@@ -16,4 +16,7 @@ def create_crawldata(project_id, **kwargs):
         raise ProjectNotFoundException()
 
 def get_data_crawled(project_id):
-    return repo.crawldata.get_data_crawled(project_id)
+    if repo.project.check_exists_project_id(project_id):
+        return repo.crawldata.get_data_crawled(project_id)
+    else:
+        raise ProjectNotFoundException()
