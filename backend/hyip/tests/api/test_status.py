@@ -47,10 +47,14 @@ class CrawlDataApiTestCase(APITestCase):
         })
         self.id = result.id
 
+    def test_get_all_status_project(self):
+        result = self.get('/api/status/all/'+self.id)
+        self.assertEqual(result['success'], True)
+        self.assertEqual(len(result['data']), 1)
+
     def test_get_status_project(self):
         result = self.get('/api/status/'+self.id)
         self.assertEqual(result['success'], True)
-        self.assertEqual(len(result['data']), 1)
 
     def test_post_status_project(self):
         data = {

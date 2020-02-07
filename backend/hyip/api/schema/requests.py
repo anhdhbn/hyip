@@ -72,3 +72,11 @@ update_status_project = api.model('update_status_project', {
     'project_id': fields.String(required=True),
     'status_project': fields.Integer(required=True),
 })
+
+update_selector_project = api.model('update_selector_project', {
+    'investment_selector': fields.String(required=False),
+    'paid_out_selector': fields.String(required=False),
+    'member_selector': fields.String(required=False),
+    'plans': fields.String(required=False),
+    'easy_crawl': fields.Boolean(required=False),
+})

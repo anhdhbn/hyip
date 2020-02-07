@@ -21,4 +21,4 @@ class StatusProject(db.Model, TimestampMixin):
     project_id = db.Column(db.String(64), db.ForeignKey('projects.id'), nullable=False)
 
     status_project = db.Column(ChoiceType(StatusType, impl=db.Integer()), default=1, nullable=False)
-    create_date = db.Column(db.Date(), default=func.current_date(), nullable=False)
+    created_date = db.Column(db.Date(), default=func.current_date(), nullable=False)

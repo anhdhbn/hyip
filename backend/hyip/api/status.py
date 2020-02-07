@@ -22,6 +22,12 @@ class GetStatus(flask_restplus.Resource):
     def get(self, project_id):
         return services.status.get_status_project_by_id(project_id)
 
+@ns.route('/all/<project_id>', methods=['GET'])
+class GetStatus(flask_restplus.Resource):
+    @ns.marshal_with(_status_project_res)
+    def get(self, project_id):
+        return services.status.get_all_status_project_by_id(project_id)
+
 
 @ns.route('', methods=['POST'])
 class UpdateStatus(flask_restplus.Resource):

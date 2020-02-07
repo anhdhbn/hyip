@@ -12,3 +12,6 @@ def check_exists_domain(domain):
     return {
         "is_exists": domain is not None
     }
+
+def get_all_domain():
+    return models.Domain.query.all()

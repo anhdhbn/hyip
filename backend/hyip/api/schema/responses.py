@@ -27,7 +27,6 @@ project_res = {
 project_crawler_res = {
     'id': fields.String(),
     'hosting': fields.String(),
-    # 'script': fields.Integer(),
     'url': fields.String(),
     'investment_selector': fields.String(),
     'paid_out_selector': fields.String(),
@@ -35,9 +34,6 @@ project_crawler_res = {
     'created_at': fields.Date(),
     'start_date': fields.Date(),
     'plans': fields.String(),
-    # 'ssl': 
-    # 'domain':
-    # 'ip':
 }
 
 check_selector_res  = {
@@ -51,16 +47,25 @@ crawl_data_res = {
     'project_id': fields.String(),
     **check_selector_res,
     'alexa_rank': fields.Integer(),
-    'create_date': fields.Date(),
+    'created_date': fields.Date(),
 }
 
 status_project_res = {
     'id': fields.String(),
     'project_id': fields.String(),
     'status_project': fields.Integer(),
-   # 'create_date': fields.Date(),
+    'created_date': fields.Date(),
 }
 
 exist_domain_res = {
     'is_exists': fields.Boolean(),
+}
+
+get_all_domain = {
+    'id': fields.String(),
+    'project_id': fields.String(),
+    'name': fields.String(),
+    'registrar': fields.String(),
+    'from_date': fields.Date(),
+    'to_date': fields.Date(),
 }

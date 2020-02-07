@@ -11,3 +11,6 @@ _logger = logging.getLogger(__name__)
 
 def check_exists_domain(domain):
     return repo.domain.check_exists_domain(domain)
+
+def get_all_domain():
+    return repo.domain.get_all_domain()

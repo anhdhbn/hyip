@@ -172,3 +172,19 @@ class CrawlDataApiTestCase(APITestCase):
         self.assertEqual(len(result['data']), 1)
         result = self.get('/api/domain/check-exists/google.com')
         self.assertEqual(result['data']['is_exists'], False)
+
+    def test_update_selector_project(self):
+        data = {
+            "investment_selector": "test1",
+            "paid_out_selector": "test2",
+            "member_selector": "test3",
+            "plans": "test4",
+            "easy_crawl": False
+        }
+        result = self.post('/api/project/update/' + self.id, data=data)
+        self.assertEqual(result['success'], True)
+        self.assertEqual(result['data']['investment_selector'], data['investment_selector'])
+        self.assertEqual(result['data']['paid_out_selector'], data['paid_out_selector'])
+        self.assertEqual(result['data']['member_selector'], data['member_selector'])
+        self.assertEqual(result['data']['plans'], data['plans'])
+        self.assertEqual(result['data']['easy_crawl'], data['easy_crawl'])

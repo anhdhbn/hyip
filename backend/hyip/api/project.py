@@ -79,7 +79,16 @@ class MakeVerified(flask_restplus.Resource):
         return services.project.verify_project(projectId)
 
 @ns.route('/remove/<projectId>', methods=['POST'])
-class MakeVerified(flask_restplus.Resource):
+class RemoveProject(flask_restplus.Resource):
     @ns.marshal_with(_create_project_crawler_res)
     def post(self, projectId):
         return services.project.remove_project(projectId)
+
+@ns.route('/update/<projectId>', methods=['POST'])
+class UpdateProject(flask_restplus.Resource):
+    @ns.marshal_with(requests.update_selector_project)
+    def post(self, projectId):
+        data = request.args or request.json
+        project = services.project.update_selector(projectId,
+            **data)
+        return project

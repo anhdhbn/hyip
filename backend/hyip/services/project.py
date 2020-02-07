@@ -6,7 +6,7 @@ from flask import jsonify
 from flask import request
 from hyip import repositories as repo
 from hyip.helpers import get_domain
-from hyip.extensions.custom_exception import DomainExistsException
+from hyip.extensions.custom_exception import DomainExistsException, ProjectNotFoundException
 from hyip.extensions.exceptions import BadRequestException
 
 from celery.result import AsyncResult
@@ -67,7 +67,7 @@ def verify_project(id_project):
     if repo.project.check_exists_project_id(id_project):
         return repo.project.verify_project(id_project)
     else:
-        raise BadRequestException(message="Project was not found")
+        raise ProjectNotFoundException()
 
 def get_verified_projects():
     return repo.project.get_verified_projects()
@@ -79,4 +79,10 @@ def remove_project(id_project):
     if repo.project.check_exists_project_id(id_project):
         return repo.project.remove_project(id_project)
     else:
-        raise BadRequestException(message="Project was not found")
+        raise ProjectNotFoundException()
+
+def update_selector(id_project, **kwargs):
+    if repo.project.check_exists_project_id(id_project):
+        return repo.project.update_selector(id_project, **kwargs)
+    else:
+        raise ProjectNotFoundException()

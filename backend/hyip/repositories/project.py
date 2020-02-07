@@ -72,3 +72,15 @@ def remove_project(id_project):
     models.db.session.delete(get_project_by_id(id_project))
     models.db.session.commit()
     return models.Project.query.all()
+
+def update_selector(id_project, **kwargs):
+    project = get_project_by_id(id_project)
+    project.veriried  = True
+    print(kwargs)
+    project.investment_selector = kwargs.get('investment_selector') or project.investment_selector
+    project.paid_out_selector = kwargs.get('paid_out_selector') or project.paid_out_selector
+    project.member_selector = kwargs.get('member_selector') or project.member_selector
+    project.easy_crawl = kwargs.get('easy_crawl') or project.easy_crawl
+    project.plans = kwargs.get('plans') or project.plans
+    models.db.session.commit()
+    return project

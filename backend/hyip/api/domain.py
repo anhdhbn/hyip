@@ -16,7 +16,14 @@ ns = Namespace('domain', description='Status operations')
 _exists_domain = ns.model("exists-doamin", responses.exist_domain_res)
 
 @ns.route('/check-exists/<domain>', methods=['GET'])
-class GetStatus(flask_restplus.Resource):
+class CheckDomain(flask_restplus.Resource):
     @ns.marshal_with(_exists_domain)
     def get(self, domain):
         return services.domain.check_exists_domain(domain)
+
+_get_all_domain = ns.model("get_all_domain", responses.get_all_domain)
+@ns.route('/all', methods=['GET'])
+class GetAllDomain(flask_restplus.Resource):
+    @ns.marshal_with(_get_all_domain)
+    def get(self):
+        return services.domain.get_all_domain()
