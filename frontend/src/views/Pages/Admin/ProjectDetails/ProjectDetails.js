@@ -14,6 +14,7 @@ import { BatteryLoading } from 'react-loadingg';
 
 import SearchDomain from '../../../Base/SearchDomain'
 import Project from "./Project"
+import Chart from "./Chart"
 
 class ProjectDetails extends Component {
   constructor(props) {
@@ -28,12 +29,10 @@ class ProjectDetails extends Component {
     if (this.state.selectedOption){
       return (
         <Row>
-          <Col xs={12} sm={12} md={12} lg={12} xl={6}>
-           Bieu do
+          <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+            <Chart id={this.state.selectedOption.value}></Chart>
           </Col>
-          <Col xs={12} sm={12} md={12} lg={12} xl={6}>
-            {/* day la Project
-            gom hosting, is_verified, create_date, start_date, script_type(script)  */}
+          <Col xs={12} sm={12} md={12} lg={12} xl={12}>
             <Project id={this.state.selectedOption.value}></Project>
           </Col>
         </Row>

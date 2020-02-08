@@ -10,6 +10,8 @@ import {
   Row,
 } from 'reactstrap';
 
+import projectService from "../../../../services/projects"
+
 const propTypes = {
   id: PropTypes.string,
 };
@@ -34,45 +36,130 @@ const boldText = {
   fontWeight: 'bold'
 }
 
-class Project extends Component{
+class SpanBold extends Component{
   constructor(props){
     super(props);
-    this.state = {}
   }
 
   render(){
-    return (
-      <Card>
-        <CardHeader>Info project</CardHeader>
-        <CardBody>
+    return(<span style={this.props.red ? redText: this.props.green ? greenText : boldText}>{this.props.spaced ? " " : ""}{this.props.data}{this.props.spacedb ? " " : ""}</span>)
+  }
+}
 
-          <Row>
-            <Col xs={12} sm={4} md={4} lg={4} xl={4}>Plans</Col>
-            <Col xs={12} sm={8} md={8} lg={8} xl={8}>1.00% - 1.50% daily for 10 days | 1.50% - 2.00% daily for 20 days | 2.00% - 2.50% daily for 30 days | 2.50% - 3.00% daily for 40 days | 3.00% - 4.00% daily for 180 days ahihi</Col>
-          </Row>
+class Project extends Component{
+  constructor(props){
+    super(props);
+    this.callApiGetData = this.callApiGetData.bind(this)
+    this.state = {
+      domain: {},
+      ssl: {},
+      ip: {},
+      easy_crawl: false
+    }
+  }
 
-          <Row>
-            <Col xs={12} sm={4} md={4} lg={4} xl={4}><span style={greenText}>Domain</span></Col>
-            <Col xs={12} sm={8} md={8} lg={8} xl={8}>From <span style={boldText}>{"01-01-1999"}</span> To <span style={boldText}>{"01-06-1999"}</span> <span style={greenText}>{356} days</span></Col>
-          </Row>
+  callApiGetData(id){
+    projectService.fetchDetailsProject(id).then(res => {
+      if (res.success) {
+        // this.setState({data: res.data})
+        let {hosting, plans, created_at, start_date, easy_crawl, domain, ssl, ip} = res.data
+        this.setState({hosting, plans, created_at, start_date, easy_crawl})
+        if (domain.from_date && domain.to_date){
+          domain.from_date = new Date(domain.from_date.replace("-", "/"))
+          domain.to_date = new Date(domain.to_date.replace("-", "/"))
+          domain.days = (domain.to_date - domain.from_date)/(24*60*60*1000)
+          domain.from_date = domain.from_date.toISOString().slice(0,10)
+          domain.to_date = domain.to_date.toISOString().slice(0,10)
+        }
 
-          <Row>
-            <Col xs={12} sm={4} md={4} lg={4} xl={4}><span style={greenText}>Ip address</span></Col>
-            <Col xs={12} sm={8} md={8} lg={8} xl={8}>{30} host</Col>
-          </Row>
+        if(ip.domains_of_this_ip){
+          ip.length = ip.domains_of_this_ip.split(",").length
+          ip.is_green = (ip.length == 1) && !ip.domains_of_this_ip.includes("API count exceeded")
+        }
 
-          <Row>
-            <Col xs={12} sm={4} md={4} lg={4} xl={4}><span style={greenText}>SSL</span></Col>
-            <Col xs={12} sm={8} md={8} lg={8} xl={8}>From <span style={boldText}>{"01-01-1999"}</span> To <span style={boldText}>{"01-06-1999"}</span> {356} days</Col>
-          </Row>
+        if (ssl.from_date && ssl.to_date){
+          ssl.from_date = new Date(ssl.from_date.replace("-", "/"))
+          ssl.to_date = new Date(ssl.to_date.replace("-", "/"))
+          ssl.days = (ssl.to_date - ssl.from_date)/(24*60*60*1000)
+          ssl.from_date = ssl.from_date.toISOString().slice(0,10)
+          ssl.to_date = ssl.to_date.toISOString().slice(0,10)
+        }
+        this.setState({domain, ip, ssl})
+      }
+    })
+  }
 
-          <Row>
-            <Col xs={12} sm={4} md={4} lg={4} xl={4}><span  style={greenText}>Script</span></Col>
-            <Col xs={12} sm={8} md={8} lg={8} xl={8}> {'Gold Coders'} - <span style={greenText}>{'licensed'}</span></Col>
-          </Row>
-        </CardBody>
-      </Card>
-    )
+  componentDidMount(){
+    this.callApiGetData(this.props.id)
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if (prevProps.id !== this.props.id){
+      this.callApiGetData(this.props.id)
+    }
+  }
+
+  render(){
+    if (this.state.domain){
+      return(
+        <Card>
+          <CardHeader>Info project</CardHeader>
+          <CardBody>
+
+            <Row>
+              <Col xs={12} sm={3} md={3} lg={3} xl={3}>Plans</Col>
+              <Col xs={12} sm={9} md={9} lg={9} xl={9}>{this.state.plans}</Col>
+            </Row>
+
+            <Row>
+              <Col xs={12} sm={3} md={3} lg={3} xl={3}><SpanBold data={"Domain"} green={this.state.domain.days > 365}/></Col>
+              <Col xs={12} sm={9} md={9} lg={9} xl={9}>From
+                <SpanBold spaced data={this.state.domain.from_date}/> To
+                <SpanBold spaced data={this.state.domain.to_date}/> 
+                <SpanBold spaced spacedb green={this.state.domain.days > 365} data={this.state.domain.days}/>days
+                {this.state.domain.days > 365 ? (<SpanBold spaced green data={`${Math.floor(this.state.domain.days/365)} years`}/>): null}
+                </Col>
+            </Row>
+
+            <Row>
+              <Col xs={12} sm={3} md={3} lg={3} xl={3}>
+                <SpanBold green={this.state.ip.is_green} data={"Ip address"}/>
+              </Col>
+              <Col xs={12} sm={9} md={9} lg={9} xl={9}>{this.state.ip.address} hosted <span style={boldText}>{this.state.ip.length}</span> domain</Col>
+            </Row>
+
+            <Row>
+              <Col xs={12} sm={3} md={3} lg={3} xl={3}>
+                  <SpanBold data={"SSL"} green={this.state.ssl.ev}/>
+                </Col>
+              <Col xs={12} sm={9} md={9} lg={9} xl={9}>From
+                <SpanBold spaced data={this.state.ssl.from_date}/> To
+                <SpanBold spaced data={this.state.ssl.to_date}/> 
+                <SpanBold spaced spacedb green={this.state.ssl.days > 365} data={this.state.ssl.days}/>days</Col>
+            </Row>
+            {this.state.start_date ? (<Row>
+              <Col xs={12} sm={3} md={3} lg={3} xl={3}><SpanBold data={"Start date"}/></Col>
+              <Col xs={12} sm={9} md={9} lg={9} xl={9}>{this.state.start_date}</Col>
+            </Row>): null}
+            <Row>
+              <Col xs={12} sm={3} md={3} lg={3} xl={3}><SpanBold data={"Hosting"}/></Col>
+              <Col xs={12} sm={9} md={9} lg={9} xl={9}>{this.state.hosting}</Col>
+            </Row>
+            <Row>
+              <Col xs={12} sm={3} md={3} lg={3} xl={3}><SpanBold data={"Easy crawl"}/></Col>
+              <Col xs={12} sm={9} md={9} lg={9} xl={9}><SpanBold green={this.state.easy_crawl} red={!this.state.easy_crawl} data={this.state.easy_crawl.toString()}/></Col>
+            </Row>
+            {/* <Row>
+              <Col xs={12} sm={3} md={3} lg={3} xl={3}><span  style={greenText}>Script</span></Col>
+              <Col xs={12} sm={9} md={9} lg={9} xl={9}> </Col>
+            </Row> */}
+          </CardBody>
+        </Card>
+      )
+    }
+    else {
+      return null
+    }
   }
 }
 

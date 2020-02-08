@@ -6,6 +6,7 @@ const fetchNotScamProjects = () => requestServices.customAxios.get('project?type
 const fetchVerifiedProjects = () => requestServices.customAxios.get('project?type=verified').then((res) => res.data);
 const fetchUnVerifiedProjects = () => requestServices.customAxios.get('project?type=unverified').then((res) => res.data);
 const fetchInfoProject = (id) => requestServices.customAxios.get(`project/${id}`).then((res) => res.data);
+const fetchDetailsProject = (id) => requestServices.customAxios.get(`project/details/${id}`).then((res) => res.data);
 
 
 const createProject = (param) => requestServices.customAxios.post('project/create', param).then((res) => res.data);
@@ -20,6 +21,7 @@ export default {
   fetchVerifiedProjects,
   fetchUnVerifiedProjects,
   fetchInfoProject,
+  fetchDetailsProject,
   createProject,
   removeProject,
   makeProjectVerified,
