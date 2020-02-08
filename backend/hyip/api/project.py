@@ -39,6 +39,12 @@ class GetProjectInfo(flask_restplus.Resource):
     def get(self, projectId):
         return services.project.get_project_info_by_id(projectId)
 
+@ns.route('/details/<projectId>', methods=['GET'])
+class GetDetailsProject(flask_restplus.Resource):
+    @ns.marshal_with(responses.details_project)
+    def get(self, projectId):
+        return services.project.get_project_info_by_id(projectId)
+
 _get_projects_parser = reqparse.RequestParser()
 _get_projects_parser.add_argument('type', required=True, help="type can be all, easy, notscam, verified, unverified")
 

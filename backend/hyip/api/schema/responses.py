@@ -2,6 +2,7 @@
 from flask_restplus import fields
 
 from hyip.api import api
+from hyip import models
 
 user_res = {
     'email': fields.String(description='user email address'),
@@ -74,4 +75,40 @@ get_all_domain = {
 search_domain = api.model("search_domain", {
     'value': fields.String(attribute='project_id'),
     'label': fields.String(attribute='name')
-}) 
+})
+
+ssl_fields = api.model('ssl_fields', {
+    'ev': fields.Boolean(),
+    'from_date': fields.Date(),
+    'to_date': fields.Date(),
+    'description': fields.String(),
+})
+
+domain_fields = api.model('ssl_fields', {
+    'name': fields.String(),
+    'registrar': fields.String(),
+    'from_date': fields.Date(),
+    'to_date': fields.Date(),
+})
+
+ip_fields = api.model('ip_fields', {
+    'address': fields.String(),
+    'domains_of_this_ip': fields.String(),
+})
+
+script_fields = api.model('script_fields', {
+    'script_type': fields.String(enum=models.script.LicensedType._member_names_),
+})
+
+details_project = api.model("details_project", {
+    'hosting': fields.String(),
+    'plans': fields.String(),
+    'created_at': fields.Date(),
+    'start_date': fields.Date(),
+    'plans': fields.String(),
+    'easy_crawl': fields.Boolean(required=False),
+    'ssl': fields.Nested(ssl_fields),
+    'domain': fields.Nested(domain_fields),
+    'ip': fields.Nested(ip_fields),
+    'script': fields.Nested(script_fields),
+})

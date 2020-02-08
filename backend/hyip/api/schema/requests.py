@@ -1,6 +1,7 @@
 # coding=utf-8
 from flask_restplus import fields
 from hyip.api import api
+from hyip import models
 
 register_user_req = {
     'email': fields.String(required=True, description='user email address'),
@@ -13,6 +14,29 @@ login_req = {
     'username': fields.String(required=True, description='username'),
     'password': fields.String(required=True, description='password'),
 }
+script_fields = api.model('script_fields', {
+    'script_type': fields.Integer(enum=models.script.LicensedType._member_names_),
+})
+
+status_fields = api.model('status_fields', {
+    'status_project': fields.Integer(enum=models.script.LicensedType._member_names_),
+})
+
+project_fields = api.model('project_fields', {
+    'url': fields.String(required=True),
+    'investment_selector': fields.String(required=False),
+    'paid_out_selector': fields.String(required=False),
+    'member_selector': fields.String(required=False),
+    'start_date': fields.Date(required=False),
+    'plans': fields.String(required=True),
+    'easy_crawl': fields.Boolean(required=False),
+})
+
+# create_project_req = {
+#     'project': fields.Nested(project_fields),
+#     'script': fields.Nested(script_fields),
+#     'status': fields.Nested(status_fields)
+# }
 
 create_project_req = {
     'url': fields.String(required=True),
