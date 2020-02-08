@@ -5,10 +5,6 @@ import AsyncSelect from 'react-select/async';
 import domainService from '../../services/domains'
 
 class SearchDomain extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   searchDomain(input){
     return new Promise((resolve, reject) => {
       if(!input) return reject("Empty")
@@ -27,7 +23,7 @@ class SearchDomain extends Component {
         onChange={handleChange} 
         isClearable 
         isSearchable 
-        cacheOptions 
+        cacheOptions={this.props.cached || true}
         defaultOptions 
         loadOptions={this.searchDomain} />
     )

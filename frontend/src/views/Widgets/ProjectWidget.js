@@ -1,24 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Badge,
   Button,
-  ButtonDropdown,
   ButtonGroup,
   ButtonToolbar,
   Card,
   CardBody,
   CardFooter,
-  CardHeader,
   CardTitle,
   Col,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Progress,
   Row,
-  Table,
 } from "reactstrap";
 import { Line } from 'react-chartjs-2';
 import { parse } from 'url';
@@ -30,7 +21,7 @@ import crawldataServices from '../../services/crawldata'
 
 const brandPrimary = getStyle('--primary')
 const brandSuccess = getStyle('--success')
-const brandInfo = getStyle('--info')
+// const brandInfo = getStyle('--info')
 const brandWarning = getStyle('--warning')
 const brandDanger = getStyle('--danger')
 
@@ -102,7 +93,7 @@ class ProjectWidget extends Component {
 
   fetchData(days='all') {
     this.setState({days: days})
-    crawldataServices.fetchDataCrawledProject(this.props.id).then(res => {
+    crawldataServices.fetchDataCrawledProject(this.props.id, this.props.days).then(res => {
       this.setState({...this.state, crawldata: res.data})
 
       let data = this.state.crawldata

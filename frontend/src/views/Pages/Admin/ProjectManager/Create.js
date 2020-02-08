@@ -5,17 +5,15 @@ import { parse } from 'url';
 import {
   Button,
   CardBody,
-  CardHeader,
   Col,
   Row,
 } from "reactstrap";
 
 import Form from "react-bootstrap/Form";
-import Card from "react-bootstrap/Card";
 
 import projectServices from '../../../../services/projects'
 import celeryServices from '../../../../services/celery'
-
+import { toast } from 'react-toastify';
 class CreateProject extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +40,6 @@ class CreateProject extends Component {
 
   handleBlurURL(event) {
     let url = parse(this.state.postData.url);
-    console.log(url)
     if (url.hostname != null) {
       celeryServices.checkEasy({url: this.state.postData.url}).then(checkData => {
         this.setState({checkData: checkData.data})
@@ -62,10 +59,13 @@ class CreateProject extends Component {
 
   postForm() {
     const {postData} = this.state
-    console.log(this.state)
-    // projectServices.createProject(postData).then((res) => {
-    //   console.log(res)
-    // })
+    projectServices.createProject(postData).then((res) => {
+      if (res.success) {
+        toast.success(`${parse(this.state.postData.url).hostname} was create`)
+      } else {
+        toast.error(`${res}`)
+      }
+    })
   }
 
   render() {
@@ -146,7 +146,7 @@ class CreateProject extends Component {
                 <Form.Label>Start date</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="yyy-mm-dd"
+                  placeholder="yyyy-mm-dd"
                   onChange={e => this.setState({postData : {...this.state.postData, start_date: e.target.value}})}
                 />
               </Form.Group>

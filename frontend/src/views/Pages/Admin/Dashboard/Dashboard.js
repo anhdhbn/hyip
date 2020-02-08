@@ -1,28 +1,10 @@
-import React, { Component, lazy, Suspense, useState, useEffect  } from 'react';
-import { Bar, Line } from 'react-chartjs-2';
+import React, { Component, lazy, Suspense } from 'react'
 import {
-  Badge,
-  Button,
-  ButtonDropdown,
-  ButtonGroup,
-  ButtonToolbar,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  CardTitle,
   Col,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Progress,
   Row,
-  Table,
 } from 'reactstrap';
 import { BatteryLoading } from 'react-loadingg';
 import projectService from '../../../../services/projects'
-import Loader from 'react-loader-spinner'
 
 const ProjectWidget = lazy(() => import('../../../Widgets/ProjectWidget'));
 
@@ -39,7 +21,6 @@ class Dashboard extends Component {
     projectService.fetchEasyProjects().then(res => {
       if (res.success && res.data.length > 0) {
         this.setState({...this.state, projects: res.data})
-        console.log(this.state.projects[0].id)
       }
     })
   }

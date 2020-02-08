@@ -4,15 +4,20 @@ export default {
       name: "Dashboard",
       url: "/dashboard",
       icon: "icon-speedometer",
-      badge: {
-        variant: "info",
-        text: "NEW"
-      }
+      // badge: {
+      //   variant: "info",
+      //   text: "NEW"
+      // }
     },
     {
       name: "Project manager",
       url: "/project-manager",
       icon: "icon-wrench",
+    },
+    {
+      name: "Project details",
+      url: "/project-details",
+      icon: "icon-note",
     }
     // {
     //   title: true,

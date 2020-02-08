@@ -3,7 +3,8 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 // import { renderRoutes } from 'react-router-config';
 import { BatteryLoading } from 'react-loadingg'
 import './App.scss';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Containers
 const DefaultLayout = React.lazy(() => import('./containers/DefaultLayout'));
 
@@ -26,6 +27,7 @@ class App extends Component {
               <Route exact path="/500" name="Page 500" render={props => <Page500 {...props}/>} />
               <Route path="/" name="Home" render={props => <DefaultLayout {...props}/>} />
             </Switch>
+            <ToastContainer/>
           </React.Suspense>
       </HashRouter>
     );

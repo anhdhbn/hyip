@@ -8,9 +8,10 @@ const fetchUnVerifiedProjects = () => requestServices.customAxios.get('project?t
 const fetchInfoProject = (id) => requestServices.customAxios.get(`project/${id}`).then((res) => res.data);
 
 
-const createProject = (param) => requestServices.customAxios.post('projects/create', param).then((res) => res.data);
-const removeProject = (id, param) => requestServices.customAxios.post(`projects/remove/${id}`, param).then((res) => res.data);
-const makeProjectVerified = (id, param) => requestServices.customAxios.post(`projects/verified/${id}`, param).then((res) => res.data);
+const createProject = (param) => requestServices.customAxios.post('project/create', param).then((res) => res.data);
+const removeProject = (id, param) => requestServices.customAxios.post(`project/remove/${id}`, param).then((res) => res.data);
+const makeProjectVerified = (id, param) => requestServices.customAxios.post(`project/verified/${id}`, param).then((res) => res.data);
+const updateSelectorProject = (id, param) => requestServices.customAxios.post(`project/update/${id}`, param).then((res) => res.data);
 
 export default {
   fetchEasyProjects,
@@ -21,5 +22,6 @@ export default {
   fetchInfoProject,
   createProject,
   removeProject,
-  makeProjectVerified
+  makeProjectVerified,
+  updateSelectorProject
 };
