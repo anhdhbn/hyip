@@ -32,7 +32,7 @@ class Dashboard extends Component {
         <Row>
           <Suspense fallback={<BatteryLoading/>}>
             {this.state.projects.slice(0, 10).map((item, key) =>  {
-              return <Col xs={12} sm={12} md={12} lg={12} xl={6} key={key}><ProjectWidget id={item.id}></ProjectWidget></Col>
+              return <ProjectWidget id={item.id} key={key}></ProjectWidget>
             })}
           </Suspense>
           

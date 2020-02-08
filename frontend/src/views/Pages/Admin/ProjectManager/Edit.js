@@ -19,7 +19,6 @@ class EditProject extends Component {
     super(props);
     this.handleUpdate = this.handleUpdate.bind(this)
     this.handleVerify = this.handleVerify.bind(this)
-    this.handleEasy_crawl = this.handleEasy_crawl.bind(this)
     this.state = {
       selectedOption: {},
       postData: {}
@@ -61,11 +60,6 @@ class EditProject extends Component {
     } else {
       this.setState({ postData:  {} });
     }
-  }
-
-  handleEasy_crawl(e){
-    console.log(e)
-    this.setState({postData : {...this.state.postData, easy_crawl: !this.state.postData.easy_crawl}})
   }
 
   form(){
@@ -128,8 +122,7 @@ class EditProject extends Component {
               variant={'3d'} 
               color={'primary'} 
               checked={this.state.postData.easy_crawl || false}
-              // onChange={e => this.setState({postData : {...this.state.postData, easy_crawl: e.target.value}})}
-              onChange={this.handleEasy_crawl}
+              onChange={e => this.setState({postData : {...this.state.postData, easy_crawl: e.target.value}})}
               />
           </Form.Group>
         </Col>

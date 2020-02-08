@@ -76,7 +76,8 @@ class ProjectWidget extends Component {
         total_paid_out: [],
         total_member: [],
         alexa_rank: [],
-      }
+      },
+      days: "all"
     }
   }
 
@@ -93,7 +94,7 @@ class ProjectWidget extends Component {
 
   fetchData(days='all') {
     this.setState({days: days})
-    crawldataServices.fetchDataCrawledProject(this.props.id, this.props.days).then(res => {
+    crawldataServices.fetchDataCrawledProject(this.props.id, this.state.days).then(res => {
       this.setState({...this.state, crawldata: res.data})
 
       let data = this.state.crawldata
@@ -196,62 +197,63 @@ class ProjectWidget extends Component {
   render() {
     if (this.state.crawldata.length > 1) {
       return (
-        <Card>
-          {/* <CardHeader> </CardHeader> */}
-          <CardBody>
-            <Row>
-              <Col sm="5">
-                <CardTitle className="mb-0">{this.state.dataProject.domain}</CardTitle>
-              </Col>
+        <Col xs={12} sm={12} md={12} lg={12} xl={6} >
+          <Card>
+            <CardBody>
+              <Row>
+                <Col sm="5">
+                  <CardTitle className="mb-0">{this.state.dataProject.domain}</CardTitle>
+                </Col>
 
-              <Col sm="7" className="d-none d-sm-inline-block">
-                <ButtonToolbar className="float-right" aria-label="Toolbar with button groups">
-                  <ButtonGroup className="mr-3" aria-label="First group">
-                    <Button color="outline-secondary" onClick={() => this.fetchData('7')} active={this.state.days === '7'}>Day</Button>
-                    <Button color="outline-secondary" onClick={() => this.fetchData('30')} active={this.state.days === '30'}>Month</Button>
-                    <Button color="outline-secondary" onClick={() => this.fetchData('all')} active={this.state.days === 'all'}>All</Button>
-                  </ButtonGroup>
-                </ButtonToolbar>
-              </Col>
-            </Row>
+                <Col sm="7" className="d-none d-sm-inline-block">
+                  <ButtonToolbar className="float-right" aria-label="Toolbar with button groups">
+                    <ButtonGroup className="mr-3" aria-label="First group">
+                      <Button color="outline-secondary" onClick={() => this.fetchData('7')} active={this.state.days === '7'}>Day</Button>
+                      <Button color="outline-secondary" onClick={() => this.fetchData('30')} active={this.state.days === '30'}>Month</Button>
+                      <Button color="outline-secondary" onClick={() => this.fetchData('all')} active={this.state.days === 'all'}>All</Button>
+                    </ButtonGroup>
+                  </ButtonToolbar>
+                </Col>
+              </Row>
 
-            <Row style={{ marginTop: 10 + 'px' }}>
-              <Col xs={12} sm={12} md={12} lg={6} xl={6}  >
-                <div className="chart-wrapper">
-                  <Line data={this.getPaidData()} options={options} />
-                </div>
-              </Col>
+              <Row style={{ marginTop: 10 + 'px' }}>
+                <Col xs={12} sm={12} md={12} lg={6} xl={6}  >
+                  <div className="chart-wrapper">
+                    <Line data={this.getPaidData()} options={options} />
+                  </div>
+                </Col>
 
-              <Col  xs={12} sm={12} md={12} lg={6} xl={6}>
-                <div className="chart-wrapper">
-                  <Line data={this.getGrowthRateData()} options={options} />
-                </div>
-              </Col>
-            </Row>
-          </CardBody>
-          <CardFooter>
-            <Row className="text-center brand-card-body">
-              <Col sm={12} md className="mb-sm-2 mb-0">
-                <div className="text-value">{this.state.drawData.total_investment.slice(-1)[0]}</div>
-                <div className="text-uppercase text-muted small">Total Investment</div>
-              </Col>
+                <Col  xs={12} sm={12} md={12} lg={6} xl={6}>
+                  <div className="chart-wrapper">
+                    <Line data={this.getGrowthRateData()} options={options} />
+                  </div>
+                </Col>
+              </Row>
+            </CardBody>
+            <CardFooter>
+              <Row className="text-center brand-card-body">
+                <Col sm={12} md className="mb-sm-2 mb-0">
+                  <div className="text-value">{this.state.drawData.total_investment.slice(-1)[0]}</div>
+                  <div className="text-uppercase text-muted small">Total Investment</div>
+                </Col>
 
-              <Col sm={12} md className="mb-sm-2 mb-0">
-                <div className="text-value">{this.state.drawData.total_paid_out.slice(-1)[0]}</div>
-                <div className="text-uppercase text-muted small">Total Paid Out</div>
-              </Col>
+                <Col sm={12} md className="mb-sm-2 mb-0">
+                  <div className="text-value">{this.state.drawData.total_paid_out.slice(-1)[0]}</div>
+                  <div className="text-uppercase text-muted small">Total Paid Out</div>
+                </Col>
 
-              
-              {this.returnMember()}
-              
+                
+                {this.returnMember()}
+                
 
-              <Col sm={12} md className="mb-sm-2 mb-0">
-                <div className="text-value">{this.state.drawData.alexa_rank.slice(-1)[0]}</div>
-                <div className="text-uppercase text-muted small">Alaxa rank</div>
-              </Col>
-            </Row>
-          </CardFooter>
-        </Card>
+                <Col sm={12} md className="mb-sm-2 mb-0">
+                  <div className="text-value">{this.state.drawData.alexa_rank.slice(-1)[0]}</div>
+                  <div className="text-uppercase text-muted small">Alaxa rank</div>
+                </Col>
+              </Row>
+            </CardFooter>
+          </Card>
+        </Col>
       );
     } else {
       return null;

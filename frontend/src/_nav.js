@@ -4,10 +4,6 @@ export default {
       name: "Dashboard",
       url: "/dashboard",
       icon: "icon-speedometer",
-      // badge: {
-      //   variant: "info",
-      //   text: "NEW"
-      // }
     },
     {
       name: "Project manager",
@@ -18,7 +14,12 @@ export default {
       name: "Project details",
       url: "/project-details",
       icon: "icon-note",
-    }
+    },
+    {
+      name: "Verify projects",
+      url: "/verify-projects",
+      icon: "cui-task",
+    },
     // {
     //   title: true,
     //   name: 'Theme',

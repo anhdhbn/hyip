@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import {
   Card,
   CardBody,
-  CardFooter,
   CardHeader,
-  CardTitle,
   Col,
   Row,
 } from 'reactstrap';

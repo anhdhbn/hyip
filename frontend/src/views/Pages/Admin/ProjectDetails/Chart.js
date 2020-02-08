@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+  Col,
+  Row,
+} from 'reactstrap';
 
 const propTypes = {
   id: PropTypes.string,
@@ -17,7 +26,11 @@ class Chart extends Component{
   }
 
   render(){
-    return (null)
+    return (
+      <Card>
+        <CardHeader>Verify</CardHeader>
+      </Card>
+    )
   }
 }
 
