@@ -4,6 +4,8 @@ import axios from 'axios';
 
 export const BASE_API_URL = `${process.env.BACKEND_URL_API || 'http://14.188.197.152:5000/api/'}`;
 
+console.log(process.env.BACKEND_URL_API)
+
 const customAxios = axios.create({
   baseURL: BASE_API_URL,
   withCredentials: true,
