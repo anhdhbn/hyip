@@ -2,7 +2,7 @@
 // @flow
 import axios from 'axios';
 
-export const BASE_API_URL: string = `${'https://hyip-anhdh.herokuapp.com/api/' || 'localhost:3000'}`;
+export const BASE_API_URL = `${'https://hyip-anhdh.herokuapp.com/api/' || 'localhost:3000'}`;
 
 const customAxios = axios.create({
   baseURL: BASE_API_URL,

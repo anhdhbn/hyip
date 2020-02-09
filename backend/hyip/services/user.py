@@ -48,10 +48,10 @@ def check_username_and_password(username, password):
         if (not user):
             raise UserNotFoundException()
         if not verify_password(user.password, password):
-            raise BadRequestException(message.INVALID_USERNAME_OR_PASSWORD)
+            raise BadRequestException("INVALID_USERNAME_OR_PASSWORD")
         return user
     else:
-        raise BadRequestException(message.INVALID_USERNAME_OR_PASSWORD)
+        raise BadRequestException("INVALID_USERNAME_OR_PASSWORD")
 
 
 def login(username, password, **data):
