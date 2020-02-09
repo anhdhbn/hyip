@@ -1,1 +1,1 @@
-backend: pip install --upgrade pip && pip uninstall Werkzeug -y && pip install Werkzeug && gunicorn --worker-class gevent wsgi:app --log-level info
+backend: pip install --upgrade pip && pip uninstall Werkzeug -y && pip install Werkzeug==0.16.0 && gunicorn --worker-class gevent wsgi:app --log-level info
