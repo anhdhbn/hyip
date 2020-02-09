@@ -36,9 +36,9 @@ class Driver(ChromeDriver):
 
     def crawl(self):
         alexa_rank = self.get_alexa_rank()
-        total_investment, total_paid_out, total_member = self.get_info_project()
+        total_investments, total_paid_outs, total_members = self.get_info_project()
         self.quit()
-        return self.save_data(alexa_rank=alexa_rank, total_investment=total_investment, total_member=total_member, total_paid_out=total_paid_out)
+        return self.save_data(alexa_rank=alexa_rank, total_investments=total_investments, total_members=total_members, total_paid_outs=total_paid_outs)
 
     # @handle_exceptions
     def save_data(self, **kwargs):

@@ -31,9 +31,9 @@ class CreateProject extends Component {
         plans: '',
       },
       checkData: {
-        total_investment: 0,
-        total_paid_out: 0,
-        total_member: 0,
+        total_investments: 0,
+        total_paid_outs: 0,
+        total_members: 0,
       }
     };
   }
@@ -109,7 +109,7 @@ class CreateProject extends Component {
                   onChange={e => this.setState({postData : {...this.state.postData, investment_selector: e.target.value}})}
                 />
               </Form.Group>
-              {this.showResultSelector("investment", this.state.checkData.total_investment)}
+              {this.showResultSelector("investment", this.state.checkData.total_investments)}
               <br />
             </Col>
 
@@ -123,7 +123,7 @@ class CreateProject extends Component {
                   onChange={e => this.setState({postData : {...this.state.postData, paid_out_selector: e.target.value}})}
                 />
               </Form.Group>
-              {this.showResultSelector("paid out", this.state.checkData.total_paid_out)}
+              {this.showResultSelector("paid out", this.state.checkData.total_paid_outs)}
               <br />
             </Col>
 
@@ -137,7 +137,7 @@ class CreateProject extends Component {
                   onChange={e => this.setState({postData : {...this.state.postData, member_selector: e.target.value}})}
                 />
               </Form.Group>
-              {this.showResultSelector("member", this.state.checkData.total_member)}
+              {this.showResultSelector("member", this.state.checkData.total_members)}
               <br />
             </Col>
 

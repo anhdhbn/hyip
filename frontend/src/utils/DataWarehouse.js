@@ -64,9 +64,9 @@ const createDataForChart = (labelName, data, color) => {
   }
 };
 
-const calcProfit = (total_investment, total_paid_out) => {
-  let d1 = total_investment
-  let d2 = total_paid_out
+const calcProfit = (total_investments, total_paid_outs) => {
+  let d1 = total_investments
+  let d2 = total_paid_outs
   let profit = []
   for(let i=0; i< d1.length; i++){
     profit.push(d1[i] - d2[i])
@@ -74,20 +74,20 @@ const calcProfit = (total_investment, total_paid_out) => {
   return profit
 }
 
-const getProfitData = (total_investment, total_paid_out, labels) => {
-  let profit = calcProfit(total_investment, total_paid_out)
+const getProfitData = (total_investments, total_paid_outs, labels) => {
+  let profit = calcProfit(total_investments, total_paid_outs)
   return {
     labels: labels,
     datasets: [
-      createDataForChart('Total investment', total_investment, brandPrimary),
-      createDataForChart('Total paid out', total_paid_out, brandWarning),
+      createDataForChart('Total investment', total_investments, brandPrimary),
+      createDataForChart('Total paid out', total_paid_outs, brandWarning),
       createDataForChart('Profit', profit, brandSuccess),
     ]
   }
 }
 
-const getGrowthRateData = (total_investment, total_paid_out, labels) => {
-  let profit = calcProfit(total_investment, total_paid_out)
+const getGrowthRateData = (total_investments, total_paid_outs, labels) => {
+  let profit = calcProfit(total_investments, total_paid_outs)
 
   let  igr = []
   for(let i=1; i< profit.length; i++){
@@ -122,14 +122,14 @@ const preprocessFetchData = (id, days='all') => {
       let data = res.data
       let dates = data.map(e => new Date(e.created_date))
       let labels = dates.map(e => `${e.getDate()}/${e.getMonth()+1}`)
-      let total_investment = data.map(e => e.total_investment)
-      let total_paid_out = data.map(e => e.total_paid_out)
-      let total_members = data.map(e => e.total_member)
+      let total_investments = data.map(e => e.total_investments)
+      let total_paid_outs = data.map(e => e.total_paid_outs)
+      let total_members = data.map(e => e.total_members)
       let alexa_rank = data.map(e => e.alexa_rank)
       
       res.drawData.labels = labels
-      res.drawData.total_investment = total_investment
-      res.drawData.total_paid_out = total_paid_out
+      res.drawData.total_investments = total_investments
+      res.drawData.total_paid_outs = total_paid_outs
       res.drawData.total_members = total_members
       res.drawData.alexa_rank = alexa_rank
       resolve(res)

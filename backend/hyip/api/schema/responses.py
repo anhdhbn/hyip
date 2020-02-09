@@ -39,7 +39,7 @@ project_crawler_res = {
 }
 
 check_selector_res  = {
-    'total_investment': fields.Float(),
+    'total_investments': fields.Float(),
     'total_paid_out': fields.Float(),
     'total_member': fields.Integer(),
 }

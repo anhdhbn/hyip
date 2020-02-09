@@ -20,8 +20,8 @@ class DiffProject(Driver):
         investment, paid_out, member = self.get_info_project()
         self.quit()
         return {
-            'total_investment': investment,
-            'total_paid_out': paid_out,
-            'total_member': member,
+            'total_investments': investment,
+            'total_paid_outs': paid_out,
+            'total_members': member,
         }
             

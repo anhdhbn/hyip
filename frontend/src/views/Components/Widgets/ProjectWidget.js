@@ -35,8 +35,8 @@ class ProjectWidget extends Component {
       crawldata: {},
       drawData: {
         labels: [],
-        total_investment: [],
-        total_paid_out: [],
+        total_investments: [],
+        total_paid_outs: [],
         total_members: [],
         alexa_rank: [],
       },
@@ -115,15 +115,15 @@ class ProjectWidget extends Component {
               <Row style={{ marginTop: 10 + 'px' }}>
                 <Col xs={12} sm={12} md={12} lg={6} xl={6}  >
                   <div className="chart-wrapper">
-                    <Line data={dataWarehouse.getProfitData(this.state.drawData.total_investment,
-                      this.state.drawData.total_paid_out, this.state.drawData.labels)} options={dataWarehouse.optionsChart} />
+                    <Line data={dataWarehouse.getProfitData(this.state.drawData.total_investments,
+                      this.state.drawData.total_paid_outs, this.state.drawData.labels)} options={dataWarehouse.optionsChart} />
                   </div>
                 </Col>
 
                 <Col  xs={12} sm={12} md={12} lg={6} xl={6}>
                   <div className="chart-wrapper">
-                    <Line data={dataWarehouse.getGrowthRateData(this.state.drawData.total_investment,
-                      this.state.drawData.total_paid_out, this.state.drawData.labels)} options={dataWarehouse.optionsChart} />
+                    <Line data={dataWarehouse.getGrowthRateData(this.state.drawData.total_investments,
+                      this.state.drawData.total_paid_outs, this.state.drawData.labels)} options={dataWarehouse.optionsChart} />
                   </div>
                 </Col>
               </Row>
@@ -131,12 +131,12 @@ class ProjectWidget extends Component {
             <CardFooter>
               <Row className="text-center brand-card-body">
                 <Col sm={12} md className="mb-sm-2 mb-0">
-                  <div className="text-value">{this.state.drawData.total_investment.slice(-1)[0]}</div>
+                  <div className="text-value">{this.state.drawData.total_investments.slice(-1)[0]}</div>
                   <div className="text-uppercase text-muted small">Total Investment</div>
                 </Col>
 
                 <Col sm={12} md className="mb-sm-2 mb-0">
-                  <div className="text-value">{this.state.drawData.total_paid_out.slice(-1)[0]}</div>
+                  <div className="text-value">{this.state.drawData.total_paid_outs.slice(-1)[0]}</div>
                   <div className="text-uppercase text-muted small">Total Paid Out</div>
                 </Col>
 

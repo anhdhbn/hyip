@@ -15,9 +15,9 @@ class CheckSelector:
         member = self.select(soup, self.member_selector)
 
         return {
-            'total_investment': investment,
-            'total_paid_out': paid_out,
-            'total_member': member,
+            'total_investments': investment,
+            'total_paid_outs': paid_out,
+            'total_members': member,
         }
 
     def select(self, soup, selector):

@@ -51,9 +51,9 @@ create_project_req = {
 }
 
 post_datacrawled_req = {
-    'total_investment': fields.Float(required=True),
-    'total_paid_out': fields.Float(required=True),
-    'total_member': fields.Integer(required=True),
+    'total_investments': fields.Float(required=True),
+    'total_paid_outs': fields.Float(required=True),
+    'total_members': fields.Integer(required=True),
     'alexa_rank': fields.Integer(required=True),
 }
 

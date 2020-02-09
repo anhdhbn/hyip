@@ -64,7 +64,7 @@ class Chart extends Component{
   }
 
   render(){
-    if (this.state.drawData && this.state.drawData.total_investment && this.state.drawData.total_investment.length > 1){
+    if (this.state.drawData && this.state.drawData.total_investments && this.state.drawData.total_investments.length > 1){
       return (
         <Card>
           <CardHeader>Charts</CardHeader>
@@ -89,15 +89,15 @@ class Chart extends Component{
             <Row style={{ marginTop: 10 + 'px' }}>
               <Col xs={12} sm={12} md={12} lg={6} xl={6}  >
                 <div className="chart-wrapper">
-                  <Line data={dataWarehouse.getProfitData(this.state.drawData.total_investment,
-                    this.state.drawData.total_paid_out, this.state.drawData.labels)} options={dataWarehouse.optionsChart} />
+                  <Line data={dataWarehouse.getProfitData(this.state.drawData.total_investments,
+                    this.state.drawData.total_paid_outs, this.state.drawData.labels)} options={dataWarehouse.optionsChart} />
                 </div>
               </Col>
   
               <Col  xs={12} sm={12} md={12} lg={6} xl={6}>
                 <div className="chart-wrapper">
-                  <Line data={dataWarehouse.getGrowthRateData(this.state.drawData.total_investment,
-                    this.state.drawData.total_paid_out, this.state.drawData.labels)} options={dataWarehouse.optionsChart} />
+                  <Line data={dataWarehouse.getGrowthRateData(this.state.drawData.total_investments,
+                    this.state.drawData.total_paid_outs, this.state.drawData.labels)} options={dataWarehouse.optionsChart} />
                 </div>
               </Col>
 

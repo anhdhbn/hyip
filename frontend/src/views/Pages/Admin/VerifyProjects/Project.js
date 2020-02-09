@@ -103,9 +103,9 @@ class Project extends Component{
       member_selector: this.state.member_selector,
     }
     celeryServices.checkSelenium(params).then(res => {
+      this.setState({...res.data})
       if (!res.success) {
         toast.error(`${this.state.domain} check selenium failed`)
-        this.setState({...res.data})
       }
     })
   }
@@ -139,7 +139,7 @@ class Project extends Component{
                   onChange={e => this.setState({investment_selector: e.target.value})}
                 />
               </Form.Group>
-              {this.showResultSelector("investment", this.state.total_investment)}
+              {this.showResultSelector("investment", this.state.total_investments)}
             </Col>
   
             <Col xs="12">
@@ -152,7 +152,7 @@ class Project extends Component{
                   onChange={e => this.setState({paid_out_selector: e.target.value})}
                 />
               </Form.Group>
-              {this.showResultSelector("paid out", this.state.total_paid_out)}
+              {this.showResultSelector("paid out", this.state.total_paid_outs)}
             </Col>
   
             <Col xs="12">
@@ -165,7 +165,7 @@ class Project extends Component{
                   onChange={e => this.setState({member_selector: e.target.value})}
                 />
               </Form.Group>
-              {this.showResultSelector("member", this.state.total_member)}
+              {this.showResultSelector("member", this.state.total_members)}
             </Col>
   
             <Col xs="12">
