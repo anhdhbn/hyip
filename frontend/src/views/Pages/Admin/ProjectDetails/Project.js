@@ -6,9 +6,15 @@ import {
   CardHeader,
   Col,
   Row,
+  Button,
+  ButtonToolbar,
+  ButtonGroup
 } from 'reactstrap';
 
+import { toast } from 'react-toastify';
+
 import projectService from "../../../../services/projects"
+import trackingService from "../../../../services/tracking"
 
 const propTypes = {
   id: PropTypes.string,
@@ -48,6 +54,7 @@ class Project extends Component{
   constructor(props){
     super(props);
     this.callApiGetData = this.callApiGetData.bind(this)
+    this.trackThisProject = this.trackThisProject.bind(this)
     this.state = {
       domain: {},
       ssl: {},
@@ -97,11 +104,31 @@ class Project extends Component{
     }
   }
 
+  trackThisProject(){
+    let user_id = localStorage.user_id
+    let project_id = this.props.id
+    trackingService.postProjectTracked({user_id, project_id}).then(res => {
+      toast.success(`${this.state.domain.address} was tracked` )
+    })
+  }
+
   render(){
     if (this.state.domain){
       return(
         <Card>
-          <CardHeader>Info project</CardHeader>
+          
+          <CardHeader>
+            <Row>
+              <Col sm="5">Info project</Col>
+              <Col sm="7" className="d-none d-sm-inline-block">
+                <ButtonToolbar className="float-right" aria-label="Toolbar with button groups">
+                  <ButtonGroup className="mr-3" aria-label="First group">
+                    <Button color="success" onClick={this.trackThisProject}>Track this project</Button>
+                  </ButtonGroup>
+                </ButtonToolbar>
+              </Col>
+            </Row>
+          </CardHeader>
           <CardBody>
 
             <Row>

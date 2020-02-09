@@ -13,11 +13,18 @@ class Login extends Component {
     };
   }
 
+  componentWillMount(){
+    if(localStorage.user_id !== undefined){
+      this.props.history.push('/admin/dashboard');
+    }
+  }
+
   login(){
     userService.submitLoginRequest(this.state).then(data => {
       localStorage.fullname = data.fullname;
       localStorage.username = data.username;
       localStorage.email = data.email;
+      localStorage.user_id = data.id;
       toast.success("Login successful")
       this.props.history.push('/admin/dashboard');
       // if (data.is_admin === true) {

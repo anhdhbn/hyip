@@ -4,7 +4,8 @@ import {
 } from 'reactstrap';
 import { BatteryLoading } from 'react-loadingg';
 import projectService from '../../../../services/projects'
-
+import trackingServices from '../../../../services/tracking'
+import { toast } from 'react-toastify';
 const ProjectWidget = lazy(() => import('../../../Components/Widgets/ProjectWidget'));
 
 
@@ -16,12 +17,23 @@ class Dashboard extends Component {
     };
   }
 
+  componentWillMount(){
+    let user_id = localStorage.user_id
+    if (user_id === undefined){
+      this.props.history.push('/login');
+    }
+  }
+
   componentDidMount(){
-    projectService.fetchEasyProjects().then(res => {
-      if (res.success && res.data.length > 0) {
-        this.setState({...this.state, projects: res.data})
-      }
-    })
+    let user_id = localStorage.user_id
+    if (user_id !== undefined){
+      trackingServices.fetchTrackingProject(user_id).then(res => {
+        toast.success(`Fetched ${res.data.length} projects`)
+        if (res.data.length > 0) {
+          this.setState({...this.state, projects: res.data})
+        }
+      })
+    }
   }
 
   render() {
@@ -31,7 +43,7 @@ class Dashboard extends Component {
         <Row>
           <Suspense fallback={<BatteryLoading/>}>
             {this.state.projects.slice(0, 10).map((item, key) =>  {
-              return <ProjectWidget id={item.id} key={key}></ProjectWidget>
+              return <ProjectWidget id={item.project_id} key={key}></ProjectWidget>
             })}
           </Suspense>
           
