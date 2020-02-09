@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from file_management import BadRequestException, UnAuthorizedException, \
+from hyip import BadRequestException, UnAuthorizedException, \
     ForbiddenException, NotFoundException
 
 from hyip.extensions.custom_exception import  *

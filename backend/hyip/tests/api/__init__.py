@@ -23,3 +23,10 @@ class APITestCase(unittest.TestCase):
 
         res = self.client.post(url, data=data, content_type=content_type).get_json()
         return res
+
+    def delete(self, url, data):
+        content_type = 'application/json'
+        data = json.dumps(data)
+
+        res = self.client.delete(url, data=data, content_type=content_type).get_json()
+        return res

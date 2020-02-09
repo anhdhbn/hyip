@@ -32,7 +32,7 @@ def init_app(app, **kwargs):
     from .process import ns as process_ns
     from .status import ns as status_ns
     from .domain import ns as domain_ns
-
+    from .tracking import ns as tracking_ns
     
     api.add_namespace(crawldata_ns)
     api.add_namespace(process_ns)
@@ -40,6 +40,7 @@ def init_app(app, **kwargs):
     api.add_namespace(project_ns)
     api.add_namespace(user_ns)
     api.add_namespace(status_ns)
+    api.add_namespace(tracking_ns)
 
     app.register_blueprint(api_bp)
 

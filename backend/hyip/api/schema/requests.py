@@ -104,3 +104,8 @@ update_selector_project = api.model('project.update_selector_project', {
     'plans': fields.String(required=False),
     'easy_crawl': fields.Boolean(required=False),
 })
+
+update_projects_tracked_by_user = api.model('tracking.update_projects_tracked_by_user', {
+    'project_id': fields.String(required=True),
+    'user_id': fields.String(required=True),
+})

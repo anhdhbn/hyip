@@ -13,7 +13,7 @@ from flask_restplus import Resource, reqparse, fields
 __author__ = 'AnhDH'
 _logger = logging.getLogger(__name__)
 
-ns = Namespace('crawldata', description='Project operations')
+ns = Namespace('crawldata', description='Crawldata operations')
 
 _crawl_data_res = ns.model('crawl_data_res', responses.crawl_data_res)
 _post_datacrawled_req = ns.model('post_datacrawled_req', requests.post_datacrawled_req)

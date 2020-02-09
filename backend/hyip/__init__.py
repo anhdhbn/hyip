@@ -9,7 +9,7 @@ from sentry_sdk.integrations.flask import FlaskIntegration
 from hyip.extensions.exceptions import NotFoundException, \
     UnAuthorizedException, BadRequestException, ForbiddenException
 from hyip.extensions.custom_exception import  UserExistsException, DomainExistsException
-from file_management.extensions.sentry import before_send
+from hyip.extensions.sentry import before_send
 
 __author__ = 'AnhDH'
 _logger = logging.getLogger(__name__)

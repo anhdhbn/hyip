@@ -12,7 +12,7 @@ __author__ = 'AnhDH'
 _logger = logging.getLogger(__name__)
 
 
-ns = Namespace('domain', description='Status operations')
+ns = Namespace('domain', description='Domain operations')
 
 _exists_domain = ns.model("exists-doamin", responses.exist_domain_res)
 

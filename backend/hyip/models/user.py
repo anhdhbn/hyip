@@ -13,6 +13,7 @@ class User(db.Model, TimestampMixin):
         for k, v in kwargs.items():
             setattr(self, k, v)
 
+    
     username = db.Column(db.String(20), nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
     fullname = db.Column(db.String(100), nullable=False)

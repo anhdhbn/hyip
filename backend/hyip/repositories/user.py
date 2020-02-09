@@ -12,6 +12,7 @@ _logger = logging.getLogger(__name__)
 def save_user_to_database(**kwargs):
     user = models.User(**kwargs)
     models.db.session.add(user)
+    models.db.session.commit()
     return user
 
 

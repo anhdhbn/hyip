@@ -5,11 +5,12 @@ from hyip.api import api
 from hyip import models
 
 user_res = {
+    'id': fields.String(),
     'email': fields.String(description='user email address'),
     'username': fields.String(description='user username'),
     'fullname': fields.String(description='fullname of user'),
     'is_admin': fields.Boolean(description='user is admin or not'),
-    'updated_at': fields.DateTime()
+    'updated_at': fields.DateTime(),
 }
 
 register_res = {
@@ -110,4 +111,9 @@ details_project = api.model("details_project", {
     'domain': fields.Nested(domain_fields),
     'ip': fields.Nested(ip_fields),
     'script': fields.Nested(script_fields),
+})
+
+
+projects_tracked_by_user = api.model("tracking.projects_tracked_by_user", {
+    'project_id': fields.String(),
 })
