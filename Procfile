@@ -1,0 +1,1 @@
+backend: cd ./backend/ && gunicorn --worker-class gevent wsgi:app --log-level info
