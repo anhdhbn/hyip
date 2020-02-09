@@ -60,7 +60,7 @@ def create_app():
 
     # setup jwt extended
     # app.config['JWT_SECRET_KEY'] = os.getenv("SECRET_KEY", "MY_SECRET_KEY")
-    # app.config['JWT_TOKEN_LOCATION'] = ['cookies']
+    app.config['JWT_TOKEN_LOCATION'] = ['cookies']
     # How long an access token should live before it expires. Set by minutes (int)
     # app.config['JWT_ACCESS_TOKEN_EXPIRES'] = int(os.getenv('TOKEN_UPTIME', 24)) * 60
     # app.config['JWT_REFRESH_COOKIE_PATH'] = '/token/refresh'

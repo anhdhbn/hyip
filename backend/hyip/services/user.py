@@ -47,8 +47,6 @@ def check_username_and_password(username, password):
         user = repo.user.find_one_by_username(username)
         if (not user):
             raise UserNotFoundException()
-        if (not user.is_active):
-            services.user.handle_in_active(user)
         if not verify_password(user.password, password):
             services.wrong_password.handle_wrong_password(user)
         return user

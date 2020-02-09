@@ -85,19 +85,19 @@ ssl = api.model('ssl_sub', {
     'domains_of_this_ip': fields.String(required=True),
 })
 
-create_project_by_crawler_req = api.model('create_project_by_crawler_req', {
+create_project_by_crawler_req = api.model('project.create_project_by_crawler_req', {
     'project': fields.Nested(project, allow_null=False),
     'domain': fields.Nested(domain, allow_null=False),
     'ip': fields.Nested(ip, allow_null=False),
     'ssl': fields.Nested(ssl, allow_null=False),
 })
 
-update_status_project = api.model('update_status_project', {
+update_status_project = api.model('project.update_status_project', {
     'project_id': fields.String(required=True),
     'status_project': fields.Integer(required=True),
 })
 
-update_selector_project = api.model('update_selector_project', {
+update_selector_project = api.model('project.update_selector_project', {
     'investment_selector': fields.String(required=False),
     'paid_out_selector': fields.String(required=False),
     'member_selector': fields.String(required=False),
