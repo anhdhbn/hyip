@@ -9,6 +9,7 @@ from sentry_sdk.integrations.flask import FlaskIntegration
 from hyip.extensions.exceptions import NotFoundException, \
     UnAuthorizedException, BadRequestException, ForbiddenException
 from hyip.extensions.custom_exception import  UserExistsException, DomainExistsException
+from file_management.extensions.sentry import before_send
 
 __author__ = 'AnhDH'
 _logger = logging.getLogger(__name__)
@@ -55,6 +56,7 @@ def create_app():
             integrations=[FlaskIntegration()],
             environment=os.getenv('APP_ENV'),
             in_app_exclude=['app.extensions.exceptions'],
+            before_send=before_send
         )
     
 
