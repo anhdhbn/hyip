@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 
 import projectServices from '../../../../services/projects'
 
-import SearchDomain from '../../../Base/SearchDomain'
+import SearchDomain from '../../../Components/SearchDomain'
 
 class RemoveProject extends Component {
   constructor(props) {

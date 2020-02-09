@@ -41,12 +41,12 @@ class DefaultHeader extends Component {
 
         <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
-            <NavLink to="/dashboard" className="nav-link">
+            <NavLink to="/admin/dashboard" className="nav-link">
               Dashboard
             </NavLink>
           </NavItem>
           <NavItem className="px-3">
-            <NavLink to="/project-manager" className="nav-link">
+            <NavLink to="/admin/project-manager" className="nav-link">
               Project manager
             </NavLink>
           </NavItem>

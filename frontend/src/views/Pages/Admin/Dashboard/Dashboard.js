@@ -5,7 +5,7 @@ import {
 import { BatteryLoading } from 'react-loadingg';
 import projectService from '../../../../services/projects'
 
-const ProjectWidget = lazy(() => import('../../../Widgets/ProjectWidget'));
+const ProjectWidget = lazy(() => import('../../../Components/Widgets/ProjectWidget'));
 
 
 class Dashboard extends Component {

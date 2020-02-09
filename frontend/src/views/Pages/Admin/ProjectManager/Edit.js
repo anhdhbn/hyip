@@ -11,7 +11,7 @@ import Form from "react-bootstrap/Form";
 import { toast } from 'react-toastify';
 import { AppSwitch } from '@coreui/react'
 
-import SearchDomain from '../../../Base/SearchDomain'
+import SearchDomain from '../../../Components/SearchDomain'
 import projectService from "../../../../services/projects"
 
 class EditProject extends Component {

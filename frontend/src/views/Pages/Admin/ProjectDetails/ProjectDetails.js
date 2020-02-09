@@ -12,7 +12,7 @@ import { BatteryLoading } from 'react-loadingg';
 import Project from "./Project"
 import Chart from "./Chart"
 
-const SearchDomain = lazy(() => import('../../../Base/SearchDomain'));
+const SearchDomain = lazy(() => import('../../../Components/SearchDomain'));
 
 class ProjectDetails extends Component {
   constructor(props) {

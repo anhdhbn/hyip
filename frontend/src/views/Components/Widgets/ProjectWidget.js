@@ -13,8 +13,8 @@ import {
 } from "reactstrap";
 import { Line } from 'react-chartjs-2';
 import { parse } from 'url';
-import dataWarehouse from "../../utils/DataWarehouse"
-import projectServices from '../../services/projects'
+import dataWarehouse from "../../../utils/DataWarehouse"
+import projectServices from '../../../services/projects'
 
 const propTypes = {
   id: PropTypes.string,
