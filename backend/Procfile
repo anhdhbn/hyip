@@ -1,1 +1,1 @@
-backend: gunicorn --worker-class gevent wsgi:app --log-level info
+backend: pip uninstall Werkzeug && pip install Werkzeug && gunicorn --worker-class gevent wsgi:app --log-level info
