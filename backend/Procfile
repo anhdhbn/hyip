@@ -1,1 +1,1 @@
-web: flask db upgrade heads && gunicorn --worker-class gevent --workers 8 wsgi:app --log-level info
+web: flask db upgrade heads && gunicorn --worker-class gevent --workers 12 wsgi:app --log-level info
