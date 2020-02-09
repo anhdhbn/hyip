@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Redirect } from 'react-router';
 // import { renderRoutes } from 'react-router-config';
 import { BatteryLoading } from 'react-loadingg'
 import './App.scss';
@@ -18,9 +19,10 @@ class App extends Component {
 
   render() {
     return (
-      <HashRouter>
+      <BrowserRouter>
           <React.Suspense fallback={<BatteryLoading />}>
             <Switch>
+              <Route exact path="/" render={() => (<Redirect to="/login"/>)}/>
               <Route exact path="/login" name="Login Page" render={props => <Login {...props}/>} />
               <Route exact path="/register" name="Register Page" render={props => <Register {...props}/>} />
               <Route exact path="/404" name="Page 404" render={props => <Page404 {...props}/>} />
@@ -29,7 +31,7 @@ class App extends Component {
             </Switch>
             <ToastContainer/>
           </React.Suspense>
-      </HashRouter>
+      </BrowserRouter>
     );
   }
 }
