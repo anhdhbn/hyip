@@ -1,1 +1,1 @@
-web: flask run --port $PORT
+web: flask db upgrade heads && gunicorn --worker-class gevent  wsgi:app --log-level info
