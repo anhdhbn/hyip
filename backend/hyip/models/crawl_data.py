@@ -19,13 +19,3 @@ class CrawlData(TimestampMixin, db.Model):
     alexa_rank =  db.Column(db.Integer(), nullable=False, default=0)
 
     created_date = db.Column(db.Date(), default=func.current_date(), nullable=False)
-    # def to_dict(self):
-    #     return {
-    #         'id': self.id,
-    #         'project_id': self.project_id,
-    #         'tracking_day': self.tracking_day,
-    #         'total_investment': self.fullname,
-    #         'total_paid_out': self.total_paid_out,
-    #         'total_member': self.total_member,
-    #         'alexa_rank': self.alexa_rank,
-    #     }
