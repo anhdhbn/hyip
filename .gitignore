@@ -132,3 +132,4 @@ dmypy.json
 chromedriver
 celerybeat*
 migrations/
+node_modules/
