@@ -72,7 +72,7 @@ class Project extends Component{
 
         if(ip.domains_of_this_ip){
           ip.length = ip.domains_of_this_ip.split(",").length
-          ip.is_green = (ip.length == 1) && !ip.domains_of_this_ip.includes("API count exceeded")
+          ip.is_green = (ip.length === 1) && !ip.domains_of_this_ip.includes("API count exceeded")
         }
 
         if (ssl.from_date && ssl.to_date){

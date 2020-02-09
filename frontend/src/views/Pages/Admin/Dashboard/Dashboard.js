@@ -1,6 +1,5 @@
 import React, { Component, lazy, Suspense } from 'react'
 import {
-  Col,
   Row,
 } from 'reactstrap';
 import { BatteryLoading } from 'react-loadingg';

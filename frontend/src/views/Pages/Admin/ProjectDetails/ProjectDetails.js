@@ -1,10 +1,6 @@
 import React, { Component, lazy, Suspense } from 'react';
-import { Bar, Line } from 'react-chartjs-2';
 import {
   CardBody,
-  CardFooter,
-  CardHeader,
-  CardTitle,
   Col,
   Row,
 } from 'reactstrap';
@@ -12,9 +8,11 @@ import {
 import Form from "react-bootstrap/Form";
 import { BatteryLoading } from 'react-loadingg';
 
-import SearchDomain from '../../../Base/SearchDomain'
+
 import Project from "./Project"
 import Chart from "./Chart"
+
+const SearchDomain = lazy(() => import('../../../Base/SearchDomain'));
 
 class ProjectDetails extends Component {
   constructor(props) {

@@ -4,12 +4,9 @@ import { parse } from 'url';
 import {
   Card,
   CardBody,
-  CardFooter,
   CardHeader,
-  CardTitle,
   Col,
   Button,
-  Row,
 } from 'reactstrap';
 
 import { AppSwitch } from '@coreui/react'
@@ -68,7 +65,7 @@ class Project extends Component{
 
       let url = parse(res.data.url);
       this.setState({domain: url.hostname})
-      if (url.hostname != null) {
+      if (url.hostname !== undefined) {
         celeryServices.checkEasy({url: res.data.url}).then(checkData => {
           this.setState({...checkData.data})
         })
@@ -134,7 +131,7 @@ class Project extends Component{
           <CardHeader><a target="_blank" rel="noopener noreferrer" href={this.state.url}>{this.state.url}</a></CardHeader>
           <CardBody>
             <Col xs="12">
-              <Form.Group controlId="form_investment_selector_update">
+              <Form.Group controlId={`form_investment_selector_update_${this.props.index}`}>
                 <Form.Label>Investment selector</Form.Label>
                 <Form.Control
                   type="text"
@@ -146,7 +143,7 @@ class Project extends Component{
             </Col>
   
             <Col xs="12">
-              <Form.Group controlId="form_paid_out_selector_update">
+              <Form.Group controlId={`form_paid_out_selector_update_${this.props.index}`}>
                 <Form.Label>Paid out selector</Form.Label>
                 <Form.Control
                   type="text"
@@ -159,7 +156,7 @@ class Project extends Component{
             </Col>
   
             <Col xs="12">
-              <Form.Group controlId="form_member_selector_update">
+              <Form.Group controlId={`form_member_selector_update_${this.props.index}`}>
                 <Form.Label>Member selector</Form.Label>
                 <Form.Control
                   type="text"
@@ -172,7 +169,7 @@ class Project extends Component{
             </Col>
   
             <Col xs="12">
-              <Form.Group controlId="form_plans_update">
+              <Form.Group controlId={`form_plans_update_${this.props.index}`}>
                 <Form.Label>Plans</Form.Label>
                 <Form.Control
                   type="text"
@@ -183,7 +180,7 @@ class Project extends Component{
             </Col>
   
             <Col>
-              <Form.Group controlId="form_easy_update">
+              <Form.Group controlId={`form_easy_update_${this.props.index}`}>
                 <Form.Label>Is easy</Form.Label>
                 <br/>
                 <AppSwitch 

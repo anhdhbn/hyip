@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  CardTitle,
   Col,
   Row,
 } from 'reactstrap';
@@ -50,7 +45,7 @@ class VerifyProjects extends Component{
 
   funcRemoveItem(id){
     let pos = this.state.projects.map(item => item.id).indexOf(id);
-    if (pos != -1){
+    if (pos !== -1){
       this.state.projects.splice(pos, 1)
       this.setState({subProjects: this.state.projects.slice(0, this.state.numTake)});
     }
@@ -61,7 +56,7 @@ class VerifyProjects extends Component{
       <Row>
         {this.state.subProjects.map((project, index) =>
           <Col xs={12} sm={12} md={12} lg={6} xl={4} key={index}>
-            <Project id={project.id} funcRemoveItem={this.funcRemoveItem}/>
+            <Project id={project.id} index={index} funcRemoveItem={this.funcRemoveItem}/>
           </Col>
         )}
       </Row>

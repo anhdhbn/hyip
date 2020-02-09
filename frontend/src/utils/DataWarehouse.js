@@ -142,7 +142,6 @@ export default {
   createDataForChart,
   calcProfit,
   getProfitData,
-  getProfitData,
   createSingleData,
   getGrowthRateData,
   preprocessFetchData
