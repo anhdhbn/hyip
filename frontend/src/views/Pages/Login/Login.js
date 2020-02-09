@@ -1,8 +1,32 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-
+import userService from "../../../services/users"
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.login = this.login.bind(this)
+    this.state = {
+      username: '',
+      password: ''
+    };
+  }
+
+  login(){
+    userService.submitLoginRequest(this.state).then(res => {
+      let data = res.data
+      localStorage.id = data.id;
+      localStorage.fullname = data.fullname;
+      localStorage.username = data.username;
+      localStorage.email = data.email;
+      if (data.is_admin === true) {
+        this.props.history.push('/admin/dashboard');
+      } else {
+        this.props.history.push('/404');
+      }
+    })
+  }
+
   render() {
     return (
       <div className="app flex-row align-items-center">
@@ -21,7 +45,9 @@ class Login extends Component {
                             <i className="icon-user"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="text" placeholder="Username" autoComplete="username" />
+                        <Input type="text" placeholder="Username" autoComplete="username" 
+                        value={this.state.username}
+                        onChange={e=> this.setState({username: e.target.value})}/>
                       </InputGroup>
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
@@ -29,11 +55,13 @@ class Login extends Component {
                             <i className="icon-lock"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="password" placeholder="Password" autoComplete="current-password" />
+                        <Input type="password" placeholder="Password" autoComplete="current-password"
+                        value={this.state.password} 
+                        onChange={e=> this.setState({password: e.target.value})}/>
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          <Button color="primary" className="px-4">Login</Button>
+                          <Button color="primary" className="px-4" onClick={this.login}>Login</Button>
                         </Col>
                         <Col xs="6" className="text-right">
                           <Button color="link" className="px-0">Forgot password?</Button>
@@ -46,8 +74,8 @@ class Login extends Component {
                   <CardBody className="text-center">
                     <div>
                       <h2>Sign up</h2>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.</p>
+                      {/* <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua.</p> */}
                       <Link to="/register">
                         <Button color="primary" className="mt-3" active tabIndex={-1}>Register Now!</Button>
                       </Link>

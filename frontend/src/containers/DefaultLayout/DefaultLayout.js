@@ -20,6 +20,7 @@ import navigation from '../../_nav';
 // routes config
 import routes from '../../routes';
 import { BatteryLoading } from 'react-loadingg'
+import userServices from "../../services/users"
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
@@ -29,7 +30,10 @@ class DefaultLayout extends Component {
 
   signOut(e) {
     e.preventDefault()
-    this.props.history.push('/login')
+    userServices.submitLogoutRequest().then(data => {
+      localStorage.clear();
+      this.props.history.push('/login');
+    });
   }
 
   render() {
