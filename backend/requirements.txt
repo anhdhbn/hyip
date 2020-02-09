@@ -20,3 +20,4 @@ requests
 celery
 pymongo
 gunicorn[gevent]
+Werkzeug==0.16.0
