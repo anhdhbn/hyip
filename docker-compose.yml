@@ -1,0 +1,78 @@
+version: '3.7'
+services:
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - ./backend/.env
+    ports:
+      - "5000:5000"
+    depends_on: 
+      - mysql
+    # restart: always
+    # volumes:
+    #   - ./backend:/app
+  redis:
+    image: "redis:alpine"
+    restart: always
+    env_file:
+      - ./celery/.env
+    command: 'redis-server --requirepass ${REDIS_PASSWORD}'
+    ports:
+      - '${REDIS_PORT}:6379'
+
+  mysql:
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password --max_allowed_packet=32505856
+    # restart: always
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - ./volumes/mysql:/var/lib/mysql
+    ports:
+      - '${MYSQL_FORWARD_PORT}:3306'
+
+  worker:
+    build: 
+      context: ./celery
+      dockerfile: Dockerfile
+    # restart: always
+    env_file:
+      - ./celery/.env
+    command: './wait-for-it.sh redis:6379 -t 0 -- celery -A jobqueue.tasks worker -E -l=INFO'
+    depends_on: 
+      - redis
+
+  worker-beat:
+    build:
+      context: ./celery
+      dockerfile: Dockerfile
+    # restart: always
+    env_file:
+      - ./celery/.env
+    command: './wait-for-it.sh redis:6379 -t 0 -- celery -A jobqueue.tasks beat -l=INFO'
+    depends_on: 
+      - redis
+  hub:
+    image: selenium/hub
+    restart: always
+    ports:
+      - 4444:4444
+
+  chrome:
+    image: selenium/node-chrome-debug
+    restart: always
+    ports:
+      - 5555:5900
+    environment:
+      HUB_HOST: hub
+      HUB_PORT: 4444
+    depends_on: 
+      - hub
+    entrypoint: bash -c 'SE_OPTS="-host $$HOSTNAME" /opt/bin/entry_point.sh'
