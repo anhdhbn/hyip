@@ -1,1 +1,1 @@
-backend: flask db init && flask run
+backend: flask db init && gunicorn --worker-class gevent wsgi:app --log-level info
