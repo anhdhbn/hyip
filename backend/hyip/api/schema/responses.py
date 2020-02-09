@@ -97,7 +97,7 @@ ip_fields = api.model('ip_fields', {
 })
 
 script_fields = api.model('script_fields', {
-    'script_type': fields.String(enum=models.script.LicensedType._member_names_),
+    'script_type': fields.String(),
 })
 
 details_project = api.model("details_project", {
