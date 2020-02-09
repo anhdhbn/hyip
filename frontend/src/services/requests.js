@@ -2,7 +2,7 @@
 // @flow
 import axios from 'axios';
 
-export const BASE_API_URL = `http://14.188.197.152:5000/api/`;
+export const BASE_API_URL = `${process.env.BACKEND_URL_API || 'http://14.188.197.152:5000/api/'}`;
 
 const customAxios = axios.create({
   baseURL: BASE_API_URL,
