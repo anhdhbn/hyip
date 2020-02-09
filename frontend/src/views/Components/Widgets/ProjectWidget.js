@@ -15,6 +15,8 @@ import { Line } from 'react-chartjs-2';
 import { parse } from 'url';
 import dataWarehouse from "../../../utils/DataWarehouse"
 import projectServices from '../../../services/projects'
+import trackingService from "../../../services/tracking"
+import { toast } from 'react-toastify';
 
 const propTypes = {
   id: PropTypes.string,
@@ -28,6 +30,7 @@ class ProjectWidget extends Component {
   constructor(props){
     super(props);
     this.fetchData = this.fetchData.bind(this)
+    this.removeTracking = this.removeTracking.bind(this)
     this.state = {
       crawldata: {},
       drawData: {
@@ -38,7 +41,8 @@ class ProjectWidget extends Component {
         alexa_rank: [],
       },
       dataProject: {},
-      days: "all"
+      days: "all",
+      tracked: true
     }
   }
 
@@ -74,8 +78,17 @@ class ProjectWidget extends Component {
     }
   }
 
+  removeTracking(){
+    let user_id = localStorage.user_id
+    let project_id = this.props.id
+    trackingService.deleteProjectTracked({user_id, project_id}).then(res => {
+      toast.success(`${this.state.dataProject.domain} was removed tracked` )
+      this.setState({tracked: false})
+    })
+  }
+
   render() {
-    if (this.state.crawldata.length > 1) {
+    if (this.state.crawldata.length > 1 && this.state.tracked) {
       return (
         <Col xs={12} sm={12} md={12} lg={12} xl={6} >
           <Card>
@@ -88,6 +101,9 @@ class ProjectWidget extends Component {
                 <Col sm="7" className="d-none d-sm-inline-block">
                   <ButtonToolbar className="float-right" aria-label="Toolbar with button groups">
                     <ButtonGroup className="mr-3" aria-label="First group">
+                      <Button 
+                      color="danger"
+                      onClick={this.removeTracking}>Remove tracking</Button>
                       <Button color="outline-secondary" onClick={() => this.fetchData(this.props.id, '7')} active={this.state.days === '7'}>Week</Button>
                       <Button color="outline-secondary" onClick={() => this.fetchData(this.props.id, '30')} active={this.state.days === '30'}>Month</Button>
                       <Button color="outline-secondary" onClick={() => this.fetchData(this.props.id, 'all')} active={this.state.days === 'all'}>All</Button>

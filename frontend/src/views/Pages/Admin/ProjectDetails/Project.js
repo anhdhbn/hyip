@@ -116,11 +116,13 @@ class Project extends Component{
     let project_id = this.props.id
     if(this.state.tracked === false){
       trackingService.postProjectTracked({user_id, project_id}).then(res => {
-        toast.success(`${this.state.domain.address} was tracked` )
+        toast.success(`${this.state.domain.name} was tracked` )
+        this.setState({tracked: true})
       })
     } else {
       trackingService.deleteProjectTracked({user_id, project_id}).then(res => {
-        toast.success(`${this.state.domain.address} was removed tracked` )
+        toast.success(`${this.state.domain.name} was removed tracked` )
+        this.setState({tracked: false})
       })
     }
   }
@@ -137,8 +139,8 @@ class Project extends Component{
                 <ButtonToolbar className="float-right" aria-label="Toolbar with button groups">
                   <ButtonGroup className="mr-3" aria-label="First group">
                     <Button 
-                      color={this.state.tracked ? "success" : "danger"} 
-                      onClick={this.trackThisProject}>{this.state.tracked ? "Track this project" : "Remove tracking"}</Button>
+                      color={this.state.tracked ? "danger" :  "success"} 
+                      onClick={this.trackThisProject}>{this.state.tracked ? "Remove tracking"  : "Track this project"}</Button>
                   </ButtonGroup>
                 </ButtonToolbar>
               </Col>
