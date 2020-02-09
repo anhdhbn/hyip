@@ -1,4 +1,0 @@
-
-# Here is another way to define context specific environment variables.
-[context.deploy-preview.environment]
-  BACKEND_URL_API = "http://14.188.197.152:5000/api/"
