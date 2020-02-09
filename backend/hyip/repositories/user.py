@@ -48,3 +48,9 @@ def find_one_by_email_or_username_ignore_case(email, username):
     ).first()  # type: m.User
 
     return user or None
+
+def check_exists_user(user_id):
+    user = models.User.query.filter(
+       models.User.id == user_id,
+    ).first()
+    return user or None

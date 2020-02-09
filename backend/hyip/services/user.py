@@ -70,3 +70,6 @@ def logout():
     resp = jsonify({'logout': True})
     unset_jwt_cookies(resp)
     return resp
+
+def check_exists_user(user_id):
+    return repo.user.check_exists_user(user_id)

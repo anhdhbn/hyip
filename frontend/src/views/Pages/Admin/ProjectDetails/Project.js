@@ -59,7 +59,8 @@ class Project extends Component{
       domain: {},
       ssl: {},
       ip: {},
-      easy_crawl: false
+      easy_crawl: false,
+      tracked: false
     }
   }
 
@@ -92,6 +93,12 @@ class Project extends Component{
         this.setState({domain, ip, ssl})
       }
     })
+
+    let user_id = localStorage.user_id
+    let project_id = this.props.id
+    trackingService.postCheckTracked({user_id, project_id}).then(res =>{
+      this.setState({tracked: res.data.tracked})
+    })
   }
 
   componentDidMount(){
@@ -107,9 +114,15 @@ class Project extends Component{
   trackThisProject(){
     let user_id = localStorage.user_id
     let project_id = this.props.id
-    trackingService.postProjectTracked({user_id, project_id}).then(res => {
-      toast.success(`${this.state.domain.address} was tracked` )
-    })
+    if(this.state.tracked === false){
+      trackingService.postProjectTracked({user_id, project_id}).then(res => {
+        toast.success(`${this.state.domain.address} was tracked` )
+      })
+    } else {
+      trackingService.deleteProjectTracked({user_id, project_id}).then(res => {
+        toast.success(`${this.state.domain.address} was removed tracked` )
+      })
+    }
   }
 
   render(){
@@ -123,7 +136,9 @@ class Project extends Component{
               <Col sm="7" className="d-none d-sm-inline-block">
                 <ButtonToolbar className="float-right" aria-label="Toolbar with button groups">
                   <ButtonGroup className="mr-3" aria-label="First group">
-                    <Button color="success" onClick={this.trackThisProject}>Track this project</Button>
+                    <Button 
+                      color={this.state.tracked ? "success" : "danger"} 
+                      onClick={this.trackThisProject}>{this.state.tracked ? "Track this project" : "Remove tracking"}</Button>
                   </ButtonGroup>
                 </ButtonToolbar>
               </Col>

@@ -26,7 +26,13 @@ class RegisterBeforeException(HTTPException):
 class DomainExistsException(HTTPException):
     def __init__(self, message='Domain was exists', errors=None):
         super().__init__(code=400, message=message, errors=errors, custom_code='domain_was_exists')
-
+class TrackingExistsException(HTTPException):
+    def __init__(self, message='Tracking was exists', errors=None):
+        super().__init__(code=400, message=message, errors=errors, custom_code='tracking_was_exists')
 class ProjectNotFoundException(HTTPException):
     def __init__(self, message='Project not found', errors=None):
         super().__init__(code=400, message=message, errors=errors, custom_code='project_not_found')
+
+class UserNotFoundException(HTTPException):
+    def __init__(self, message='User not found', errors=None):
+        super().__init__(code=400, message=message, errors=errors, custom_code='user_not_found')

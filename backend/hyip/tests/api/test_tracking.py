@@ -75,4 +75,12 @@ class CrawlDataApiTestCase(APITestCase):
         result = self.delete('/api/tracking' ,data=data)
         self.assertEqual(len(result['data']), 0)
 
-        
+    def test_check_exists_tracked(self):
+        data = {
+            'user_id': self.user_id,
+            'project_id': self.project_id
+        }
+        result = self.post('/api/tracking', data=data)
+        self.assertEqual(len(result['data']), 1)
+        result = self.post('/api/tracking/check', data=data)
+        self.assertEqual(result['data']['tracked'], True)

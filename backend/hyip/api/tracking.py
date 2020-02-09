@@ -21,6 +21,14 @@ class GetTrackingProject(flask_restplus.Resource):
     def get(self, user_id):
         return services.tracking.get_project_tracked_by_user(user_id)
 
+@ns.route('/check', methods=['POST'])
+class CheckTracking(flask_restplus.Resource):
+    @ns.expect(requests.update_projects_tracked_by_user, validate=True)
+    @ns.marshal_with(responses.check_projects_tracked)
+    def post(self):
+        data = request.args or request.json
+        return services.tracking.check_exists_tracked(**data)
+
 @ns.route('', methods=['POST', 'DELETE'])
 class UpdateTrackingProject(flask_restplus.Resource):
     @ns.expect(requests.update_projects_tracked_by_user, validate=True)

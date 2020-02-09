@@ -27,3 +27,10 @@ def delete_project_tracked_by_user(project_id, user_id):
         models.db.session.delete(tracking)
         models.db.session.commit()
     return get_project_tracked_by_user(user_id)
+
+def check_exists_tracked(project_id, user_id):
+    tracking = models.TrackingProject.query.filter(
+        models.TrackingProject.user_id == user_id,
+        models.TrackingProject.project_id == project_id,
+    ).first()
+    return tracking is not None

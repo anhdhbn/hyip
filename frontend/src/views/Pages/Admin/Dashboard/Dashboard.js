@@ -3,7 +3,6 @@ import {
   Row,
 } from 'reactstrap';
 import { BatteryLoading } from 'react-loadingg';
-import projectService from '../../../../services/projects'
 import trackingServices from '../../../../services/tracking'
 import { toast } from 'react-toastify';
 const ProjectWidget = lazy(() => import('../../../Components/Widgets/ProjectWidget'));

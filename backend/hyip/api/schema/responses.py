@@ -117,3 +117,7 @@ details_project = api.model("details_project", {
 projects_tracked_by_user = api.model("tracking.projects_tracked_by_user", {
     'project_id': fields.String(),
 })
+
+check_projects_tracked = api.model("tracking.check_projects_tracked", {
+    'tracked': fields.Boolean(),
+})
