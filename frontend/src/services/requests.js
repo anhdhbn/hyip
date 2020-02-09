@@ -2,9 +2,7 @@
 // @flow
 import axios from 'axios';
 
-export const BASE_API_URL = `${process.env.BACKEND_URL_API || 'http://14.188.197.152:5000/api/'}`;
-
-console.log(process.env.BACKEND_URL_API)
+export const BASE_API_URL: string = `${'https://hyip-anhdh.herokuapp.com/api/' || 'localhost:3000'}`;
 
 const customAxios = axios.create({
   baseURL: BASE_API_URL,
