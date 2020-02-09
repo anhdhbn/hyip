@@ -50,17 +50,17 @@ class CrawlDataApiTestCase(APITestCase):
 
         self.id = projects[0].id
         services.crawldata.create_crawldata(self.id, **{
-            'total_investment' : 213321,
-            'total_paid_out': 2313213,
-            'total_member': 31,
+            'total_investments' : 213321,
+            'total_paid_outs': 2313213,
+            'total_members': 31,
             'alexa_rank': 30
         })
 
     def test_get_data_crawled(self):
         data = {
-            'total_investment' : 213321,
-            'total_paid_out': 2313213,
-            'total_member': 31,
+            'total_investments' : 213321,
+            'total_paid_outs': 2313213,
+            'total_members': 31,
             'alexa_rank': 30
         }
         result = self.post('/api/crawldata/' + self.id, data=data)
@@ -76,9 +76,9 @@ class CrawlDataApiTestCase(APITestCase):
 
     def test_post_data_crawled(self):
         data = {
-            'total_investment' : 213321,
-            'total_paid_out': 2313213,
-            'total_member': 31,
+            'total_investments' : 213321,
+            'total_paid_outs': 2313213,
+            'total_members': 31,
             'alexa_rank': 30
         }
         result = self.post('/api/crawldata/' + self.id, data=data)
