@@ -19,19 +19,19 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
+      <HashRouter>
           <React.Suspense fallback={<BatteryLoading />}>
             <Switch>
               <Route exact path="/" render={() => (<Redirect to="/login"/>)}/>
               <Route exact path="/login" name="Login Page" render={props => <Login {...props}/>} />
               <Route exact path="/register" name="Register Page" render={props => <Register {...props}/>} />
-              <Route exact path="/404" name="Page 404" render={props => <Page404 {...props}/>} />
               <Route exact path="/500" name="Page 500" render={props => <Page500 {...props}/>} />
               <Route path="/admin" name="Home" render={props => <DefaultLayout {...props}/>} />
+              <Route path='*' exact={true} name="Page 404" render={props => <Page404 {...props}/>} />
             </Switch>
             <ToastContainer/>
           </React.Suspense>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }
