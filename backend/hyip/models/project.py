@@ -26,6 +26,7 @@ class Project(db.Model, TimestampMixin):
     easy_crawl = db.Column(db.Boolean(), nullable=False, default=False)
     create_date = db.Column(db.Date(), default=func.current_date(), nullable=False)
     is_verified = db.Column(db.Boolean(), default=False, nullable=False)
+    crawlable = db.Column(db.Boolean(), default=False, nullable=False)
 
     # ssl =  db.relationship("SSL", uselist=False, back_populates="project", cascade="all, delete")
     ssl =  db.relationship("SSL", uselist=False, cascade="all, delete-orphan")

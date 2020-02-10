@@ -35,7 +35,8 @@ project_crawler_res = {
     'created_at': fields.Date(),
     'start_date': fields.Date(),
     'plans': fields.String(),
-    'easy_crawl': fields.Boolean(required=False),
+    'easy_crawl': fields.Boolean(),
+    'crawlable': fields.Boolean(),
 }
 
 check_selector_res  = {

@@ -125,6 +125,18 @@ class EditProject extends Component {
               onChange={e => this.setState({postData : {...this.state.postData, easy_crawl: e.target.value}})}
               />
           </Form.Group>
+
+          <Form.Group controlId="form_crawlable_update">
+            <Form.Label>Crawlable</Form.Label>
+            <br/>
+            <AppSwitch 
+              className={'mx-1'} 
+              variant={'3d'} 
+              color={'primary'} 
+              checked={this.state.postData.crawlable || false}
+              onChange={e => this.setState({postData : {...this.state.postData, crawlable: e.target.value}})}
+              />
+          </Form.Group>
         </Col>
         
         <Row>

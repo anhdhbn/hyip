@@ -56,6 +56,7 @@ def get_diff_projects_info():
     return models.Project.query.filter(
         models.Project.is_verified == True,
         models.Project.easy_crawl == False,
+        models.Project.crawlable == True,
         models.Project.id.notin_(ids),
     ).all()
 
@@ -96,5 +97,6 @@ def update_selector(id_project, **kwargs):
     project.member_selector = kwargs.get('member_selector') or project.member_selector
     project.easy_crawl = kwargs.get('easy_crawl') or project.easy_crawl
     project.plans = kwargs.get('plans') or project.plans
+    project.crawlable = kwargs.get('crawlable') or project.crawlable
     models.db.session.commit()
     return project

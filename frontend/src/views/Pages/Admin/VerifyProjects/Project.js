@@ -192,6 +192,20 @@ class Project extends Component{
                   />
               </Form.Group>
             </Col>
+
+            <Col>
+              <Form.Group controlId={`form_crawlable_update_${this.props.index}`}>
+                <Form.Label>Crawlable</Form.Label>
+                <br/>
+                <AppSwitch 
+                  className={'mx-1'} 
+                  variant={'3d'} 
+                  color={'primary'} 
+                  checked={this.state.crawlable || false}
+                  onChange={e => this.setState({crawlable: e.target.value})}
+                  />
+              </Form.Group>
+            </Col>
             
             <CardBody className="text-center">
               <Button color="warning" active tabIndex={-1} onClick={this.handleUpdate} className="mr-3" >Update</Button>

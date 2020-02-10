@@ -102,6 +102,7 @@ update_selector_project = api.model('project.update_selector_project', {
     'member_selector': fields.String(required=False),
     'plans': fields.String(required=False),
     'easy_crawl': fields.Boolean(required=False),
+    'crawlable': fields.Boolean(required=False),
 })
 
 update_projects_tracked_by_user = api.model('tracking.update_projects_tracked_by_user', {

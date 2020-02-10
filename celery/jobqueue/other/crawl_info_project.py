@@ -46,7 +46,7 @@ def get_hosting_info_from_domain(url):
     res = session.post("https://hostingchecker.com/wp-admin/admin-ajax.php", data=payload)
     hosting = re.findall("is hosted on <strong>(.*?)<", res.text)
     if  len(hosting) == 0:
-        return get_hosting_info_from_domain(url)
+        return ""
     else:
         return hosting[0]
 
@@ -99,8 +99,10 @@ class CrawlInfoProject:
         self.ssl = get_ssl_info_from_domain(self.project.url)
         self.project.hosting = get_hosting_info_from_domain(self.project.url)
         
-
+        self.project.crawlable = False
         self.project.easy_crawl = check_easy_crawl(self.project.url)
+        if self.project.easy_crawl:
+            self.project.crawlable = True
 
         self.script['source_page'] = get_source(self.project.url)
 
