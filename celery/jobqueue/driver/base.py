@@ -61,7 +61,7 @@ class Driver(ChromeDriver):
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
     def safe_get_element_by_css_selector_filter(self, selector, num_type=float):
-        wait = WebDriverWait(self.driver, 10, poll_frequency=1, ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
+        wait = WebDriverWait(self.driver, 30, poll_frequency=1, ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
         result = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, selector)))
 
         if result is None: return None
