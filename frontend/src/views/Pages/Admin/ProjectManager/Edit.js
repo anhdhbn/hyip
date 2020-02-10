@@ -122,7 +122,7 @@ class EditProject extends Component {
               variant={'3d'} 
               color={'primary'} 
               checked={this.state.postData.easy_crawl || false}
-              onChange={e => this.setState({postData : {...this.state.postData, easy_crawl: e.target.value}})}
+              onChange={e => this.setState({postData : {...this.state.postData, easy_crawl: !this.state.postData.easy_crawl}})}
               />
           </Form.Group>
 
@@ -134,7 +134,7 @@ class EditProject extends Component {
               variant={'3d'} 
               color={'primary'} 
               checked={this.state.postData.crawlable || false}
-              onChange={e => this.setState({postData : {...this.state.postData, crawlable: e.target.value}})}
+              onChange={e => this.setState({postData : {...this.state.postData, crawlable: !this.state.postData.crawlable}})}
               />
           </Form.Group>
         </Col>
