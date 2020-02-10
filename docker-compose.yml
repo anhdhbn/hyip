@@ -82,7 +82,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     environment: 
-      - BASE_API_URL: 'http://backend/api/'
+      - BASE_API_URL: http://backend/api/
     ports:
       - 3000:3000
     restart: always
