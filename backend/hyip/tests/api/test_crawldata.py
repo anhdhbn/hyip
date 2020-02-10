@@ -46,7 +46,7 @@ class CrawlDataApiTestCase(APITestCase):
             }
         })
 
-        projects = services.project.get_all_project_info()
+        projects = services.project.get_all_projects_info()
 
         self.id = projects[0].id
         services.crawldata.create_crawldata(self.id, **{

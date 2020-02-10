@@ -57,14 +57,17 @@ def get_project_info_by_id(idProject):
     else:
         raise ProjectNotFoundException()
 
-def get_all_project_info():
-    return repo.project.get_all_project()
+def get_all_projects_info():
+    return repo.project.get_all_projects()
 
-def get_easy_project_info():
-    return repo.project.get_easy_project_info()
+def get_easy_projects_info():
+    return repo.project.get_easy_projects_info()
 
-def get_not_scam_project_info():
-    return repo.project.get_not_scam_project_info()
+def get_diff_projects_info():
+    return repo.project.get_diff_projects_info()
+
+def get_not_scam_projects_info():
+    return repo.project.get_not_scam_projects_info()
 
 def verify_project(id_project):
     if repo.project.check_exists_project_id(id_project):

@@ -55,11 +55,13 @@ class GetAllProjectInfo(flask_restplus.Resource):
     def get(self):
         type_get = request.args.get("type").lower()
         if type_get == "all":
-            return services.project.get_all_project_info()
+            return services.project.get_all_projects_info()
         elif type_get == "easy":
-            return services.project.get_easy_project_info()
+            return services.project.get_easy_projects_info()
+        elif type_get == "diff":
+            return services.project.get_diff_projects_info()
         elif type_get == "notscam":
-            return services.project.get_not_scam_project_info()
+            return services.project.get_not_scam_projects_info()
         elif type_get == "verified":
             return services.project.get_verified_projects()
         elif type_get == "unverified":

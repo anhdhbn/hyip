@@ -25,5 +25,7 @@ class CheckStatusProject:
         return True
 
     def update_scam_project(self):
-        del self.domain
-        r = requests.post(app_info.url.post_status, json=self.__dict__)
+        r = requests.get(app_info.url.post_status(self.project_id))
+        if(r.json()['data'][status_project] != 3):
+            del self.domain
+            r = requests.post(app_info.url.post_status, json=self.__dict__)

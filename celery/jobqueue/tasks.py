@@ -13,6 +13,14 @@ def crawl_easy_project_every_day():
         crawl_easy_project.delay(**item)
     return len(result['data'])
 
+@app.task(name='jobqueue.tasks.crawl_diff_project_every_day')
+def crawl_diff_project_every_day():
+    result = requests.get(app_info.url.get_diff_project)
+    result = result.json()
+    for item in result['data']:
+        crawl_diff_project.delay(**item)
+    return len(result['data'])
+
 @app.task(name='jobqueue.tasks.check_scam_all')
 def check_scam_all():
     result = requests.get(app_info.url.get_not_scam_project).json()
@@ -54,6 +62,7 @@ def check_scam(project):
     from jobqueue.check_scam import CheckStatusProject
     temp = CheckStatusProject()
     result = temp.check(project)
+    temp.update_scam_project()
     return "{} scam is {}".format(project['url'], result)
 
 @app.task(name="jobqueue.tasks.check_selector")

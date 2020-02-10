@@ -46,7 +46,7 @@ class CrawlDataApiTestCase(APITestCase):
             }
         })
 
-        projects = services.project.get_all_project_info()
+        projects = services.project.get_all_projects_info()
 
     def test_get_check_exists(self):
         result = self.get('/api/domain/check-exists/google.com')
