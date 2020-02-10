@@ -17,18 +17,21 @@ CELERY_RESULT_SERIALIZER = 'json'
 
 CELERY_RESULT_BACKEND = app_info.redis.redis_url
 CELERYBEAT_SCHEDULE = {
-  'auto-crawl-data-every-day': {
-    'task': 'jobqueue.tasks.crawl_easy_project_every_day',
+  'auto-crawl-project-every-day': {
+    'task': 'jobqueue.tasks.crawl_project',
     'schedule': crontab(minute=0, hour=0),
   },
   'auto-check-scam-every-day': {
     'task': 'jobqueue.tasks.check_scam_all',
     # 'schedule': crontab(minute='*'),
-    'schedule': crontab(minute=0, hour=0),
+    'schedule': crontab(minute=2, hour=0),
   },
-  'auto-crawl-project-every-day': {
-    'task': 'jobqueue.tasks.crawl_project',
-    # 'schedule': crontab(minute='*'),
-    'schedule': crontab(minute=0, hour=0),
+  'crawl-easy-project-every-day': {
+    'task': 'jobqueue.tasks.crawl_easy_project_every_day',
+    'schedule': crontab(minute=3, hour=0),
+  },
+  'crawl-diff-project-every-day': {
+    'task': 'jobqueue.tasks.crawl_diff_project_every_day',
+    'schedule': crontab(minute=4, hour=0),
   },
 }
