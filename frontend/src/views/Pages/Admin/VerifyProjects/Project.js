@@ -188,7 +188,7 @@ class Project extends Component{
                   variant={'3d'} 
                   color={'primary'} 
                   checked={this.state.easy_crawl || false}
-                  onChange={e => this.setState({easy_crawl: e.target.value})}
+                  onChange={e => this.setState({easy_crawl: this.state.easy_crawl})}
                   />
               </Form.Group>
             </Col>
@@ -202,7 +202,7 @@ class Project extends Component{
                   variant={'3d'} 
                   color={'primary'} 
                   checked={this.state.crawlable || false}
-                  onChange={e => this.setState({crawlable: e.target.value})}
+                  onChange={e => this.setState({crawlable: this.state.crawlable})}
                   />
               </Form.Group>
             </Col>
