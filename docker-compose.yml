@@ -42,7 +42,7 @@ services:
     build: 
       context: ./celery
       dockerfile: Dockerfile
-    # restart: always
+    restart: always
     env_file:
       - ./celery/.env
     command: './wait-for-it.sh redis:6379 -t 0 -- celery -A jobqueue.tasks worker -E -l=INFO'
@@ -53,7 +53,7 @@ services:
     build:
       context: ./celery
       dockerfile: Dockerfile
-    # restart: always
+    restart: always
     env_file:
       - ./celery/.env
     command: './wait-for-it.sh redis:6379 -t 0 -- celery -A jobqueue.tasks beat -l=INFO'
