@@ -59,13 +59,14 @@ class Driver(ChromeDriver):
             return s[:i] + s[i+1:]
     
         def clear_text(s):
-            start = s.index('.')
-            while True:
-                try:
-                    index = s.index('.', start + 1)
-                    s = remove_at(index, s)
-                except:
-                    break
+            if '.' in s:
+                start = s.index('.')
+                while True:
+                    try:
+                        index = s.index('.', start + 1)
+                        s = remove_at(index, s)
+                    except:
+                        break
             return s
         return clear_text(re.sub("[^0-9\.]", "", data))
 
