@@ -55,7 +55,19 @@ class Driver(ChromeDriver):
         return int(result)
     
     def preprocess_data(self, data):
-        return re.sub("[^0-9\.]", "", data)
+        def remove_at(i, s):
+        return s[:i] + s[i+1:]
+    
+        def clear_text(s):
+            start = s.index('.')
+            while True:
+                try:
+                    index = s.index('.', start + 1)
+                    s = remove_at(index, s)
+                except:
+                    break
+            return s
+        return clear_text(re.sub("[^0-9\.]", "", data))
 
     def scroll(self):
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
