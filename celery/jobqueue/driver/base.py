@@ -66,4 +66,4 @@ class Driver(ChromeDriver):
 
         if result is None: return None
         txt = self.preprocess_data(result.text)
-        return num_type(txt)
+        return num_type(float(txt))
