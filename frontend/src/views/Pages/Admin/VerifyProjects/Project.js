@@ -212,7 +212,8 @@ class Project extends Component{
             <CardBody className="text-center">
               <Button color="warning" active tabIndex={-1} onClick={this.handleUpdate} className="mr-3" >Update</Button>
               <Button color="success" active tabIndex={-1} onClick={this.handleVerify} className="mr-3">Verify</Button>
-              <Button color="primary" active tabIndex={-1} onClick={this.checkSelenium}>Check selenium</Button>
+              <Button color="primary" active tabIndex={-1} onClick={this.checkSelenium} className="mr-3">Check selenium</Button>
+              <Button color="danger" active tabIndex={-1} onClick={e=> this.props.funcRemoveItem(this.props.id)}>Skip</Button>
             </CardBody>
           </CardBody>
         </Card>
