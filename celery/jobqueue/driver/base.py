@@ -56,7 +56,7 @@ class Driver(ChromeDriver):
     
     def preprocess_data(self, data):
         def remove_at(i, s):
-        return s[:i] + s[i+1:]
+            return s[:i] + s[i+1:]
     
         def clear_text(s):
             start = s.index('.')
