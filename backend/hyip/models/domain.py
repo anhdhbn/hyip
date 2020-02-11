@@ -14,6 +14,6 @@ class Domain(db.Model, TimestampMixin):
     # project = db.relationship("Project", back_populates="domain", cascade="all, delete")
 
     name = db.Column(db.String(64), nullable=False)
-    registrar = db.Column(db.String(64), nullable=True)
+    registrar = db.Column(db.String(256), nullable=True)
     from_date = db.Column(db.Date(), nullable=True)
     to_date = db.Column(db.Date(), nullable=True)
