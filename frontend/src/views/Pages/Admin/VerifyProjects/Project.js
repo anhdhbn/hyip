@@ -103,9 +103,11 @@ class Project extends Component{
       member_selector: this.state.member_selector,
     }
     celeryServices.checkSelenium(params).then(res => {
-      this.setState({...res.data})
       if (!res.success) {
         toast.error(`${this.state.domain} check selenium failed`)
+      } else {
+        this.setState({...res.data})
+        toast.success(`${this.state.domain} check selenium successful`)
       }
     })
   }

@@ -1,6 +1,7 @@
 
 // @flow
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 // export const BASE_API_URL = `${ 'http://backend/api/' || 'https://hyip-anhdh.herokuapp.com/api/'}`;
 export const BASE_API_URL = 'http://s0.anhdh.tk:5000/api/';
@@ -17,7 +18,7 @@ customAxios.interceptors.response.use(
       const { data } = error.response;
       const serverMessage = data.message;
       const customCode = data.custom_code;
-      console.log(serverMessage, customCode)
+      toast.error(serverMessage, customCode)
     }
     return Promise.reject(error);
   },
