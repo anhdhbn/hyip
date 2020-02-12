@@ -95,8 +95,8 @@ services:
     restart: always
     env_file:
       - ./celery/.env
-    command: './wait-for-it.sh redis:6379 -t 0 -- celery flower -A jobqueue.tasks --address=0.0.0.0 --port=6666'
+    command: './wait-for-it.sh redis:6379 -t 0 -- celery flower -A jobqueue.tasks --address=0.0.0.0 --port=5656'
     ports:
-      - 6666:6666
+      - 5656:5656
     depends_on: 
       - redis
