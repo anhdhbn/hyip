@@ -52,8 +52,9 @@ def crawl_easy_project(**kwargs):
 @app.task(name="jobqueue.tasks.crawl_diff_project")
 def crawl_diff_project(**kwargs):
     from jobqueue.diff import DiffProject
-    from jobqueue.driver import Wrapper
-    temp = Wrapper(DiffProject(**kwargs))
+    # from jobqueue.driver import Wrapper
+    # temp = Wrapper(DiffProject(**kwargs))
+    temp = DiffProject(**kwargs)
     return temp.crawl()
 
 
