@@ -49,7 +49,7 @@ class ChromeDriver(Selenium):
         
         try:
             self.driver = webdriver.Remote(command_executor=app_info.hub.url, desired_capabilities=self.get_options().to_capabilities())
-        except:
+        except Exception as e:
             self.quit()
             raise(e)
         # try:
