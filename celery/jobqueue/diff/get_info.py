@@ -18,10 +18,13 @@ class DiffProject(Driver):
 
     def get_only_info_project(self):
         investment, paid_out, member = self.get_info_project()
-        self.quit()
+        # self.quit()
         return {
             'total_investments': investment,
             'total_paid_outs': paid_out,
             'total_members': member,
         }
+    
+    def __del__(self):
+        self.quit()
             

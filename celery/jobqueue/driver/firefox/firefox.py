@@ -23,14 +23,9 @@ class FirefoxDriver(Selenium):
                 script=fileHandle.read()
             return script
         injectedJavascript = readJSFile(os.path.join(app_info.path, "driver", "bypass.js"))      
-        
-        try:
-            self.driver = webdriver.Remote(desired_capabilities=self.get_options().to_capabilities())
-            # print(help(self.driver))
-            # self.driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
-            #     "source": injectedJavascript
-            # })
-            # self.driver.implicitly_wait(10)
-        except Exception as e:
-            self.quit()
-            raise(e)
+        self.driver = webdriver.Remote(desired_capabilities=self.get_options().to_capabilities())
+        # print(help(self.driver))
+        # self.driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+        #     "source": injectedJavascript
+        # })
+        # self.driver.implicitly_wait(10)

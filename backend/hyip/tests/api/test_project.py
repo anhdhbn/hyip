@@ -83,6 +83,7 @@ class CrawlDataApiTestCase(APITestCase):
         result = self.get('/api/project?type=all')
         self.assertEqual(result['success'], True)
         self.assertEqual(len(result['data']), 2)
+        
 
     def test_post_create_project(self):
         data = {
