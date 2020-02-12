@@ -87,3 +87,16 @@ services:
       - 3000:3000
     restart: always
     command: 'npm run start'
+
+  flower:
+    build: 
+      context: ./celery
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - ./celery/.env
+    command: './wait-for-it.sh redis:6379 -t 0 -- celery flower -A jobqueue.tasks --address=127.0.0.1 --port=6666'
+    ports:
+      - 6666:6666
+    depends_on: 
+      - redis

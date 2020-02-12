@@ -11,3 +11,4 @@ lxml
 cloudscraper
 pymongo
 pyOpenSSL
+flower
