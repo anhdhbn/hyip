@@ -24,14 +24,14 @@ CELERYBEAT_SCHEDULE = {
   'auto-check-scam-every-day': {
     'task': 'jobqueue.tasks.check_scam_all',
     # 'schedule': crontab(minute='*'),
-    'schedule': crontab(minute=2, hour=0),
+    'schedule': crontab(minute=0, hour=2),
   },
   'crawl-easy-project-every-day': {
     'task': 'jobqueue.tasks.crawl_easy_project_every_day',
-    'schedule': crontab(minute=3, hour=0),
+    'schedule': crontab(minute=0, hour=3),
   },
   'crawl-diff-project-every-day': {
     'task': 'jobqueue.tasks.crawl_diff_project_every_day',
-    'schedule': crontab(minute=4, hour=0),
+    'schedule': crontab(minute=0, hour=4),
   },
 }
