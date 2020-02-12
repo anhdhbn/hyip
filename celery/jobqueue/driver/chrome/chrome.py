@@ -47,8 +47,11 @@ class ChromeDriver(Selenium):
             return script
         injectedJavascript = readJSFile(os.path.join(app_info.path, "driver", "bypass.js"))      
         
-        self.driver = webdriver.Remote(command_executor=app_info.hub.url, desired_capabilities=self.get_options().to_capabilities())
-
+        try:
+            self.driver = webdriver.Remote(command_executor=app_info.hub.url, desired_capabilities=self.get_options().to_capabilities())
+        except:
+            self.quit()
+            raise(e)
         # try:
             
         #     # print(help(self.driver))

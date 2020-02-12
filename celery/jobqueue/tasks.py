@@ -52,9 +52,8 @@ def crawl_easy_project(**kwargs):
 @app.task(name="jobqueue.tasks.crawl_diff_project")
 def crawl_diff_project(**kwargs):
     from jobqueue.diff import DiffProject
-    # from jobqueue.driver import Wrapper
-    # temp = Wrapper(DiffProject(**kwargs))
-    temp = DiffProject(**kwargs)
+    from jobqueue.driver import Wrapper
+    temp = Wrapper(DiffProject(**kwargs))
     return temp.crawl()
 
 
@@ -81,7 +80,6 @@ def check_easy(**kwargs):
 @app.task(name="jobqueue.tasks.check_diff")
 def check_diff(**kwargs):
     from jobqueue.diff import DiffProject
-    # from jobqueue.driver import Wrapper
-    # temp = Wrapper(DiffProject(**kwargs))
-    temp = DiffProject(**kwargs)
+    from jobqueue.driver import Wrapper
+    temp = Wrapper(DiffProject(**kwargs))
     return temp.get_only_info_project()
