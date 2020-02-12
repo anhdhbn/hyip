@@ -3,11 +3,12 @@ import logging
 import flask_restplus
 from flask import request
 
-from hyip.celery import cele
 from hyip.extensions import Namespace
 from celery.result import AsyncResult
 from flask_restplus import Resource, reqparse, fields
 from . import responses, requests
+import celery
+from hyip.celery import cele
 
 __author__ = 'AnhDH'
 _logger = logging.getLogger(__name__)
@@ -33,7 +34,6 @@ class CheckSelectorInfo(flask_restplus.Resource):
     @ns.expect(_check_selector_parser, validate=True)
     @ns.marshal_with(_check_selector_res)
     def get(self):
-        import celery
         result = cele.send_task("jobqueue.tasks.check_selector", kwargs=request.args)
         result = AsyncResult(id=result.id, app=cele)
         return result.get()
@@ -46,7 +46,6 @@ class CheckEasyInfo(flask_restplus.Resource):
     @ns.expect(_check_easy_parser, validate=True)
     @ns.marshal_with(_check_selector_res)
     def get(self):
-        import celery
         result = cele.send_task("jobqueue.tasks.check_easy", kwargs=request.args)
         result = AsyncResult(id=result.id, app=cele)
         return result.get()
@@ -56,7 +55,6 @@ class Test(flask_restplus.Resource):
     @ns.expect(_check_selector_parser, validate=True)
     @ns.marshal_with(_check_selector_res)
     def get(self):
-        import celery
         result = cele.send_task("jobqueue.tasks.check_diff", kwargs=request.args)
         result = AsyncResult(id=result.id, app=cele)
         return result.get()
