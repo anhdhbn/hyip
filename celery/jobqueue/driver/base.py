@@ -48,12 +48,14 @@ class Driver(ChromeDriver):
 
     # @handle_exceptions
     def get_alexa_rank(self):
-        parsed_uri = urlparse(self.url)
-        domain = parsed_uri.netloc
-        txt = requests.get("http://data.alexa.com/data?cli=10&dat=s&url="+ domain).text
-        result = BeautifulSoup(txt, "xml").find("REACH")['RANK']
-        return int(result)
-    
+        try:
+            parsed_uri = urlparse(self.url)
+            domain = parsed_uri.netloc
+            txt = requests.get("http://data.alexa.com/data?cli=10&dat=s&url="+ domain).text
+            result = BeautifulSoup(txt, "xml").find("REACH")['RANK']
+            return int(result)
+        except:
+            return self.get_alexa_rank()
     def preprocess_data(self, data):
         def remove_at(i, s):
             return s[:i] + s[i+1:]

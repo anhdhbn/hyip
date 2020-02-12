@@ -13,6 +13,7 @@ class Wrapper:
                     return prop(*args, **kwargs)
                 except Exception as e:
                     self.obj.quit()
+                    print(self.obj.url)
                     raise(e)
 
             return unraisable
