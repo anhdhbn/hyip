@@ -41,7 +41,10 @@ class EasyProject:
         parsed_uri = urlparse(self.url)
         domain = parsed_uri.netloc
         txt = requests.get("http://data.alexa.com/data?cli=10&dat=s&url="+ domain).text
-        return BeautifulSoup(txt, "xml").find("REACH")['RANK']
+        if "REACH" in txt:
+            result = BeautifulSoup(txt, "xml").find("REACH")['RANK']
+            return int(result)
+        return -1
 
     def get_only_info_project(self):
         total_investments, total_paid_outs, total_members = self.get_info_project()
