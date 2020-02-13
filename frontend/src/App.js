@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HashRouter, Route, Switch, BrowserRouter } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import { Redirect } from 'react-router';
 // import { renderRoutes } from 'react-router-config';
 import { BatteryLoading } from 'react-loadingg'

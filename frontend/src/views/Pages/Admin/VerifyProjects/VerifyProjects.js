@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 import {
   Col,
@@ -7,17 +6,10 @@ import {
 } from 'reactstrap';
 
 import { toast } from 'react-toastify';
+
 import projectService from "../../../../services/projects"
+import Project from "../../../Components/Project"
 
-import Project from "./Project"
-
-const propTypes = {
-  id: PropTypes.string,
-};
-
-const defaultProps = {
-  id: null,
-};
 
 class VerifyProjects extends Component{
   constructor(props){
@@ -32,14 +24,13 @@ class VerifyProjects extends Component{
 
   componentDidMount(){
     projectService.fetchUnVerifiedProjects().then(res => {
-      if(res.success){
-        this.setState({projects: res.data}, ()=> {
-          this.setState({subProjects: this.state.projects.slice(0, this.state.numTake)})
-        })
-        toast.success(`Fetched ${res.data.length} projects`)
-      }else {
-        toast.error(`Fetched errors`)
-      }
+      this.setState({projects: res.data}, ()=> {
+        this.setState({subProjects: this.state.projects.slice(0, this.state.numTake)})
+      })
+      toast.success(`Fetched ${res.data.length} projects`)
+    })
+    .catch((reason) => {
+      toast.error(`Fetched errors`)
     })
   }
 
@@ -56,16 +47,12 @@ class VerifyProjects extends Component{
       <Row>
         {this.state.subProjects.map((project, index) =>
           <Col xs={12} sm={12} md={12} lg={6} xl={4} key={index}>
-            <Project id={project.id} index={index} funcRemoveItem={this.funcRemoveItem}/>
+            <Project id={project.id} index={index} funcRemoveItem={this.funcRemoveItem} skip/>
           </Col>
         )}
       </Row>
     )
   }
 }
-
-
-VerifyProjects.propTypes = propTypes;
-VerifyProjects.defaultProps = defaultProps;
 
 export default VerifyProjects;

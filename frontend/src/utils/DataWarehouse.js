@@ -75,14 +75,23 @@ const calcProfit = (total_investments, total_paid_outs) => {
 }
 
 const getProfitData = (total_investments, total_paid_outs, labels) => {
-  let profit = calcProfit(total_investments, total_paid_outs)
+  let datasets = []
+  if (total_investments[0] !== -1){
+    datasets.push(createDataForChart('Total investment', total_investments, brandPrimary))
+  }
+
+  if (total_paid_outs[0] !== -1){
+    datasets.push(createDataForChart('Total paid out', total_paid_outs, brandWarning))
+  }
+
+  if (total_investments[0] !== -1 && total_paid_outs[0] !== -1){
+    let profit = calcProfit(total_investments, total_paid_outs)
+    datasets.push(createDataForChart('Profit', profit, brandSuccess))
+  }
+  
   return {
     labels: labels,
-    datasets: [
-      createDataForChart('Total investment', total_investments, brandPrimary),
-      createDataForChart('Total paid out', total_paid_outs, brandWarning),
-      createDataForChart('Profit', profit, brandSuccess),
-    ]
+    datasets: datasets
   }
 }
 
