@@ -3,7 +3,7 @@ import React from "react";
 const Dashboard = React.lazy(() => import("./views/Pages/Admin/Dashboard/Dashboard"));
 const ProjectManager = React.lazy(() => import("./views/Pages/Admin/ProjectManager/ProjectManager"));
 const ProjectDetails = React.lazy(() => import("./views/Pages/Admin/ProjectDetails/ProjectDetails"));
-const VerifyProjects = React.lazy(() => import("./views/Pages/Admin/VerifyProjects/VerifyProjects"));
+const VerifyProjects = React.lazy(() => import("./views/Pages/Admin/VerifyProjects"));
 
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config

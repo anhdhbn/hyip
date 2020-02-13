@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 
 import {
-  Button,
   CardBody,
   Col,
   Row,
 } from "reactstrap";
 
 import Form from "react-bootstrap/Form";
-import { toast } from 'react-toastify';
-import { AppSwitch } from '@coreui/react'
 
 import SearchDomain from '../../../Components/SearchDomain'
-import projectService from "../../../../services/projects"
 import Project from "../../../Components/Project"
 class EditProject extends Component {
   constructor(props) {
