@@ -100,3 +100,11 @@ services:
       - 5656:5656
     depends_on: 
       - redis
+
+  test:
+    build: 
+      context: ./chrome
+      dockerfile: Dockerfile
+    environment:
+      HUB_HOST: hub
+      HUB_PORT: 4444
