@@ -71,9 +71,18 @@ class Driver(ChromeDriver):
                         break
             return s
         return clear_text(re.sub("[^0-9\.]", "", data))
-
+    
     def scroll(self):
-        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        import time
+        height = int(self.driver.execute_script("return window.innerHeight"))
+        max_height = int(self.driver.execute_script("return document.body.scrollHeight"))
+        current_scroll_position = 0
+        while current_scroll_position <= max_height:
+            current_scroll_position += height
+            time.sleep(1)
+            self.driver.execute_script("window.scrollTo(0, {});".format(current_scroll_position))
+            
+        # self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
     def safe_get_element_by_css_selector_filter(self, selector, num_type=float):
         wait = WebDriverWait(self.driver, 30, poll_frequency=1, ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])

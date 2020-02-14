@@ -69,16 +69,20 @@ class Project extends Component{
   handleUpdate(){
     projectService.updateSelectorProject(this.props.id, this.state).then(res => {
       toast.success(`${this.state.domain} was updated`)
-      this.props.funcRemoveItem(this.props.id)
+      if (this.props.funcRemoveItem){
+        this.props.funcRemoveItem(this.props.id, this.props.index)
+      }
     }).catch((reason)=>{
-      toast.error(`${this.state.domain} have not updated`)
+      toast.error(`${this.state.domain} have not updated ${reason}`)
     })
   }
 
   handleVerify(){
     projectService.makeProjectVerified(this.props.id, {}).then(res => {
       toast.success(`${this.state.domain} was verified`)
-      this.props.funcRemoveItem(this.props.id)
+      if (this.props.funcRemoveItem){
+        this.props.funcRemoveItem(this.props.id, this.props.index)
+      }
     }).catch((reason)=>{
       toast.error(`${this.state.domain} have not verified`)
     })
@@ -200,7 +204,7 @@ class Project extends Component{
               <Button color="warning" active tabIndex={-1} onClick={this.handleUpdate} className="mr-3" >Update</Button>
               <Button color="success" active tabIndex={-1} onClick={this.handleVerify} className="mr-3">Verify</Button>
               <Button color="primary" active tabIndex={-1} onClick={this.checkSelenium} className="mr-3">Check selenium</Button>
-              {this.props.skip ? (<Button color="danger" active tabIndex={-1} onClick={e=> this.props.funcRemoveItem(this.props.id)}>Skip</Button>): null}
+              {this.props.skip ? (<Button color="danger" active tabIndex={-1} onClick={e=> this.props.funcRemoveItem(this.props.id, this.props.index)}>Skip</Button>): null}
             </CardBody>
           </CardBody>
         </Card>

@@ -34,12 +34,18 @@ class VerifyProjects extends Component{
     })
   }
 
-  funcRemoveItem(id){
+  funcRemoveItem(id, index){
+    let {projects, subProjects} = this.state
     let pos = this.state.projects.map(item => item.id).indexOf(id);
     if (pos !== -1){
-      this.state.projects.splice(pos, 1)
-      this.setState({subProjects: this.state.projects.slice(0, this.state.numTake)});
+      
+      projects.splice(pos, 1)
     }
+    let project = projects.pop()
+    this.setState({projects})
+
+    subProjects[index] = project
+    this.setState({subProjects})
   }
 
   render(){
