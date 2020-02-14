@@ -79,7 +79,7 @@ class Project extends Component{
     projectService.makeProjectVerified(this.props.id, {}).then(res => {
       toast.success(`${this.state.domain} was verified`)
       this.props.funcRemoveItem(this.props.id)
-    }).then((reason)=>{
+    }).catch((reason)=>{
       toast.error(`${this.state.domain} have not verified`)
     })
   }
