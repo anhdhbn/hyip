@@ -12,7 +12,7 @@ import requests
 def read_file(filename):
     with open(filename) as f:
         content = f.readlines()
-    return [x.strip() for x in content]
+    return [x.strip().lower() for x in content]
 
 investment = read_file(os.path.join(app_info.path, "easy", "investment.txt"))
 paid_out = read_file(os.path.join(app_info.path, "easy", "withdrawal.txt"))
