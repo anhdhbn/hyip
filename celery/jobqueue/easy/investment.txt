@@ -5,3 +5,4 @@ total invested
 total investment
 total investments:
 Invested
+Platform turnover
