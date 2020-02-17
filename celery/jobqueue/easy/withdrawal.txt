@@ -1,18 +1,19 @@
-earned users
-funds paid:
-paid
-paidout
-payout
-profit paid to investors
-revenue paid
-total paid out
-total paidout
+всего выплачено
+выведено руб
+заработано участниками
+выплачено всего
+выведено
+заработано
+выплачено
+выплат
+выплаты
 total payments
-total payouts
 total withdraw
-total withdraw ($)
-total withdraw:
+total withdrawal
 total withdrawals
-total withdrawn
-total withdraws:
-withdrawals
+payments to investors
+total payed
+total payouts
+paid out
+payout
+paid

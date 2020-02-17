@@ -1,19 +1,29 @@
-accounts
-active accounts
-active accounts:
-active investors
-active partners:
-customers
-investors
-registered
-registered users
+всего инвесторов
+инвесторов
+пользователей
+зарегистрировано
+участники проекта
+всего участников
+участников
+участники
+игроков
+чел
 total account
 total accounts
-total accounts:
 total clients
-total investors
 total members
-total participants
+total investor
+total investors
+registered accounts
+total registered
 total users
+total players
+total member
+global customer
+active accounts
+active partners
+investors
+customers
+members
 users
-vip accounts
+partners

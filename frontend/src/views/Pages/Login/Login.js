@@ -6,17 +6,14 @@ import { toast } from 'react-toastify';
 class Login extends Component {
   constructor(props) {
     super(props);
+    if(localStorage.user_id !== undefined){
+      this.props.history.push('/admin/dashboard');
+    }
     this.login = this.login.bind(this)
     this.state = {
       username: '',
       password: ''
     };
-  }
-
-  componentWillMount(){
-    if(localStorage.user_id !== undefined){
-      this.props.history.push('/admin/dashboard');
-    }
   }
 
   login(){

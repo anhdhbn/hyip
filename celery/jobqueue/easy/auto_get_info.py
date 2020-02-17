@@ -64,18 +64,56 @@ class EasyProject:
         visible_texts = filter(self._tag_visible, texts)
 
         visible_texts = [item for item in visible_texts if item is not None]
-        visible_texts = [item for item in visible_texts if len(item) <= 25 and len(item) >= 4]
+        visible_texts = [item for item in visible_texts if self.check_condition(item)]
+
+        ricker_arr = []
+        for item in visible_texts:
+            ricker_arr += self.ricker(item)
+        ricker_arr = [item for item in ricker_arr if item is not None]
+        visible_texts += ricker_arr
+        
         total_investments = self._check_in_list(visible_texts, investment)
         total_paid_outs = self._check_in_list(visible_texts, paid_out)
         total_members = self._check_in_list(visible_texts, member, int)
         if abs(total_investments - total_paid_outs) <= 0.0001:
             total_investments = -1
             total_paid_outs = -1
-        elif total_investments/total_paid_outs > 10000:
+        elif total_paid_outs!= 0 and total_investments/total_paid_outs > 10000:
             total_investments = -1
             total_paid_outs = -1
         return total_investments, total_paid_outs, total_members
 
+    def preprocess_data(self, data):
+        data = data.split("+")[0]
+        def remove_at(i, s):
+            return s[:i] + s[i+1:]
+    
+        def clear_text(s):
+            if '.' in s:
+                start = s.index('.')
+                while True:
+                    try:
+                        index = s.index('.', start + 1)
+                        s = remove_at(index, s)
+                    except:
+                        break
+            return s
+        return clear_text(re.sub("[^0-9\.]", "", data))
+
+    def check_condition(self, txt):
+        check = txt
+        if isinstance(txt, Tag):
+            check = txt.text
+        check = check.strip().replace("\n", "").replace("\t", "").replace("  ", "").strip()
+        return len(check) <= 25 and (len(check) >= 4 or self._check_num(check, float) is not None)
+
+    def ricker(self, element, lv=1):
+        if lv >= 3:
+            return []
+        if element.parent is not None:
+            if self.check_condition(element.parent):
+                return [element.parent] + self.ricker(element.parent, lv=lv+1)
+        return []
 
     def _tag_visible(self, element):
         if element.parent.name in ['style', 'script', 'head', 'title', 'meta', '[document]']:
@@ -86,8 +124,8 @@ class EasyProject:
 
     def _check_num(self, s, type):
         try:
-            return type(s)
-        except ValueError:
+            return type(float(s))
+        except:
             pass
 
     def _get_parent_up_lever(self, children, num):
@@ -95,12 +133,25 @@ class EasyProject:
         for i in range(num):
             current = current.parent
         return current.children
-    
-    def _check_in_list(self, items, lst, type=float):
+
+    def check_in_list(self, items, lst):
         result = []
         for item in items:
-            if any(word in item.lower() for word in lst):
-                result.append(item)
+            check = item
+            if isinstance(item, Tag):
+                check = item.text
+            
+            for idx, word in enumerate(lst):
+                if word.lower() in check.lower() or word.lower().replace(" ", "") in check.lower():
+                    result.append((idx, item))
+                    break
+
+        result = sorted(result, key=lambda kv: kv[0])
+        result = [item[1] for item in result]
+        return result    
+    
+    def _check_in_list(self, items, lst, type=float):
+        result = self.check_in_list(items, lst)
 
         for item in result:
             for i in range(3):
@@ -108,9 +159,8 @@ class EasyProject:
                     check = children
                     if isinstance(children, Tag):
                         check = children.text
-                    
-                    if len(check) <= 25 and len(check) >= 4:
-                        txt = re.sub("[^0-9\.]", "", check)
+                    if self.check_condition(check):
+                        txt = self.preprocess_data(check)
                         temp = self._check_num(txt, type)
                         if temp is not None:
                             return temp

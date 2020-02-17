@@ -1,8 +1,27 @@
-total deposited
-total deposited:
-total deposits
-total invested
+в казне денег
+инвестированно
+всего депозитов
+всего инвестировано
+сумма инвестиций
+сумма пополнений
+резерв проекта
+всего пополнений
+инвестировано
+депозиты
+Пополнено (все сезоны)
+депозитов
+пополнено
+пополнений
+резерв
+total accepted funds
 total investment
-total investments:
-invested
+total invested
+total deposited
+total deposits
+total deposit
 platform turnover
+total accepted
+deposited
+invested
+deposits
+funds

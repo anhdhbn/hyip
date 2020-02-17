@@ -11,16 +11,15 @@ const ProjectWidget = lazy(() => import('../../../Components/Widgets/ProjectWidg
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      projects: []
-    };
-  }
 
-  componentWillMount(){
     let user_id = localStorage.user_id
     if (user_id === undefined){
       this.props.history.push('/login');
     }
+    
+    this.state = {
+      projects: []
+    };
   }
 
   componentDidMount(){
