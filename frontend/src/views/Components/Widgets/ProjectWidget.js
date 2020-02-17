@@ -40,6 +40,14 @@ class ProjectWidget extends Component {
         total_members: [],
         alexa_rank: [],
       },
+      normalize: {
+        labels: [],
+        total_investments: [],
+        total_paid_outs: [],
+        total_members: [],
+        alexa_rank: [],
+      },
+      normalizeData: false,
       dataProject: {},
       days: "all",
       tracked: true
@@ -62,7 +70,7 @@ class ProjectWidget extends Component {
   fetchData(id, days='all') {
     this.setState({days: days})
     dataWarehouse.preprocessFetchData(id, this.state.days).then(res=>{
-      this.setState({drawData: res.drawData, crawldata: res.data})
+      this.setState({drawData: res.drawData, crawldata: res.data, normalize: res.normalize})
     })
   }
 
@@ -101,6 +109,10 @@ class ProjectWidget extends Component {
                 <Col sm="7" className="d-none d-sm-inline-block">
                   <ButtonToolbar className="float-right" aria-label="Toolbar with button groups">
                     <ButtonGroup className="mr-3" aria-label="First group">
+                      <Button color="info"
+                        className="mr-1"
+                        onClick={e=> this.setState({normalizeData: !this.state.normalizeData})}
+                      ></Button>
                       <Button 
                       color="danger"
                       onClick={this.removeTracking}>Remove tracking</Button>
@@ -115,8 +127,11 @@ class ProjectWidget extends Component {
               <Row style={{ marginTop: 10 + 'px' }}>
                 <Col xs={12} sm={12} md={12} lg={6} xl={6}  >
                   <div className="chart-wrapper">
-                    <Line data={dataWarehouse.getProfitData(this.state.drawData.total_investments,
-                      this.state.drawData.total_paid_outs, this.state.drawData.labels)} options={dataWarehouse.optionsChart} />
+                    {this.state.normalizeData ? (<Line data={dataWarehouse.getProfitData(this.state.normalize.total_investments,
+                      this.state.normalize.total_paid_outs, this.state.drawData.labels)} options={dataWarehouse.optionsChart} />)
+                       : (<Line data={dataWarehouse.getProfitData(this.state.drawData.total_investments,
+                      this.state.drawData.total_paid_outs, this.state.drawData.labels)} options={dataWarehouse.optionsChart} />)}
+                    
                   </div>
                 </Col>
 

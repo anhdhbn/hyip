@@ -141,6 +141,13 @@ const preprocessFetchData = (id, days='all') => {
       res.drawData.total_paid_outs = total_paid_outs
       res.drawData.total_members = total_members
       res.drawData.alexa_rank = alexa_rank
+
+      res.normalize.labels = labels
+      res.normalize.total_investments = total_investments.map(e => e - total_investments[0])
+      res.normalize.total_paid_outs = total_paid_outs.map(e => e - total_paid_outs[0])
+      res.normalize.total_members = total_members
+      res.normalize.alexa_rank = alexa_rank
+
       resolve(res)
     })
   })
