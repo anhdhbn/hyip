@@ -24,7 +24,7 @@ class VerifyProjects extends Component{
 
   componentDidMount(){
     projectService.fetchUnVerifiedProjects().then(res => {
-      this.setState({projects: res.data}, ()=> {
+      this.setState({projects: res.data.slice()}, ()=> {
         let {projects} = this.state
         let subProjects = []
         for (let i = 0 ; i < this.state.numTake; i++){
