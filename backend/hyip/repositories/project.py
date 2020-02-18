@@ -1,6 +1,7 @@
 # coding=utf-8
 import logging
 from hyip import models
+from sqlalchemy import desc
 
 __author__ = 'AnhDH'
 _logger = logging.getLogger(__name__)
@@ -68,7 +69,7 @@ def get_not_scam_projects_info():
 def get_unverified_projects():
     return models.Project.query.filter(
         models.Project.is_verified == False,
-    ).order_by(models.Project.easy_crawl).all()
+    ).order_by(desc(models.Project.easy_crawl)).all()
 
 def get_verified_projects():
     return models.Project.query.filter(
