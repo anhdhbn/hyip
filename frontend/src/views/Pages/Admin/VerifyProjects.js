@@ -24,8 +24,14 @@ class VerifyProjects extends Component{
 
   componentDidMount(){
     projectService.fetchUnVerifiedProjects().then(res => {
-      this.setState({projects: res.data}, ()=> {
-        this.setState({subProjects: this.state.projects.slice(0, this.state.numTake)})
+      this.setState({projects: res.data.reverse()}, ()=> {
+        // this.setState({subProjects: this.state.projects.slice(0, this.state.numTake)})
+        let {projects} = this.state
+        let subProjects = []
+        for (let i = 0 ; i < this.state.numTake; i++){
+          subProjects.push(projects.pop())
+        }
+        this.setState({subProjects})
       })
       toast.success(`Fetched ${res.data.length} projects`)
     })
@@ -38,7 +44,6 @@ class VerifyProjects extends Component{
     let {projects, subProjects} = this.state
     let pos = this.state.projects.map(item => item.id).indexOf(id);
     if (pos !== -1){
-      
       projects.splice(pos, 1)
     }
     let project = projects.pop()
