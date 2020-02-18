@@ -24,12 +24,11 @@ class VerifyProjects extends Component{
 
   componentDidMount(){
     projectService.fetchUnVerifiedProjects().then(res => {
-      this.setState({projects: res.data.reverse()}, ()=> {
-        // this.setState({subProjects: this.state.projects.slice(0, this.state.numTake)})
+      this.setState({projects: res.data}, ()=> {
         let {projects} = this.state
         let subProjects = []
         for (let i = 0 ; i < this.state.numTake; i++){
-          subProjects.push(projects.pop())
+          subProjects.push(projects.shift())
         }
         this.setState({subProjects})
       })
@@ -42,11 +41,7 @@ class VerifyProjects extends Component{
 
   funcRemoveItem(id, index){
     let {projects, subProjects} = this.state
-    let pos = this.state.projects.map(item => item.id).indexOf(id);
-    if (pos !== -1){
-      projects.splice(pos, 1)
-    }
-    let project = projects.pop()
+    let project = projects.shift()
     this.setState({projects})
 
     subProjects[index] = project
