@@ -95,7 +95,7 @@ def update_selector(id_project, **kwargs):
     project.is_verified  = True
     project.investment_selector = kwargs.get('investment_selector') if kwargs.get('investment_selector') is not None else project.investment_selector
     project.paid_out_selector = kwargs.get('paid_out_selector') if kwargs.get('paid_out_selector') is not None else project.paid_out_selector
-    project.member_selector = kwargs.get('member_selector') if kwargs.get('member_selector') else project.member_selector
+    project.member_selector = kwargs.get('member_selector') if kwargs.get('member_selector') is not None else project.member_selector
     project.easy_crawl = kwargs.get('easy_crawl') if kwargs.get('easy_crawl') is not None else project.easy_crawl
     project.plans = kwargs.get('plans') if kwargs.get('plans') is not None else project.plans
     project.crawlable = kwargs.get('crawlable') if kwargs.get('crawlable') is not None else project.crawlable
