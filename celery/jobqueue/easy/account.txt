@@ -22,6 +22,7 @@ total member
 global customer
 active accounts
 active partners
+participants
 investors
 customers
 members
