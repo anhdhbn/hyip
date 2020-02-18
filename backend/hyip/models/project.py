@@ -27,6 +27,10 @@ class Project(db.Model, TimestampMixin):
     create_date = db.Column(db.Date(), default=func.current_date(), nullable=False)
     is_verified = db.Column(db.Boolean(), default=False, nullable=False)
     crawlable = db.Column(db.Boolean(), default=False, nullable=False)
+    type_currency = db.Column(db.String(3), default='', nullable=False)
+    # USD
+    # BTC
+    # RUB nga
 
     # ssl =  db.relationship("SSL", uselist=False, back_populates="project", cascade="all, delete")
     ssl =  db.relationship("SSL", uselist=False, cascade="all, delete-orphan")

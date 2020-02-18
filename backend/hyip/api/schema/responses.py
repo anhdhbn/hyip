@@ -112,6 +112,7 @@ details_project = api.model("details_project", {
     'domain': fields.Nested(domain_fields),
     'ip': fields.Nested(ip_fields),
     'script': fields.Nested(script_fields),
+    'type_currency': fields.String(required=False),
 })
 
 

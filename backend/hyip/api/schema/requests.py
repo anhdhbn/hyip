@@ -103,6 +103,7 @@ update_selector_project = api.model('project.update_selector_project', {
     'plans': fields.String(required=False),
     'easy_crawl': fields.Boolean(required=False),
     'crawlable': fields.Boolean(required=False),
+    'type_currency': fields.String(required=False),
 })
 
 update_projects_tracked_by_user = api.model('tracking.update_projects_tracked_by_user', {
