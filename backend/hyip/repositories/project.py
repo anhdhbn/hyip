@@ -68,7 +68,7 @@ def get_not_scam_projects_info():
 def get_unverified_projects():
     return models.Project.query.filter(
         models.Project.is_verified == False,
-    ).all()
+    ).order_by(models.Project.easy_crawl).all()
 
 def get_verified_projects():
     return models.Project.query.filter(
