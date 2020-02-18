@@ -75,12 +75,15 @@ class EasyProject:
         total_investments = self._check_in_list(visible_texts, investment)
         total_paid_outs = self._check_in_list(visible_texts, paid_out)
         total_members = self._check_in_list(visible_texts, member, int)
-        if abs(total_investments - total_paid_outs) <= 0.0001:
-            total_investments = -1
-            total_paid_outs = -1
-        elif total_paid_outs!= 0 and total_investments/total_paid_outs > 10000:
-            total_investments = -1
-            total_paid_outs = -1
+        if int(total_investments) == -1 and int(total_paid_outs) == -1:
+            pass
+        else:
+            if abs(total_investments - total_paid_outs) <= 0.0001:
+                total_investments = -1
+                total_paid_outs = -1
+            elif total_paid_outs != 0 and total_investments/total_paid_outs > 10000:
+                total_investments = -1
+                total_paid_outs = -1
         return total_investments, total_paid_outs, total_members
 
     def preprocess_data(self, data):
