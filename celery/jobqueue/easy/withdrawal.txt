@@ -10,6 +10,7 @@
 выплаты
 total payments
 total withdraw
+total withdrawn
 total withdrawal
 total withdrawals
 payments to investors
