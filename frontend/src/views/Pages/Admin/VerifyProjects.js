@@ -29,7 +29,7 @@ class VerifyProjects extends Component{
         let subProjects = []
         for (let i = 0 ; i < this.state.numTake; i++){
           let project = projects.shift()
-          if (project){
+          if (project != undefined){
             subProjects.push(project)
           }
         }
@@ -47,7 +47,11 @@ class VerifyProjects extends Component{
     let project = projects.shift()
     this.setState({projects})
 
-    subProjects[index] = project
+    if (project != undefined){
+      subProjects[index] = project
+    } else{
+      subProjects.splice(index,1)
+    }
     this.setState({subProjects})
   }
 
