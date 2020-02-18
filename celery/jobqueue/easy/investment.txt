@@ -14,6 +14,7 @@
 пополнений
 резерв
 total accepted funds
+profit paid to investors
 total investment
 total invested
 total deposited
