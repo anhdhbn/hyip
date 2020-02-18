@@ -15,15 +15,16 @@ class DiffProject(Driver):
         raise_exception = False
         while True:
             try:
-                self.scroll_one()
                 if self.investment_selector != "":
                     investment = self.safe_get_element_by_css_selector_filter(self.investment_selector, num_type=float)
                 if self.paid_out_selector  != "":
                     paid_out = self.safe_get_element_by_css_selector_filter(self.paid_out_selector, num_type=float)
                 if self.member_selector  != "":
                     member = self.safe_get_element_by_css_selector_filter(self.member_selector, num_type=int)
+                raise_exception = False
             except:
                 raise_exception = True
+                self.scroll_one()
             if not raise_exception or self.current_scroll_position > self.max_height:
                 break
         return investment, paid_out, member
