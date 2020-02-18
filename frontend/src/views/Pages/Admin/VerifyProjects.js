@@ -28,7 +28,10 @@ class VerifyProjects extends Component{
         let {projects} = this.state
         let subProjects = []
         for (let i = 0 ; i < this.state.numTake; i++){
-          subProjects.push(projects.shift())
+          let project = projects.shift()
+          if (project){
+            subProjects.push(project)
+          }
         }
         this.setState({subProjects})
       })
