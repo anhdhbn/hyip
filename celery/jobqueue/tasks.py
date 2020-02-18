@@ -42,22 +42,21 @@ def crawl_info_project(**kwargs):
     temp.crawl()
     return True
 
-@app.task(name='jobqueue.tasks.crawl_easy_project')
+@app.task(name='jobqueue.tasks.crawl_easy_project', max_retries=3, exponential_backoff=2, retry_jitter=False, autoretry_for=(Exception,))
 def crawl_easy_project(**kwargs):
     from jobqueue.easy import EasyProject
     temp = EasyProject(**kwargs)
     result = temp.crawl()
     return True
 
-@app.task(name="jobqueue.tasks.crawl_diff_project")
+@app.task(name="jobqueue.tasks.crawl_diff_project", max_retries=3, exponential_backoff=2, retry_jitter=False, autoretry_for=(Exception,))
 def crawl_diff_project(**kwargs):
     from jobqueue.diff import DiffProject
     from jobqueue.driver import Wrapper
     temp = Wrapper(DiffProject(**kwargs))
     return temp.crawl()
 
-
-@app.task(name='jobqueue.tasks.check_scam')
+@app.task(name='jobqueue.tasks.check_scam', max_retries=3, exponential_backoff=2, retry_jitter=False, autoretry_for=(Exception,))
 def check_scam(project):
     from jobqueue.check_scam import CheckStatusProject
     temp = CheckStatusProject()
