@@ -199,6 +199,18 @@ class Project extends Component{
                   />
               </Form.Group>
             </Col>
+
+            <Col>
+              <Form.Group controlId={`form_currency_${this.props.index}`}>
+                <Form.Label>Currency</Form.Label>
+                <Form.Control as="select"
+                  onChange={e => this.setState({postData : {...this.state.postData, type_currency: e.target.value}})}>
+                  <option value="USD">USD</option>
+                  <option value="BTC">BTC</option>
+                  <option value="RUP">RUP</option>
+                </Form.Control>
+              </Form.Group>
+            </Col>
             
             <CardBody className="text-center">
               <Button color="warning" active tabIndex={-1} onClick={this.handleUpdate} className="mr-3" >Update</Button>
