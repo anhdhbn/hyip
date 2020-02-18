@@ -48,6 +48,7 @@ def get_easy_projects_info():
     ids = get_projects_id_scam()
 
     return models.Project.query.filter(
+        models.Project.crawlable == True,
         models.Project.easy_crawl == True,
         models.Project.id.notin_(ids)
     ).all()
