@@ -108,7 +108,7 @@ const getGrowthRateData = (total_investments, total_paid_outs, labels) => {
     }
   }
   return {
-    labels: labels.reverse().slice(1).reverse(),
+    labels: labels.slice(1),
     datasets: [
       createDataForChart('Income Growth Rate', igr, brandDanger),
     ]
@@ -130,24 +130,24 @@ const preprocessFetchData = (id, days='all') => {
       res.drawData = {}
       let data = res.data
       let dates = data.map(e => new Date(e.created_date))
-      let labels = dates.map(e => `${e.getDate()}/${e.getMonth()+1}`)
-      let total_investments = data.map(e => e.total_investments)
-      let total_paid_outs = data.map(e => e.total_paid_outs)
-      let total_members = data.map(e => e.total_members)
-      let alexa_rank = data.map(e => e.alexa_rank)
+      let labels = dates.map(e => `${e.getDate()}/${e.getMonth()+1}`).reverse()
+      let total_investments = data.map(e => e.total_investments).reverse()
+      let total_paid_outs = data.map(e => e.total_paid_outs).reverse()
+      let total_members = data.map(e => e.total_members).reverse()
+      let alexa_rank = data.map(e => e.alexa_rank).reverse()
       
-      res.drawData.labels = labels
-      res.drawData.total_investments = total_investments
-      res.drawData.total_paid_outs = total_paid_outs
-      res.drawData.total_members = total_members
-      res.drawData.alexa_rank = alexa_rank
-
+      res.drawData.labels = [...labels]
+      res.drawData.total_investments = [...total_investments]
+      res.drawData.total_paid_outs = [...total_paid_outs]
+      res.drawData.total_members = [...total_members]
+      res.drawData.alexa_rank = [...alexa_rank]
+      
       res.normalize = {}
-      res.normalize.labels = labels
-      res.normalize.total_investments = total_investments.map(e => e - total_investments[0])
-      res.normalize.total_paid_outs = total_paid_outs.map(e => e - total_paid_outs[0])
-      res.normalize.total_members = total_members
-      res.normalize.alexa_rank = alexa_rank
+      res.normalize.labels = [...labels]
+      res.normalize.total_investments = [...total_investments].map(e => e - total_investments[0])
+      res.normalize.total_paid_outs = [...total_paid_outs].map(e => e - total_paid_outs[0])
+      res.normalize.total_members = [...total_members]
+      res.normalize.alexa_rank = [...alexa_rank]
 
       resolve(res)
     })
