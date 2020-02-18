@@ -57,6 +57,7 @@ class Driver(ChromeDriver):
         return -1
         
     def preprocess_data(self, data):
+        data = data.split("+")[0]
         def remove_at(i, s):
             return s[:i] + s[i+1:]
     
