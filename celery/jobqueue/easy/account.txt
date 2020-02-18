@@ -26,5 +26,6 @@ participants
 investors
 customers
 members
+clients
 users
 partners
