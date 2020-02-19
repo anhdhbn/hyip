@@ -101,5 +101,6 @@ def update_selector(id_project, **kwargs):
     project.plans = kwargs.get('plans') if kwargs.get('plans') is not None else project.plans
     project.crawlable = kwargs.get('crawlable') if kwargs.get('crawlable') is not None else project.crawlable
     project.type_currency = kwargs.get('type_currency') if kwargs.get('type_currency') is not None else project.type_currency
+    project.start_date = kwargs.get('start_date') if kwargs.get('start_date') is not None else project.start_date
     models.db.session.commit()
     return project
