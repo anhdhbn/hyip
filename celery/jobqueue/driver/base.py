@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup
-from urllib.parse import urlparse
 
 from jobqueue.driver.chrome import ChromeDriver
 from jobqueue.driver.firefox import FirefoxDriver
@@ -10,6 +9,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import *
 import re
+from jobqueue import get_domain_pri
 
 import requests
 
@@ -48,8 +48,7 @@ class Driver(ChromeDriver):
 
     # @handle_exceptions
     def get_alexa_rank(self):
-        parsed_uri = urlparse(self.url)
-        domain = parsed_uri.netloc
+        domain = get_domain_pri(self.url)
         txt = requests.get("http://data.alexa.com/data?cli=10&dat=s&url="+ domain).text
         if "REACH" in txt:
             result = BeautifulSoup(txt, "xml").find("REACH")['RANK']

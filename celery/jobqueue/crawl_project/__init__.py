@@ -1,6 +1,5 @@
-from jobqueue import app_info
+from jobqueue import app_info, get_domain
 import requests
-from urllib.parse import urlparse
 
 class Project:
     def __init__(self, **kwargs):
@@ -13,8 +12,7 @@ class Project:
                 r = requests.post(app_info.url.post_create_project, json=self.__dict__)
 
     def is_exists(self):
-        parsed_uri = urlparse(self.url)
-        domain = parsed_uri.netloc
+        domain = get_domain(self.url)
         r = requests.get(app_info.url.get_check_exists_domain(domain)).json()
         return r['data']['is_exists']
 

@@ -1,8 +1,8 @@
 from jobqueue.crawl_project import Project
+from jobqueue import get_link
 import requests
 from bs4 import BeautifulSoup
 import html as html_cvt
-from urllib.parse import urlparse
 from requests import RequestException
 import  re
 from multiprocessing.dummy import Pool as ThreadPool
@@ -21,6 +21,7 @@ class Isp:
         }
         self.sess.post("https://investorsstartpage.com/hyiplis", data=data)
         self.page = self.get_before_page(self.get_end_page())
+        # self.page = 5
 
     def get_projecs_from_page(self, i):
         projects = []
@@ -36,7 +37,7 @@ class Isp:
                 status_project = 1
 
                 link = item.select_one("div.hyip-info__head-left > div.hyip-info__project > a.hyip-info__link").attrs['href']
-                url = self.get_link(f"https://investorsstartpage.com/{link}")
+                url = self.get_link_from_url(f"https://investorsstartpage.com/{link}")
                 
                 plans = item.select_one("div.hyip-info__main li.hyip-info__info-row div.hyip-info__info-right > div").text
                 if "isp:" in plans.lower():
@@ -76,20 +77,23 @@ class Isp:
         html = html_cvt.unescape(txt)
         return BeautifulSoup(html, "lxml")
 
-    def get_link(self, url):
+    def get_link_from_url(self, url):
         link = requests.get(url, timeout=30).url
-        parsed_uri = urlparse(link)
-        return '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
+        return get_link(link)
 
     def get_end_page(self):
         url_source = "https://investorsstartpage.com/hyiplist/n_page/"
         curr_page = 1
         while True:
-            html = self.sess.get(f"{url_source}{curr_page}").text   
+            html = self.sess.get(f"{url_source}{curr_page}").text
             if "не найдено" in html:
                 return curr_page - 1
             match = re.findall('hyiplist/n_page\/(.*?)"', html)[-1]
-            curr_page = int(match)
+            new = int(match)
+            if new < curr_page:
+                return curr_page - 1
+            else:
+                curr_page = new
 
     def get_before_page(self, curr_page):
         url_source = "https://investorsstartpage.com/hyiplist/n_page/"

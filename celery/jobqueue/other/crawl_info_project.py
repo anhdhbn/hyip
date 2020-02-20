@@ -1,11 +1,10 @@
 
-from urllib.parse import urlparse
 import requests
 import re
 import datetime
 import html
 import time
-from jobqueue import app_info
+from jobqueue import app_info, get_domain_pri
 import cloudscraper
 from .get_info_ssl import get_ssl_info_from_domain
 
@@ -16,8 +15,7 @@ def str2date_length(s):
     return datetime.datetime.strptime(s.strip(), "%d %b %Y %H:%M:%S").date()
 
 def get_info_from_domain(url):
-    parsed_uri = urlparse(url)
-    domain = parsed_uri.netloc
+    domain = get_domain_pri(url)
     html2 = requests.get("https://www.whois.com/whois/{}".format(domain)).text
     matches = re.findall('df-value">(.*?)<', html2)
     if len(matches) < 4:
@@ -38,8 +36,7 @@ def get_info_from_domain(url):
 
 
 def get_hosting_info_from_domain(url):
-    parsed_uri = urlparse(url)
-    domain = parsed_uri.netloc
+    domain = get_domain_pri(url)
     payload = {'action':'wx__domain_hostcheker','domain':domain}
     headers = {'User-Agent': 'Mozilla/5.0', 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
     session = requests.Session()
@@ -52,8 +49,7 @@ def get_hosting_info_from_domain(url):
 
 
 def get_ip_info_from_domain(url):
-    parsed_uri = urlparse(url)
-    domain = parsed_uri.netloc
+    domain = get_domain_pri(url)
     address = requests.get("http://ip-api.com/json/{}".format(domain)).json()['query']
     Domains = requests.get("https://api.hackertarget.com/reverseiplookup/?q={}".format(domain)).text.splitlines()
     domains_of_this_ip = ",".join(Domains)

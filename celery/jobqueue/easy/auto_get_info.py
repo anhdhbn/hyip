@@ -4,9 +4,8 @@ from bs4 import BeautifulSoup
 from bs4.element import Comment, NavigableString, Tag
 import re
 import cloudscraper
-from jobqueue import app_info
+from jobqueue import app_info, get_domain_pri
 import os
-from urllib.parse import urlparse
 import requests
 
 def read_file(filename):
@@ -38,8 +37,7 @@ class EasyProject:
             print("Data error {}".format(self.url))
 
     def get_alexa_rank(self):
-        parsed_uri = urlparse(self.url)
-        domain = parsed_uri.netloc
+        domain = get_domain_pri(self.url)
         txt = requests.get("http://data.alexa.com/data?cli=10&dat=s&url="+ domain).text
         if "REACH" in txt:
             result = BeautifulSoup(txt, "xml").find("REACH")['RANK']

@@ -1,6 +1,5 @@
-from jobqueue import app_info
+from jobqueue import app_info, get_domain
 import requests
-from urllib.parse import urlparse
 
 class CheckStatusProject:
     def check(self, obj):
@@ -8,8 +7,7 @@ class CheckStatusProject:
         id = obj['id']
         setattr(self, "project_id", id)
         setattr(self, "status_project", 3)
-        parsed_uri = urlparse(url)
-        self.domain = parsed_uri.netloc
+        self.domain = get_domain(url)
         is_scam = self.get_status_project()
         if is_scam:
             self.update_scam_project()
