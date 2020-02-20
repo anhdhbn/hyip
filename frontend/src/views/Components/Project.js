@@ -35,6 +35,7 @@ class Project extends Component{
 
   componentDidUpdate(prevProps, prevState){
     if (prevProps.id !== this.props.id){
+      this.setState({total_investments: -2, total_paid_outs: -2, total_members: -2})
       this.callApiFetchData(this.props.id)
     }
   }
@@ -104,7 +105,7 @@ class Project extends Component{
   }
 
   showResultSelector(name, value) {
-    if (value !== 0){
+    if (value !== -2){
       return (
         <Form.Text className="text-muted mb-4">
           Test {name} selector: <span style={{color: "red"}}>{value}</span>
