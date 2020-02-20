@@ -206,6 +206,7 @@ class Project extends Component{
                 <Form.Control as="select"
                   onChange={e => this.setState({type_currency: e.target.value})}
                   value={this.state.type_currency}>
+                  <option value="">None</option>
                   <option value="USD">USD</option>
                   <option value="BTC">BTC</option>
                   <option value="RUP">RUP</option>
