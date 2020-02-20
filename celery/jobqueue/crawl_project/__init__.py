@@ -27,7 +27,8 @@ class Project:
     #     return self.url
 
 from .isp import Isp
-arr_class = [Isp]
+from .hyiplogs import HyipLogs
+arr_class = [Isp, HyipLogs]
 
 class CrawlProjects:
 

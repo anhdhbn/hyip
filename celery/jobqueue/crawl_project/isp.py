@@ -1,5 +1,5 @@
 from jobqueue.crawl_project import Project
-from jobqueue import get_link
+from jobqueue import get_link, get_domain
 import requests
 from bs4 import BeautifulSoup
 import html as html_cvt
@@ -7,7 +7,7 @@ from requests import RequestException
 import  re
 from multiprocessing.dummy import Pool as ThreadPool
 import itertools
-
+from datetime import datetime
 
 class Isp:
     def __init__(self, processes=None):
@@ -57,6 +57,7 @@ class Isp:
                     "url": url,
                     "script_type": script_type,
                     "plans": plans,
+                    "start_date": self.get_date(url)
                 }))
             except requests.exceptions.RequestException :
                 print(link)
@@ -72,6 +73,21 @@ class Isp:
         self.projects = list(itertools.chain(*self.pool.map(self.get_projecs_from_page, [i for i in range(1, self.page)])))
         return self.projects
 
+    def get_date(self, url):
+        domain = get_domain(url)
+        res = requests.get(f"https://hyiplogs.com/project/{domain}/").text
+        if "sorry, this page not found" in res:
+            return ""
+        else:
+            soup = BeautifulSoup(res, "lxml")
+            start_date = soup.select_one("div.mt5.mb5.fl")
+            if start_date is None:
+                return ""
+            else:
+                arr = re.findall(r":(.*?)(\(|Scam|Problem|$)", start_date.text, re.DOTALL)        
+                temp1, temp2 = arr[0]
+                temp = temp1.strip()
+                return str(datetime.strptime(temp, '%b %d, %Y').date())
 
     def get_soup(self, txt):
         html = html_cvt.unescape(txt)
