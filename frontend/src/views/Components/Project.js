@@ -204,7 +204,7 @@ class Project extends Component{
               <Form.Group controlId={`form_currency_${this.props.index}`}>
                 <Form.Label>Currency</Form.Label>
                 <Form.Control as="select"
-                  onChange={e => this.setState({postData : {...this.state.postData, type_currency: e.target.value}})}>
+                  onChange={e => this.setState({type_currency: e.target.value})}>
                   <option value="USD">USD</option>
                   <option value="BTC">BTC</option>
                   <option value="RUP">RUP</option>
