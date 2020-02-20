@@ -37,6 +37,7 @@ project_crawler_res = {
     'plans': fields.String(),
     'easy_crawl': fields.Boolean(),
     'crawlable': fields.Boolean(),
+    'type_currency': fields.String(),
 }
 
 check_selector_res  = {
