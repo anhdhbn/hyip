@@ -27,20 +27,16 @@ def init_app(app, **kwargs):
     :return:
     """
     from .project import ns as project_ns
-    from .user import ns as user_ns
     from .crawldata import ns as crawldata_ns
     from .process import ns as process_ns
     from .status import ns as status_ns
     from .domain import ns as domain_ns
-    from .tracking import ns as tracking_ns
     
     api.add_namespace(crawldata_ns)
     api.add_namespace(process_ns)
     api.add_namespace(domain_ns)
     api.add_namespace(project_ns)
-    api.add_namespace(user_ns)
     api.add_namespace(status_ns)
-    api.add_namespace(tracking_ns)
 
     app.register_blueprint(api_bp)
 

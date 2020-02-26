@@ -8,7 +8,7 @@ __author__ = 'AnhDH'
 _logger = logging.getLogger(__name__)
 
 
-from hyip.models import db, User
+from hyip.models import db
 
 @app.cli.command("dropdb")
 def drop():
@@ -19,17 +19,6 @@ def drop():
 def resetdb():
     db.drop_all()
     db.create_all()
-
-@app.cli.command("createsuperuser")
-def create_super_user():
-    username = input("Vui long nhap user\n")
-    email = input("Vui long nhap email\n")
-    fullname  = input("Vui long nhap ten\n")
-    password = input("Vui long nhap password\n")
-    is_admin = True
-    user = User(username=username, email=email, fullname=fullname, password=password, is_admin=is_admin)
-    db.session.add(user)
-    db.session.commit()
 
 if __name__ == '__main__':
     app.run(debug=True)

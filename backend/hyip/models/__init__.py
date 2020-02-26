@@ -31,14 +31,8 @@ def init_app(app, **kwargs):
 
 from .base import TimestampMixin
 from .crawl_data import CrawlData
-from .domain import Domain
-from .ip import IP
 from .project import Project
-from .ssl import SSL
 from .status import StatusProject
-from .script import Script
-from .tracking import TrackingProject
-from .user import User
 # from .pending_register import Pending_register
 # from .password import Password
 # from .log import Log
