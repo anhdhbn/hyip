@@ -17,3 +17,13 @@ project_res = lambda ns: ns.model('project_res', {
 
     'created_date': fields.Date()
 })
+
+crawl_data_res = lambda ns: ns.model('crawl_data_res', {
+    'id': fields.String(),
+    'project_id': fields.String(),
+    'total_investments': fields.Float(),
+    'total_paid_outs': fields.Float(),
+    'total_members': fields.Integer(),
+    'alexa_rank': fields.Integer(),
+    'created_date': fields.Date(),
+})

@@ -25,3 +25,13 @@ update_project_req = lambda ns: ns.model('update_project_req', {
     'tracked': fields.Boolean(required=False, default=False),
     'type_currency': fields.String(required=False, max_length=3),
 })
+
+crawl_data_parser = reqparse.RequestParser()
+crawl_data_parser.add_argument('limit', required=True)
+
+post_data_crawled_req = lambda ns: ns.model('post_data_crawled_req', {
+    'total_investments': fields.Float(required=True),
+    'total_paid_outs': fields.Float(required=True),
+    'total_members': fields.Integer(required=True),
+    'alexa_rank': fields.Integer(required=True),
+})
