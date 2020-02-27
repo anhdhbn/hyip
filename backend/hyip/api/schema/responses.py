@@ -36,3 +36,10 @@ search_domain  = lambda ns: ns.model('crawl_data_res', {
     'value': fields.String(attribute='id'),
     'label': fields.String(attribute='domain')
 })
+
+status_project_res =  lambda ns: ns.model('status_project_res', {
+    'id': fields.String(),
+    'project_id': fields.String(),
+    'status_project': fields.Integer(),
+    'created_date': fields.Date(),
+})

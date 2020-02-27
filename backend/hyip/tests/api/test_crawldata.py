@@ -14,8 +14,7 @@ _logger = logging.getLogger(__name__)
 
 class CrawlDataApiTestCase(APITestCase):
     def setUp(self):
-        project = self.init_project()
-        self.id_project = project.id
+        self.id_project = self.init_project().id
         self.init_crawldata(self.id_project)
 
     def init_data_crawldata(self, **kwargs):

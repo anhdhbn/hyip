@@ -3,8 +3,7 @@ import json
 import logging
 from unittest.mock import patch
 
-from hyip import services,  app
-from hyip import repositories as repo
+from hyip import services, app
 from hyip.tests.api import APITestCase
 from datetime import datetime
 

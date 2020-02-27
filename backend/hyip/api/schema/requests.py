@@ -40,3 +40,8 @@ search_domain_parser = reqparse.RequestParser()
 search_domain_parser.add_argument('input', required=True)
 search_domain_parser.add_argument('page', type=int)
 search_domain_parser.add_argument('ipp', type=int)
+
+update_status_project = lambda ns: ns.model('update_status_project', {
+    'project_id': fields.String(required=True),
+    'status_project': fields.Integer(required=True),
+})

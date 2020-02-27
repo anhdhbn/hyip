@@ -15,3 +15,15 @@ def update_status_project(**kwargs):
         return repo.status.update_status_project(**kwargs)
     else:
         raise ProjectNotFoundException()
+
+def get_status_project_by_id(project_id):
+    if repo.project.check_exists_project_id(project_id):
+        return repo.status.get_status_project_by_id(project_id)
+    else:
+        raise ProjectNotFoundException()
+
+def get_all_status_project_by_id(project_id):
+    if repo.project.check_exists_project_id(project_id):
+        return repo.status.get_all_status_project_by_id(project_id)
+    else:
+        raise ProjectNotFoundException()
