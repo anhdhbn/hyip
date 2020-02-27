@@ -49,3 +49,21 @@ def get_verified_projects():
 
 def get_unverified_projects():
     return repo.project.get_unverified_projects()
+
+def update_project(id_project, **kwargs):
+    if repo.project.check_exists_project_id(id_project):
+        return repo.project.update_project(id_project, **kwargs)
+    else:
+        raise ProjectNotFoundException()
+
+def remove_project(id_project):
+    if repo.project.check_exists_project_id(id_project):
+        return repo.project.remove_project(id_project)
+    else:
+        raise ProjectNotFoundException()
+
+def verify_project(id_project):
+    if repo.project.check_exists_project_id(id_project):
+        return repo.project.verify_project(id_project)
+    else:
+        raise ProjectNotFoundException()

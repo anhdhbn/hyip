@@ -70,3 +70,23 @@ def get_verified_projects():
     return models.Project.query.filter(
         models.Project.is_verified == True,
     ).all()
+
+def update_project(id_project, **kwargs):
+    project = get_project_by_id(id_project)
+    project.is_verified  = True
+    for k, v in kwargs.items():
+        tmp = kwargs.get(k, getattr(project, k, v))
+        setattr(project, k, tmp)
+    models.db.session.commit()
+    return project
+
+def remove_project(id_project):
+    models.db.session.delete(get_project_by_id(id_project))
+    models.db.session.commit()
+    return models.Project.query.all()
+
+def verify_project(id_project):
+    project = get_project_by_id(id_project)
+    project.is_verified = True
+    models.db.session.commit()
+    return project

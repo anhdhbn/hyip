@@ -52,3 +52,20 @@ class GetAllProjectInfo(flask_restplus.Resource):
             return services.project.get_unverified_projects()
         else:
             raise BadRequestException
+
+@ns.route('/<projectId>', methods=['PUT', 'DELETE', 'PATCH'])
+class UpdateProject(flask_restplus.Resource):
+    @ns.marshal_with(requests.update_project_req(ns))
+    def put(self, projectId):
+        data = request.args or request.json
+        project = services.project.update_project(projectId,
+            **data)
+        return project
+
+    @ns.marshal_with(responses.project_res(ns))
+    def delete(self, projectId):
+        return services.project.remove_project(projectId)
+
+    @ns.marshal_with(responses.project_res(ns))
+    def patch(self, projectId):
+        return services.project.verify_project(projectId)

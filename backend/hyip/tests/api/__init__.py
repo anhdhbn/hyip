@@ -26,6 +26,24 @@ class APITestCase(unittest.TestCase):
         res = self.client.post(url, data=data, content_type=content_type)
         return res.get_json()
 
+    def put(self, url, data):
+        content_type = 'application/json'
+        data = json.dumps(data)
+        res = self.client.put(url, data=data, content_type=content_type)
+        return res.get_json()
+
+    def delete(self, url, data):
+        content_type = 'application/json'
+        data = json.dumps(data)
+        res = self.client.delete(url, data=data, content_type=content_type)
+        return res.get_json()
+
+    def patch(self, url, data):
+        content_type = 'application/json'
+        data = json.dumps(data)
+        res = self.client.patch(url, data=data, content_type=content_type)
+        return res.get_json()
+
     def post_json(self, url, data):
         return self.client.post(url, json=data).get_json()
 

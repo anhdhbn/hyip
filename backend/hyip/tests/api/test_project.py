@@ -81,3 +81,21 @@ class CrawlDataApiTestCase(APITestCase):
         self.assertEqual(result['success'], True)
         self.assertEqual(len(result['data']), 2) 
         
+    def test_update_project(self):
+        project = self.init_project(easy_crawl=False, crawlable=True, is_verified=False)
+        data = {
+            'easy_crawl': True,
+            'type_currency': "USD"
+        }
+        result = self.put("/api/projects/" + project.id, data)
+        self.assertEqual(result['data']['easy_crawl'], True)
+
+    def test_remove_project(self):
+        project = self.init_project(easy_crawl=False, crawlable=True, is_verified=False)
+        result = self.delete("/api/projects/" + project.id, {})
+        self.assertEqual(len(result['data']), 0)
+
+    def test_verify_project(self):
+        project = self.init_project(easy_crawl=False, crawlable=True, is_verified=False)
+        result = self.patch("/api/projects/" + project.id, {})
+        self.assertEqual(result['data']['is_verified'], True)
