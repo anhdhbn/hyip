@@ -27,3 +27,12 @@ crawl_data_res = lambda ns: ns.model('crawl_data_res', {
     'alexa_rank': fields.Integer(),
     'created_date': fields.Date(),
 })
+
+exist_domain_res = lambda ns: ns.model('crawl_data_res', {
+    'is_exists': fields.Boolean(),
+})
+
+search_domain  = lambda ns: ns.model('crawl_data_res', {
+    'value': fields.String(attribute='id'),
+    'label': fields.String(attribute='domain')
+})

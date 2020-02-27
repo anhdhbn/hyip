@@ -35,3 +35,8 @@ post_data_crawled_req = lambda ns: ns.model('post_data_crawled_req', {
     'total_members': fields.Integer(required=True),
     'alexa_rank': fields.Integer(required=True),
 })
+
+search_domain_parser = reqparse.RequestParser()
+search_domain_parser.add_argument('input', required=True)
+search_domain_parser.add_argument('page', type=int)
+search_domain_parser.add_argument('ipp', type=int)
