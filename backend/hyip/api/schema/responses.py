@@ -43,3 +43,11 @@ status_project_res =  lambda ns: ns.model('status_project_res', {
     'status_project': fields.Integer(),
     'created_date': fields.Date(),
 })
+
+projects_tracked_by_user_res = lambda ns: ns.model("projects_tracked_by_user_res", {
+    'project_id': fields.String(attribute='id'),
+})
+
+check_projects_tracked = lambda ns: ns.model("check_projects_tracked", {
+    'tracked': fields.Boolean(),
+})

@@ -45,3 +45,7 @@ update_status_project = lambda ns: ns.model('update_status_project', {
     'project_id': fields.String(required=True),
     'status_project': fields.Integer(required=True),
 })
+
+update_projects_tracked_by_user_req = lambda ns: ns.model('update_projects_tracked_by_user_req', {
+    'project_id': fields.String(required=True),
+})

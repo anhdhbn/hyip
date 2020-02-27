@@ -36,7 +36,7 @@ class CrawlDataApiTestCase(APITestCase):
         result = self.get('/api/status/'+self.id_project)
         self.assertEqual(result['data']['status_project'], 1)
 
-        sleep(0.5)
+        sleep(1)
         data = self.generate_status(self.id_project, status_project=3)
         services.status.update_status_project(**data)
         result = self.get('/api/status/'+self.id_project)
