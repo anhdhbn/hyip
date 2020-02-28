@@ -14,7 +14,7 @@ _ROOT = os.path.abspath(os.path.join(
 _VAR = os.path.join(_ROOT, 'var')
 _ETC = os.path.join(_ROOT, 'etc')
 
-bind = f'0.0.0.0:{os.getenv('PORT', 5000)}'
+bind = '0.0.0.0:{}'.format(os.getenv('PORT', 5000))
 workers = multiprocessing.cpu_count() * 2 + 1
 
 timeout = 180  # 3 minutes
