@@ -51,3 +51,9 @@ projects_tracked_by_user_res = lambda ns: ns.model("projects_tracked_by_user_res
 check_projects_tracked = lambda ns: ns.model("check_projects_tracked", {
     'tracked': fields.Boolean(),
 })
+
+check_selector_res =  lambda ns: ns.model('check_selector_res', {
+    'total_investments': fields.Float(),
+    'total_paid_outs': fields.Float(),
+    'total_members': fields.Integer(),
+})
