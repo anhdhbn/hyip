@@ -99,7 +99,7 @@ class EasyProject:
                     except:
                         break
             return s
-        return clear_text(re.sub("[^0-9\.]", "", data))
+        return clear_text(re.sub(r"[^0-9\.]", "", data))
 
     def check_condition(self, txt):
         check = txt
