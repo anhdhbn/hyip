@@ -56,7 +56,7 @@ class GetAllProjectInfo(flask_restplus.Resource):
 @ns.route('/<projectId>', methods=['PUT', 'DELETE', 'PATCH'])
 class UpdateProject(flask_restplus.Resource):
     @ns.expect(requests.update_project_req(ns))
-    @ns.marshal_with(requests.project_res(ns))
+    @ns.marshal_with(responses.project_res(ns))
     def put(self, projectId):
         data = request.args or request.json
         project = services.project.update_project(projectId,
