@@ -2,4 +2,4 @@ build:
   docker:
     web: heroku.Dockerfile
 run:
-  web: gunicorn -c etc/gunicorn.conf.py --worker-class gevent --workers 8 --bind 0.0.0.0:$PORT wsgi:app --max-requests 10000 --timeout 5 --keep-alive 5 --log-level in
+  web: gunicorn -c etc/gunicorn.conf.py --worker-class gevent --workers 8 wsgi:app --max-requests 10000
