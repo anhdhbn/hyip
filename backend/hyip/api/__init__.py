@@ -2,7 +2,7 @@
 import logging
 
 from flask import Blueprint
-from flask_restx import Api
+from flask_restplus import Api
 import config
 
 from hyip.extensions.exceptions import global_error_handler

@@ -1,11 +1,11 @@
 # coding=utf-8
 import logging
-import flask_restx
+import flask_restplus
 from flask import request
 
 from hyip.extensions import Namespace
 from celery.result import AsyncResult
-from flask_restx import Resource, reqparse, fields
+from flask_restplus import Resource, reqparse, fields
 from . import responses, requests
 import celery
 from hyip.celery import cele
@@ -16,7 +16,7 @@ _logger = logging.getLogger(__name__)
 ns = Namespace('celery', description='Celery operations')
 
 @ns.route('/check-easy', methods=['GET'])
-class CheckEasyInfo(flask_restx.Resource):
+class CheckEasyInfo(flask_restplus.Resource):
     @ns.expect(requests.check_easy_parser, validate=True)
     @ns.marshal_with(responses.check_selector_res(ns))
     def get(self):
@@ -25,7 +25,7 @@ class CheckEasyInfo(flask_restx.Resource):
         return result.get()
 
 @ns.route('/check-diff', methods=['GET'])
-class Test(flask_restx.Resource):
+class Test(flask_restplus.Resource):
     @ns.expect(requests.check_selector_parser, validate=True)
     @ns.marshal_with(responses.check_selector_res(ns))
     def get(self):

@@ -1,14 +1,14 @@
 # coding=utf-8
 import logging
 
-import flask_restx
+import flask_restplus
 from flask import request
 
 from hyip import services
 from hyip.extensions import Namespace
 from hyip.extensions.custom_exception import InvalidLoginTokenException
 from . import responses, requests
-from flask_restx import Resource, fields
+from flask_restplus import Resource, fields
 from flask import request, redirect
 from hyip.extensions.exceptions import BadRequestException
 __author__ = 'AnhDH'
@@ -17,7 +17,7 @@ _logger = logging.getLogger(__name__)
 ns = Namespace('projects', description='Project operations')
 
 @ns.route('/create', methods=['POST'])
-class Create(flask_restx.Resource):
+class Create(flask_restplus.Resource):
     @ns.expect(requests.create_project_req(ns), validate=True)
     @ns.marshal_with(responses.project_res(ns))
     def post(self):
@@ -27,13 +27,13 @@ class Create(flask_restx.Resource):
         return result
 
 @ns.route('/<projectId>', methods=['GET'])
-class GetProjectInfo(flask_restx.Resource):
+class GetProjectInfo(flask_restplus.Resource):
     @ns.marshal_with(responses.project_res(ns))
     def get(self, projectId):
         return services.project.get_project_info_by_id(projectId)
 
 @ns.route('', methods=['GET'])
-class GetAllProjectInfo(flask_restx.Resource):
+class GetAllProjectInfo(flask_restplus.Resource):
     @ns.expect(requests.get_projects_parser, validate=True)
     @ns.marshal_with(responses.project_res(ns))
     def get(self):
@@ -54,7 +54,7 @@ class GetAllProjectInfo(flask_restx.Resource):
             raise BadRequestException
 
 @ns.route('/<projectId>', methods=['PUT', 'DELETE', 'PATCH'])
-class UpdateProject(flask_restx.Resource):
+class UpdateProject(flask_restplus.Resource):
     @ns.expect(requests.update_project_req(ns))
     @ns.marshal_with(responses.project_res(ns))
     def put(self, projectId):

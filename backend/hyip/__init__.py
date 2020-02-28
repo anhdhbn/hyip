@@ -61,8 +61,8 @@ def create_app():
     
 
     # setup jwt extended
-    app.config.setdefault('RESTPLUS_MASK_HEADER', 'X-Fields')
-    app.config.setdefault('RESTPLUS_MASK_SWAGGER', True)
+    # app.config.setdefault('RESTPLUS_MASK_HEADER', 'X-Fields')
+    # app.config.setdefault('RESTPLUS_MASK_SWAGGER', True)
     # app.config['JWT_SECRET_KEY'] = os.getenv("SECRET_KEY", "MY_SECRET_KEY")
     app.config['JWT_TOKEN_LOCATION'] = ['cookies']
     # How long an access token should live before it expires. Set by minutes (int)
