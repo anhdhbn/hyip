@@ -2,9 +2,9 @@
 from functools import wraps
 
 from flask import has_app_context, current_app, request
-from flask_restplus import Namespace as OriginalNamespace, marshal, Mask
-from flask_restplus._http import HTTPStatus
-from flask_restplus.utils import merge, unpack
+from flask_restx import Namespace as OriginalNamespace, marshal, Mask
+from flask_restx._http import HTTPStatus
+from flask_restx.utils import merge, unpack
 
 from hyip.extensions.model import Model, OrderedModel
 from hyip.extensions.response_wrapper import wrap_response

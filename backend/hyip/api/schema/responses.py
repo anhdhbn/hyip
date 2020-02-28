@@ -1,5 +1,5 @@
 # coding=utf-8
-from flask_restplus import fields
+from flask_restx import fields
 
 project_res = lambda ns: ns.model('project_res', {
     'url_crawl': fields.String(),

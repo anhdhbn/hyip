@@ -1,5 +1,5 @@
 # coding=utf-8
-from flask_restplus import fields, reqparse
+from flask_restx import fields, reqparse
 
 create_project_req = lambda ns: ns.model('create_project_req', {
     'url_crawl': fields.String(required=True),
