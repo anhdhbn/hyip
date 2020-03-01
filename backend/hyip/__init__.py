@@ -34,7 +34,9 @@ def create_app():
     app = flask.Flask(
         __name__,
         instance_relative_config=True,
-        instance_path=os.path.join(config.ROOT_DIR, 'instance')
+        instance_path=os.path.join(config.ROOT_DIR, 'instance'),
+        static_url_path='',
+        static_folder=os.path.join(config.ROOT_DIR, 'build'),
     )
     load_app_config(app)
 
@@ -59,6 +61,14 @@ def create_app():
             before_send=before_send
         )
     
+    if os.path.isdir("build"):
+        @app.route('/')
+        def index():
+            return flask.send_from_directory('', "index.html")
+
+        @app.route('/<path:path>')
+        def send_file(path):
+            return flask.send_from_directory('', path)
 
     # setup jwt extended
     # app.config.setdefault('RESTPLUS_MASK_HEADER', 'X-Fields')

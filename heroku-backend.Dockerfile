@@ -1,3 +1,10 @@
+FROM node:7.10 as build-deps
+WORKDIR /usr/src/app
+COPY ./frontend/package.json ./frontend/yarn.lock ./
+RUN yarn
+COPY ./frontend ./
+RUN yarn build
+
 FROM python:3.8-alpine3.10
 
 LABEL Author="Anh DH"
