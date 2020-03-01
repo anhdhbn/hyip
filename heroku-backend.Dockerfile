@@ -1,9 +1,9 @@
 FROM node:7.10 as build-deps
 WORKDIR /app
-COPY ./frontend/package.json ./frontend/yarn.lock ./
-RUN yarn
+COPY ./frontend/package.json ./
+RUN npm install
 COPY ./frontend ./
-RUN yarn build
+RUN npm run build
 
 FROM python:3.8-alpine3.10
 
