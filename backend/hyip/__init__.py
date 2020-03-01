@@ -64,7 +64,7 @@ def create_app():
     if os.path.isdir("build"):
         @app.route('/')
         def index():
-            return flask.send_from_directory('', "index.html")
+            return flask.render_template("index.html")
 
         @app.route('/<path:path>')
         def send_file(path):

@@ -11,6 +11,7 @@ LABEL Author="Anh DH"
 LABEL Version="1.0"
 WORKDIR /app
 COPY --from=build-deps /app/build /app/build
+COPY --from=build-deps /app/build/index.html /app/build/templates/index.html
 COPY ./backend/requirements.txt ./
 
 RUN apk --update add --virtual build-dependencies bash libffi-dev openssl-dev build-base \
