@@ -13,7 +13,7 @@ RUN apk --update add --virtual build-dependencies bash libffi-dev openssl-dev bu
 
 RUN apk --update add bash
 
-ADD . /app
+ADD ./backend /app
 
 RUN chmod 755 wait-for-it.sh
 

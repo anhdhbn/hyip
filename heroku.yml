@@ -1,5 +1,5 @@
 build:
   docker:
-    web: heroku.Dockerfile
+    web: heroku-backend.Dockerfile
 run:
   web: gunicorn -c etc/gunicorn.conf.py --worker-class gevent --workers 8 wsgi:app --max-requests 10000 --log-level info
