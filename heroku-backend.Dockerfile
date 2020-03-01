@@ -4,7 +4,7 @@ LABEL Author="Anh DH"
 LABEL Version="1.0"
 WORKDIR /app
 
-COPY requirements.txt ./
+COPY ./backend/requirements.txt ./
 
 RUN apk --update add --virtual build-dependencies bash libffi-dev openssl-dev build-base \
   && pip install --upgrade pip \
