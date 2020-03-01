@@ -1,5 +1,5 @@
 FROM node:7.10 as build-deps
-WORKDIR /usr/src/app
+WORKDIR /app
 COPY ./frontend/package.json ./frontend/yarn.lock ./
 RUN yarn
 COPY ./frontend ./
@@ -10,7 +10,7 @@ FROM python:3.8-alpine3.10
 LABEL Author="Anh DH"
 LABEL Version="1.0"
 WORKDIR /app
-
+COPY --from=build-deps /app/build /app/build
 COPY ./backend/requirements.txt ./
 
 RUN apk --update add --virtual build-dependencies bash libffi-dev openssl-dev build-base \
