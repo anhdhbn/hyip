@@ -27,12 +27,10 @@ class RemoveProject extends Component {
   handleRemove() {
     if (this.state.selectedOption.value){
       projectServices.removeProject(this.state.selectedOption.value, {}).then(res => {
-        if (res.success) {
-          toast.success(`${this.state.selectedOption.label} was removed`)
-          this.setState({selectedOption: null})
-        } else {
-          toast.error(`${this.state.selectedOption.label} have not removed`)
-        }
+        toast.success(`${this.state.selectedOption.label} was removed`)
+        this.setState({selectedOption: null})
+      }).catch(reason => {
+        toast.success(`${reason}`)
       })
     }
   }

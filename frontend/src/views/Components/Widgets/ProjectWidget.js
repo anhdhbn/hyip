@@ -87,9 +87,8 @@ class ProjectWidget extends Component {
   }
 
   removeTracking(){
-    let user_id = localStorage.user_id
     let project_id = this.props.id
-    trackingService.deleteProjectTracked({user_id, project_id}).then(res => {
+    trackingService.deleteProjectTracked({project_id}).then(res => {
       toast.success(`${this.state.dataProject.domain} was removed tracked` )
       this.setState({tracked: false})
     })

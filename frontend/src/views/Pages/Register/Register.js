@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Card, CardBody, CardFooter, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 
-import userServices from "../../../services/users"
-import { toast } from 'react-toastify';
-
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -18,14 +15,7 @@ class Register extends Component {
   }
 
   register(){
-    userServices.submitRegister(this.state)
-      .then(res => {
-        toast.success("Registration successful")
-        this.props.history.push('/login');
-      })
-      .catch(() => {
-        toast.error("Registration failed")
-      });
+    this.props.history.push('/login');
   }
 
   render() {

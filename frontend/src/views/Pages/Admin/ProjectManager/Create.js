@@ -60,12 +60,11 @@ class CreateProject extends Component {
   postForm() {
     const {postData} = this.state
     projectServices.createProject(postData).then((res) => {
-      if (res.success) {
-        toast.success(`${parse(this.state.postData.url).hostname} was create`)
-      } else {
-        toast.error(`${res}`)
-      }
+      toast.success(`${parse(this.state.postData.url).hostname} was create`)
     })
+    .catch((reason => {
+      toast.error(`${reason}`)
+    }))
   }
 
   render() {

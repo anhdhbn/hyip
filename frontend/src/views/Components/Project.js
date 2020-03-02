@@ -12,7 +12,7 @@ import {
 import { AppSwitch } from '@coreui/react'
 import Form from "react-bootstrap/Form";
 import { toast } from 'react-toastify';
-import projectService from "../../services/projects"
+import projectServices from "../../services/projects"
 import celeryServices from "../../services/celery"
 
 const propTypes = {
@@ -53,7 +53,7 @@ class Project extends Component{
   }
 
   callApiFetchData(id){
-    projectService.fetchInfoProject(id).then(res  =>  {
+    projectServices.fetchInfoProject(id).then(res  =>  {
       this.removeNulls(res.data)
       this.setState({...res.data})
 
@@ -68,7 +68,7 @@ class Project extends Component{
   }
 
   handleUpdate(){
-    projectService.updateSelectorProject(this.props.id, this.state).then(res => {
+    projectServices.updateSelectorProject(this.props.id, this.state).then(res => {
       toast.success(`${this.state.domain} was updated`)
       if (this.props.funcRemoveItem){
         this.props.funcRemoveItem(this.props.id, this.props.index)
@@ -79,7 +79,7 @@ class Project extends Component{
   }
 
   handleVerify(){
-    projectService.makeProjectVerified(this.props.id, {}).then(res => {
+    projectServices.makeProjectVerified(this.props.id, {}).then(res => {
       toast.success(`${this.state.domain} was verified`)
       if (this.props.funcRemoveItem){
         this.props.funcRemoveItem(this.props.id, this.props.index)

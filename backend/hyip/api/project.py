@@ -16,23 +16,7 @@ _logger = logging.getLogger(__name__)
 
 ns = Namespace('projects', description='Project operations')
 
-@ns.route('/create', methods=['POST'])
-class Create(flask_restplus.Resource):
-    @ns.expect(requests.create_project_req(ns), validate=True)
-    @ns.marshal_with(responses.project_res(ns))
-    def post(self):
-        data = request.args or request.json
-        result = services.project.create_project(
-            **data)
-        return result
-
-@ns.route('/<projectId>', methods=['GET'])
-class GetProjectInfo(flask_restplus.Resource):
-    @ns.marshal_with(responses.project_res(ns))
-    def get(self, projectId):
-        return services.project.get_project_info_by_id(projectId)
-
-@ns.route('', methods=['GET'])
+@ns.route('', methods=['GET', 'POST'])
 class GetAllProjectInfo(flask_restplus.Resource):
     @ns.expect(requests.get_projects_parser, validate=True)
     @ns.marshal_with(responses.project_res(ns))
@@ -53,8 +37,20 @@ class GetAllProjectInfo(flask_restplus.Resource):
         else:
             raise BadRequestException
 
-@ns.route('/<projectId>', methods=['PUT', 'DELETE', 'PATCH'])
+    @ns.expect(requests.create_project_req(ns), validate=True)
+    @ns.marshal_with(responses.project_res(ns))
+    def post(self):
+        data = request.args or request.json
+        result = services.project.create_project(
+            **data)
+        return result
+
+@ns.route('/<projectId>', methods=['GET', 'PUT', 'DELETE', 'PATCH'])
 class UpdateProject(flask_restplus.Resource):
+    @ns.marshal_with(responses.project_res(ns))
+    def get(self, projectId):
+        return services.project.get_project_info_by_id(projectId)
+
     @ns.expect(requests.update_project_req(ns))
     @ns.marshal_with(responses.project_res(ns))
     def put(self, projectId):

@@ -13,7 +13,7 @@ import {
 
 import { toast } from 'react-toastify';
 
-import projectService from "../../../../services/projects"
+import projectServices from "../../../../services/projects"
 import trackingService from "../../../../services/tracking"
 
 const propTypes = {
@@ -65,7 +65,7 @@ class Project extends Component{
   }
 
   callApiGetData(id){
-    projectService.fetchDetailsProject(id).then(res => {
+    projectServices.fetchDetailsProject(id).then(res => {
       if (res.success) {
         // this.setState({data: res.data})
         let {hosting, plans, created_at, start_date, easy_crawl, domain, ssl, ip} = res.data
@@ -94,9 +94,8 @@ class Project extends Component{
       }
     })
 
-    let user_id = localStorage.user_id
     let project_id = this.props.id
-    trackingService.postCheckTracked({user_id, project_id}).then(res =>{
+    trackingService.postCheckTracked({project_id}).then(res =>{
       this.setState({tracked: res.data.tracked})
     })
   }
@@ -112,15 +111,14 @@ class Project extends Component{
   }
 
   trackThisProject(){
-    let user_id = localStorage.user_id
     let project_id = this.props.id
     if(this.state.tracked === false){
-      trackingService.postProjectTracked({user_id, project_id}).then(res => {
+      trackingService.postProjectTracked({project_id}).then(res => {
         toast.success(`${this.state.domain.name} was tracked` )
         this.setState({tracked: true})
       })
     } else {
-      trackingService.deleteProjectTracked({user_id, project_id}).then(res => {
+      trackingService.deleteProjectTracked({project_id}).then(res => {
         toast.success(`${this.state.domain.name} was removed tracked` )
         this.setState({tracked: false})
       })

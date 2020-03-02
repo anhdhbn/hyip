@@ -7,7 +7,7 @@ import {
 
 import { toast } from 'react-toastify';
 
-import projectService from "../../../services/projects"
+import projectServices from "../../../services/projects"
 import Project from "../../Components/Project"
 
 
@@ -23,7 +23,7 @@ class VerifyProjects extends Component{
   }
 
   componentDidMount(){
-    projectService.fetchUnVerifiedProjects().then(res => {
+    projectServices.fetchUnVerifiedProjects().then(res => {
       this.setState({projects: res.data.slice()}, ()=> {
         let {projects} = this.state
         let subProjects = []
