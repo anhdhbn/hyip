@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 class Register extends Component {
   constructor(props) {
     super(props);
-    this.registter = this.registter.bind(this)
+    this.register = this.register.bind(this)
     this.state = {
       fullname: '',
       username: '',
@@ -17,7 +17,7 @@ class Register extends Component {
     };
   }
 
-  registter(){
+  register(){
     userServices.submitRegister(this.state)
       .then(res => {
         toast.success("Registration successful")
@@ -88,7 +88,7 @@ class Register extends Component {
                       value={this.state.password2}
                       onChange={e=> this.setState({password2: e.target.value})}/>
                     </InputGroup>
-                    <Button color="success" block onClick={this.registter}>Create Account</Button>
+                    <Button color="success" block onClick={this.register}>Create Account</Button>
                   </Form>
                 </CardBody>
                 <CardFooter className="p-4">

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-import userService from "../../../services/users"
-import { toast } from 'react-toastify';
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -17,21 +16,7 @@ class Login extends Component {
   }
 
   login(){
-    userService.submitLoginRequest(this.state).then(data => {
-      localStorage.fullname = data.fullname;
-      localStorage.username = data.username;
-      localStorage.email = data.email;
-      localStorage.user_id = data.id;
-      toast.success("Login successful")
-      this.props.history.push('/admin/dashboard');
-      // if (data.is_admin === true) {
-      //   this.props.history.push('/admin/dashboard');
-      // } else {
-      //   this.props.history.push('/404');
-      // }
-    }).catch(()=> {
-      toast.error("login error")
-    })
+    this.props.history.push('/admin/dashboard');
   }
 
   render() {

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 // export const BASE_API_URL = `${ 'http://backend/api/' || 'https://hyip-anhdh.herokuapp.com/api/'}`;
-export const BASE_API_URL = 'http://s0.anhdh.tk:5000/api/';
+export const BASE_API_URL = 'http://hyip-backend.herokuapp.com/api/';
 
 const customAxios = axios.create({
   baseURL: BASE_API_URL,

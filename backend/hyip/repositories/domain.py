@@ -7,12 +7,12 @@ _logger = logging.getLogger(__name__)
 
 def search_domains(inputValue, page, ipp):
     items = models.Project.query.filter(
-        models.Domain.name.like(inputValue + '%')
+        models.Project.domain.like(inputValue + '%')
     ).paginate(int(page), int(ipp), error_out=False).items
 
     if len(items) == 0:
         return models.Project.query.filter(
-        models.Domain.name.like('%' + inputValue + '%')
+        models.Project.domain.like('%' + inputValue + '%')
     ).paginate(int(page), int(ipp), error_out=False).items
     else:
         return items

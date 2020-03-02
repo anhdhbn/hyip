@@ -11,27 +11,18 @@ const ProjectWidget = lazy(() => import('../../../Components/Widgets/ProjectWidg
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-
-    let user_id = localStorage.user_id
-    if (user_id === undefined){
-      this.props.history.push('/login');
-    }
-    
     this.state = {
       projects: []
     };
   }
 
   componentDidMount(){
-    let user_id = localStorage.user_id
-    if (user_id !== undefined){
-      trackingServices.fetchTrackingProject(user_id).then(res => {
-        toast.success(`Fetched ${res.data.length} projects`)
-        if (res.data.length > 0) {
-          this.setState({...this.state, projects: res.data})
-        }
-      })
-    }
+    trackingServices.fetchTrackingProject().then(res => {
+      toast.success(`Fetched ${res.data.length} projects`)
+      if (res.data.length > 0) {
+        this.setState({...this.state, projects: res.data})
+      }
+    })
   }
 
   render() {
