@@ -26,7 +26,7 @@ class CrawlDataApiTestCase(APITestCase):
     def test_post_create_project(self):
         domain = self.generate_domain()
         data = self.init_data_project(domain)
-        result = self.post_json('/api/projects/create', data)
+        result = self.post('/api/projects', data)
         self.assertEqual(result['success'], True)
         self.assertEqual(result['data']['domain'], domain)
         self.assertIsNotNone(result['data']['created_date'])
