@@ -16,8 +16,7 @@ flask_mail
 email_validator
 flask_jwt_extended
 requests
-celery
 pymongo
 gunicorn[gevent]
 Werkzeug==0.16.1
-redis==3.4.1
+celery==4.4.0
