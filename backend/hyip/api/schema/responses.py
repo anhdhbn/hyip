@@ -2,6 +2,7 @@
 from flask_restplus import fields
 
 project_res = lambda ns: ns.model('project_res', {
+    'id': fields.String(),
     'url_crawl': fields.String(),
     'domain': fields.String(),
 
