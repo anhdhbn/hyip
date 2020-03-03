@@ -72,7 +72,7 @@ def create_app():
             
     if os.getenv("SQLALCHEMY_POOL_RECYCLE"):
         try:
-            app.config['SQLALCHEMY_POOL_RECYCLE'] = int(os.getenv("SQLALCHEMY_POOL_RECYCLE"))
+            app.config['SQLALCHEMY_POOL_RECYCLE'] = int(os.getenv("SQLALCHEMY_POOL_RECYCLE", 10000))
         except:
             pass
     # setup jwt extended
