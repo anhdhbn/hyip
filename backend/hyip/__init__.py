@@ -72,7 +72,8 @@ def create_app():
             
     if os.getenv("SQLALCHEMY_POOL_RECYCLE"):
         try:
-            app.config['SQLALCHEMY_POOL_RECYCLE'] = int(os.getenv("SQLALCHEMY_POOL_RECYCLE", 10000))
+            timeout = int(os.getenv("SQLALCHEMY_POOL_RECYCLE"))
+            app.config['SQLALCHEMY_POOL_RECYCLE'] = timeout
         except:
             pass
     # setup jwt extended

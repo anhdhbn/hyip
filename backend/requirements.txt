@@ -20,3 +20,4 @@ celery
 pymongo
 gunicorn[gevent]
 Werkzeug==0.16.1
+redis==3.4.1
