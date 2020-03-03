@@ -48,7 +48,7 @@ class Chart extends Component{
     projectServices.fetchInfoProject(this.props.id).then(res => {
       if (res.success) {
         this.setState({...this.state, dataProject: res.data})
-        let domain = parse(this.state.dataProject.url).hostname
+        let domain = parse(this.state.dataProject.url_crawl).hostname
         this.setState({dataProject: {...this.state.dataProject, domain: domain}})
       }
     })
@@ -72,7 +72,7 @@ class Chart extends Component{
             {/* <InvestChartWidget id={this.props.id}/> */}
             <Row>
               <Col sm="5">
-                <CardTitle className="mb-0"><a target="_blank" rel="noopener noreferrer" href={this.state.dataProject.url}>{this.state.dataProject.url}</a></CardTitle>
+                <CardTitle className="mb-0"><a target="_blank" rel="noopener noreferrer" href={this.state.dataProject.url_crawl}>{this.state.dataProject.url_crawl}</a></CardTitle>
               </Col>
   
               <Col sm="7" className="d-none d-sm-inline-block">

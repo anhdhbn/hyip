@@ -57,10 +57,10 @@ class Project extends Component{
       this.removeNulls(res.data)
       this.setState({...res.data})
 
-      let url = parse(res.data.url);
-      this.setState({domain: url.hostname})
-      if (url.hostname !== undefined) {
-        celeryServices.checkEasy({url: res.data.url}).then(checkData => {
+      let url_crawl = parse(res.data.url_crawl);
+      this.setState({domain: url_crawl.hostname})
+      if (url_crawl.hostname !== undefined) {
+        celeryServices.checkEasy({url: res.data.url_crawl}).then(checkData => {
           this.setState({...checkData.data})
         })
       }
@@ -91,7 +91,7 @@ class Project extends Component{
 
   checkSelenium(){
     const params = {
-      url: this.state.url,
+      url: this.state.url_crawl,
       investment_selector: this.state.investment_selector,
       paid_out_selector: this.state.paid_out_selector,
       member_selector: this.state.member_selector,
@@ -117,10 +117,10 @@ class Project extends Component{
 
   render(){
 
-    if(this.state.url){
+    if(this.state.url_crawl){
       return (
         <Card>
-          <CardHeader><a target="_blank" rel="noopener noreferrer" href={this.state.url}>{this.state.url}</a></CardHeader>
+          <CardHeader><a target="_blank" rel="noopener noreferrer" href={this.state.url_crawl}>{this.state.url_crawl}</a></CardHeader>
           <CardBody>
             <Col xs="12">
               <Form.Group controlId={`form_investment_selector_${this.props.index}`}>

@@ -58,7 +58,7 @@ class ProjectWidget extends Component {
     projectServices.fetchInfoProject(this.props.id).then(res => {
       if (res.success) {
         this.setState({...this.state, dataProject: res.data})
-        let domain = parse(this.state.dataProject.url).hostname
+        let domain = parse(this.state.dataProject.url_crawl).hostname
         this.setState({dataProject: {...this.state.dataProject, domain: domain}})
       }
     })

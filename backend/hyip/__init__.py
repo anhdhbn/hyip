@@ -69,7 +69,13 @@ def create_app():
         @app.route('/<path:path>')
         def send_file(path):
             return flask.send_from_directory('', path)
-
+            
+    if os.getenv("SQLALCHEMY_POOL_RECYCLE"):
+        try:
+            timeout = int(os.getenv("SQLALCHEMY_POOL_RECYCLE"))
+            app.config['SQLALCHEMY_POOL_RECYCLE'] = timeout
+        except:
+            pass
     # setup jwt extended
     # app.config.setdefault('RESTPLUS_MASK_HEADER', 'X-Fields')
     # app.config.setdefault('RESTPLUS_MASK_SWAGGER', True)

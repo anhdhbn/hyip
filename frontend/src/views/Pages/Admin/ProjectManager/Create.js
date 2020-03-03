@@ -21,7 +21,7 @@ class CreateProject extends Component {
     this.postForm = this.postForm.bind(this);
     this.state = {
       postData: {
-        url: '',
+        url_crawl: '',
         script_type: 0,
         investment_selector: '',
         paid_out_selector: '',
@@ -39,9 +39,9 @@ class CreateProject extends Component {
   }
 
   handleBlurURL(event) {
-    let url = parse(this.state.postData.url);
+    let url = parse(this.state.postData.url_crawl);
     if (url.hostname != null) {
-      celeryServices.checkEasy({url: this.state.postData.url}).then(checkData => {
+      celeryServices.checkEasy({url: this.state.postData.url_crawl}).then(checkData => {
         this.setState({checkData: checkData.data})
       })
     }
@@ -60,7 +60,7 @@ class CreateProject extends Component {
   postForm() {
     const {postData} = this.state
     projectServices.createProject(postData).then((res) => {
-      toast.success(`${parse(this.state.postData.url).hostname} was create`)
+      toast.success(`${parse(this.state.postData.url_crawl).hostname} was create`)
     })
     .catch((reason => {
       toast.error(`${reason}`)
@@ -80,7 +80,7 @@ class CreateProject extends Component {
                   name="url"
                   placeholder="Enter url"
                   onBlur={this.handleBlurURL}
-                  onChange={e => this.setState({postData : {...this.state.postData, url: e.target.value}})}
+                  onChange={e => this.setState({postData : {...this.state.postData, url_crawl: e.target.value}})}
                 />
               </Form.Group>
             </Col>
