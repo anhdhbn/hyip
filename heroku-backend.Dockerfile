@@ -24,4 +24,4 @@ COPY --from=build-deps /app/build/index.html /app/hyip/templates/index.html
 
 RUN chmod 755 wait-for-it.sh
 
-CMD ["sh", "-c", "./wait-for-it.sh ${PROD_MYSQL_HOST}:${PROD_MYSQL_PORT} -t 0 -- gunicorn -c etc/gunicorn.conf.py  --workers 8  wsgi:app  --log-level info"]
+CMD ["sh", "-c", "./wait-for-it.sh ${PROD_MYSQL_HOST}:${PROD_MYSQL_PORT} -t 0 -- gunicorn -c etc/gunicorn.conf.py  --workers 8  wsgi:app  --log-level=DEBUG"]
