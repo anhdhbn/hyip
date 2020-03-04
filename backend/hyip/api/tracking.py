@@ -20,7 +20,7 @@ class CheckTracking(flask_restplus.Resource):
     @ns.expect(requests.update_projects_tracked_by_user_req(ns), validate=True)
     @ns.marshal_with(responses.check_projects_tracked(ns))
     def post(self):
-        data = request.args or request.json
+        data = flask_restplus.marshal(request.args or request.json, requests.update_projects_tracked_by_user_req(ns))
         return services.tracking.check_exists_tracked(**data)
 
 @ns.route('', methods=['GET', 'POST', 'DELETE'])
@@ -32,11 +32,11 @@ class UpdateTrackingProject(flask_restplus.Resource):
     @ns.expect(requests.update_projects_tracked_by_user_req(ns), validate=True)
     @ns.marshal_with(responses.projects_tracked_by_user_res(ns))
     def post(self):
-        data = request.args or request.json
+        data = flask_restplus.marshal(request.args or request.json, requests.update_projects_tracked_by_user_req(ns))
         return services.tracking.post_project_tracked_by_user(**data)
 
     @ns.expect(requests.update_projects_tracked_by_user_req(ns), validate=True)
     @ns.marshal_with(responses.projects_tracked_by_user_res(ns))
     def delete(self):
-        data = request.args or request.json
+        data = flask_restplus.marshal(request.args or request.json, requests.update_projects_tracked_by_user_req(ns))
         return services.tracking.delete_project_tracked_by_user(**data)

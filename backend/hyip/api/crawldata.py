@@ -8,7 +8,7 @@ from hyip import services
 from hyip.extensions import Namespace
 from hyip.extensions.custom_exception import InvalidLoginTokenException
 from . import responses, requests
-from flask_restplus import Resource, reqparse, fields
+from flask_restplus import Resource, reqparse, fields, marshal
 
 __author__ = 'AnhDH'
 _logger = logging.getLogger(__name__)
@@ -25,5 +25,5 @@ class GetDataCrawledOfProject(flask_restplus.Resource):
     @ns.expect(requests.post_data_crawled_req(ns), validate=True)
     @ns.marshal_with(responses.crawl_data_res(ns))
     def post(self, project_id):
-        data = request.args or request.json
+        data = marshal(request.args or request.json, requests.post_data_crawled_req(ns))
         return services.crawldata.create_crawldata(project_id=project_id, **data) 

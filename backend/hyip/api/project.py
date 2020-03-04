@@ -8,7 +8,7 @@ from hyip import services
 from hyip.extensions import Namespace
 from hyip.extensions.custom_exception import InvalidLoginTokenException
 from . import responses, requests
-from flask_restplus import Resource, fields
+from flask_restplus import Resource, fields, marshal
 from flask import request, redirect
 from hyip.extensions.exceptions import BadRequestException
 __author__ = 'AnhDH'
@@ -40,7 +40,7 @@ class GetAllProjectInfo(flask_restplus.Resource):
     @ns.expect(requests.create_project_req(ns), validate=True)
     @ns.marshal_with(responses.project_res(ns))
     def post(self):
-        data = request.args or request.json
+        data = marshal(request.args or request.json, requests.create_project_req(ns))
         result = services.project.create_project(
             **data)
         return result
@@ -51,10 +51,10 @@ class UpdateProject(flask_restplus.Resource):
     def get(self, projectId):
         return services.project.get_project_info_by_id(projectId)
 
-    @ns.expect(requests.update_project_req(ns))
+    @ns.expect(requests.update_project_req(ns), validate=True)
     @ns.marshal_with(responses.project_res(ns))
     def put(self, projectId):
-        data = request.args or request.json
+        data = marshal(request.args or request.json, requests.update_project_req(ns))
         project = services.project.update_project(projectId,
             **data)
         return project

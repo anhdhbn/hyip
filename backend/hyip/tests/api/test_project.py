@@ -84,9 +84,14 @@ class CrawlDataApiTestCase(APITestCase):
         project = self.init_project(easy_crawl=False, crawlable=True, is_verified=False)
         data = {
             'easy_crawl': True,
-            'type_currency': "USD"
+            'type_currency': "USD",
+            "is_verified": False,
+            "fucking": True,
+            'url_crawl': self.generate_domain(),
+            'crawlable': False,
         }
         result = self.put("/api/projects/" + project.id, data)
+        print(result)
         self.assertEqual(result['data']['easy_crawl'], True)
         self.assertEqual(result['data']['is_verified'], True)
 

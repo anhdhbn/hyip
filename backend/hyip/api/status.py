@@ -30,5 +30,5 @@ class UpdateStatus(flask_restplus.Resource):
     @ns.expect(requests.update_status_project(ns), validate=True)
     @ns.marshal_with(responses.status_project_res(ns))
     def post(self):
-        data = request.args or request.json
+        data = flask_restplus.marshal(request.args or request.json, requests.update_status_project(ns))
         return services.status.update_status_project(**data)
