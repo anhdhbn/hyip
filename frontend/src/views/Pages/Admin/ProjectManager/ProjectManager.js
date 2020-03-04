@@ -49,7 +49,7 @@ export default class Account extends React.Component {
     return (
       <div className="animated fadeIn">
         <Row>
-        <Col xs={12} sm={12} md={12} lg={12} xl={6} className="mb-4">
+        <Col xs={12} sm={12} md={12} lg={12} xl={12} className="mb-4">
             <Nav tabs>
               <NavItem>
                 <NavLink

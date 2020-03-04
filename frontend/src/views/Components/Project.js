@@ -58,7 +58,6 @@ class Project extends Component{
       this.setState({...res.data})
 
       let url_crawl = parse(res.data.url_crawl);
-      this.setState({domain: url_crawl.hostname})
       if (url_crawl.hostname !== undefined) {
         celeryServices.checkEasy({url: res.data.url_crawl}).then(checkData => {
           this.setState({...checkData.data})
@@ -74,7 +73,7 @@ class Project extends Component{
         this.props.funcRemoveItem(this.props.id, this.props.index)
       }
     }).catch((reason)=>{
-      toast.error(`${this.state.domain} have not updated ${reason}`)
+      toast.error(`${this.state.domain} have not updated`)
     })
   }
 
@@ -160,17 +159,6 @@ class Project extends Component{
                 {this.showResultSelector("member", this.state.total_members)}
               </Form.Group>
               
-            </Col>
-  
-            <Col xs="12">
-              <Form.Group controlId={`form_plans_${this.props.index}`}>
-                <Form.Label>Plans</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={this.state.plans}
-                  onChange={e => this.setState({plans: e.target.value})}
-                />
-              </Form.Group>
             </Col>
   
             <Col>

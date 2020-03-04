@@ -23,7 +23,7 @@ class SearchDomain extends Component {
         onChange={handleChange} 
         isClearable 
         isSearchable 
-        cacheOptions={this.props.cached || true}
+        cacheOptions={this.props.cached || false}
         defaultOptions 
         loadOptions={this.searchDomain} />
     )

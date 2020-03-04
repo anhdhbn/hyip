@@ -29,8 +29,6 @@ class RemoveProject extends Component {
       projectServices.removeProject(this.state.selectedOption.value, {}).then(res => {
         toast.success(`${this.state.selectedOption.label} was removed`)
         this.setState({selectedOption: null})
-      }).catch(reason => {
-        toast.success(`${reason}`)
       })
     }
   }

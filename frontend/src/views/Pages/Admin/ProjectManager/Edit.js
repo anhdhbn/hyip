@@ -31,7 +31,7 @@ class EditProject extends Component {
           <Row>
             <Col md="12">
               <Form.Group>
-              <SearchDomain handleChange={this.handleChange}/>
+              <SearchDomain cached handleChange={this.handleChange}/>
               </Form.Group>      
             </Col>
           </Row>

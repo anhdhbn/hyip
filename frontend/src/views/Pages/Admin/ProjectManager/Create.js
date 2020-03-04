@@ -14,6 +14,8 @@ import Form from "react-bootstrap/Form";
 import projectServices from '../../../../services/projects'
 import celeryServices from '../../../../services/celery'
 import { toast } from 'react-toastify';
+import { AppSwitch } from '@coreui/react'
+
 class CreateProject extends Component {
   constructor(props) {
     super(props);
@@ -22,13 +24,13 @@ class CreateProject extends Component {
     this.state = {
       postData: {
         url_crawl: '',
-        script_type: 0,
         investment_selector: '',
         paid_out_selector: '',
         member_selector: '',
-        start_date: '',
-        status_project: 0,
-        plans: '',
+        easy_crawl: false,
+        crawlable: false,
+        tracked: false,
+        type_currency: '',
       },
       checkData: {
         total_investments: 0,
@@ -60,11 +62,8 @@ class CreateProject extends Component {
   postForm() {
     const {postData} = this.state
     projectServices.createProject(postData).then((res) => {
-      toast.success(`${parse(this.state.postData.url_crawl).hostname} was create`)
+      toast.success(`${parse(this.state.postData.url_crawl).hostname} was created`)
     })
-    .catch((reason => {
-      toast.error(`${reason}`)
-    }))
   }
 
   render() {
@@ -72,7 +71,7 @@ class CreateProject extends Component {
       <CardBody>
         <Form>
           <Row>
-            <Col xs="12" sm="8">
+            <Col xs="12" >
               <Form.Group controlId="form_url">
                 <Form.Label>URL</Form.Label>
                 <Form.Control
@@ -82,19 +81,6 @@ class CreateProject extends Component {
                   onBlur={this.handleBlurURL}
                   onChange={e => this.setState({postData : {...this.state.postData, url_crawl: e.target.value}})}
                 />
-              </Form.Group>
-            </Col>
-
-            <Col xs="12" sm="4">
-              <Form.Group controlId="form_script_type">
-                <Form.Label>Script Type</Form.Label>
-                <Form.Control as="select"
-                  onChange={e => this.setState({postData : {...this.state.postData, script_type: e.target.value}})}
-                  >
-                  <option value="0">LICENSED</option>
-                  <option value="1">UNKNOWN</option>
-                  <option value="2">NOTLICENSED</option>
-                </Form.Control>
               </Form.Group>
             </Col>
 
@@ -140,40 +126,48 @@ class CreateProject extends Component {
               <br />
             </Col>
 
-            <Col xs="12" sm="6">
-              <Form.Group controlId="form_start_date">
-                <Form.Label>Start date</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="yyyy-mm-dd"
-                  onChange={e => this.setState({postData : {...this.state.postData, start_date: e.target.value}})}
-                />
+            <Col>
+              <Form.Group controlId={`form_easy`}>
+                <Form.Label>Is easy</Form.Label>
+                <br/>
+                <AppSwitch 
+                  className={'mx-1'} 
+                  variant={'3d'} 
+                  color={'primary'} 
+                  checked={this.state.postData.easy_crawl || false}
+                  onChange={e => this.setState({postData : {...this.state.postData, easy_crawl: !this.state.postData.easy_crawl}})}
+                  />
               </Form.Group>
             </Col>
 
-            <Col xs="12" sm="6">
-              <Form.Group controlId="form_status_project">
-                <Form.Label>Status project</Form.Label>
+            <Col>
+              <Form.Group controlId={`form_crawlable`}>
+                <Form.Label>Crawlable</Form.Label>
+                <br/>
+                <AppSwitch 
+                  className={'mx-1'} 
+                  variant={'3d'} 
+                  color={'primary'} 
+                  checked={this.state.postData.crawlable || false}
+                  onChange={e => this.setState({postData : {...this.state.postData, crawlable: !this.state.postData.crawlable}})}
+                  />
+              </Form.Group>
+            </Col>
+
+            <Col>
+              <Form.Group controlId={`form_currency`}>
+                <Form.Label>Currency</Form.Label>
                 <Form.Control as="select"
-                  onChange={e => this.setState({postData : {...this.state.postData, status_project: e.target.value}})}>
-                  <option value="0">PAYING</option>
-                  <option value="1">WAITING</option>
-                  <option value="2">PROBLEM</option>
-                  <option value="3">SCAM</option>
+                  onChange={e => this.setState({postData : {...this.state.postData, type_currency: e.target.value}})}
+                  value={this.state.postData.type_currency}>
+                  <option value="">None</option>
+                  <option value="USD">USD</option>
+                  <option value="BTC">BTC</option>
+                  <option value="RUP">RUP</option>
                 </Form.Control>
               </Form.Group>
             </Col>
 
-            <Col xs="12">
-              <Form.Group controlId="form_plans">
-                <Form.Label>Plans</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="1.0%-1.6% daily, 130%-240% after"
-                  onChange={e => this.setState({postData : {...this.state.postData, plans: e.target.value}})}
-                />
-              </Form.Group>
-            </Col>
           </Row>
           <Button 
             block 
