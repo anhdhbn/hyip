@@ -17,6 +17,8 @@ _ETC = os.path.join(_ROOT, 'etc')
 bind = '0.0.0.0:{}'.format(os.getenv('PORT', 5000))
 workers = multiprocessing.cpu_count() * 2 + 1
 
-timeout = 180  # 3 minutes
+timeout = 3 * 60  # 3 minutes
 keepalive = 24 * 3600  # 1 day
+worker_class = 'gevent'
+max_requests = 1000
 logconfig = os.path.join(_ETC, 'logging.ini')
