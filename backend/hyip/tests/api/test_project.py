@@ -86,7 +86,6 @@ class CrawlDataApiTestCase(APITestCase):
             'easy_crawl': True,
             'type_currency': "USD",
             "is_verified": False,
-            "fucking": True,
             'url_crawl': self.generate_domain(),
             'crawlable': False,
         }
