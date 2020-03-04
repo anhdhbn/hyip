@@ -58,7 +58,7 @@ class Chart extends Component{
 
   fetchData(id, days='all') {
     this.setState({days: days})
-    dataWarehouse.preprocessFetchData(id, this.state.days).then(res=>{
+    dataWarehouse.preprocessFetchData(id, days).then(res=>{
       this.setState({drawData: res.drawData})
     })
   }

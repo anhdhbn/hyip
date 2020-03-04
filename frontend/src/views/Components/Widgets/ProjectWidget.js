@@ -69,7 +69,7 @@ class ProjectWidget extends Component {
 
   fetchData(id, days='all') {
     this.setState({days: days})
-    dataWarehouse.preprocessFetchData(id, this.state.days).then(res=>{
+    dataWarehouse.preprocessFetchData(id, days).then(res=>{
       this.setState({drawData: res.drawData, crawldata: res.data, normalize: res.normalize})
     })
   }
@@ -89,7 +89,7 @@ class ProjectWidget extends Component {
   removeTracking(){
     let project_id = this.props.id
     trackingService.deleteProjectTracked({project_id}).then(res => {
-      toast.success(`${this.state.dataProject.domain} was removed tracked` )
+      toast.success(`${this.state.dataProject.domain} was untracked` )
       this.setState({tracked: false})
     })
   }

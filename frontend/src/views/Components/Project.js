@@ -190,6 +190,20 @@ class Project extends Component{
             </Col>
 
             <Col>
+              <Form.Group controlId={`form_tracked_${this.props.index}`}>
+                <Form.Label>Tracked</Form.Label>
+                <br/>
+                <AppSwitch 
+                  className={'mx-1'} 
+                  variant={'3d'} 
+                  color={'primary'} 
+                  checked={this.state.tracked || false}
+                  onChange={e => this.setState({tracked: !this.state.tracked})}
+                  />
+              </Form.Group>
+            </Col>
+
+            <Col>
               <Form.Group controlId={`form_currency_${this.props.index}`}>
                 <Form.Label>Currency</Form.Label>
                 <Form.Control as="select"
