@@ -25,13 +25,11 @@ def get_data_crawled(project_id, limit='7'):
     limit = parse_number(limit)
     if repo.project.check_exists_project_id(project_id):
         data_crawled = repo.crawldata.get_data_crawled(project_id)
-        print([data.created_at for data in data_crawled])
         result, tmp = [], ""
         for data in data_crawled:
             if str(data.created_date) != tmp:
                 result.append(data)
                 tmp = str(data.created_date)
-        print([data.created_at for data in result])
         return result[:limit]
     else:
         raise ProjectNotFoundException()
