@@ -90,7 +90,6 @@ class CrawlDataApiTestCase(APITestCase):
             'crawlable': False,
         }
         result = self.put("/api/projects/" + project.id, data)
-        print(result)
         self.assertEqual(result['data']['easy_crawl'], True)
         self.assertEqual(result['data']['is_verified'], True)
 
