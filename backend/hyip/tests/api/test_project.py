@@ -88,6 +88,7 @@ class CrawlDataApiTestCase(APITestCase):
         }
         result = self.put("/api/projects/" + project.id, data)
         self.assertEqual(result['data']['easy_crawl'], True)
+        self.assertEqual(result['data']['is_verified'], True)
 
     def test_remove_project(self):
         project = self.init_project(easy_crawl=False, crawlable=True, is_verified=False)
