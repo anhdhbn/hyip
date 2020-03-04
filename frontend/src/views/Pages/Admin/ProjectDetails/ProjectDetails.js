@@ -30,9 +30,9 @@ class ProjectDetails extends Component {
           <Col xs={12} sm={12} md={12} lg={12} xl={12}>
             <Chart id={this.state.selectedOption.value}></Chart>
           </Col>
-          <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+          {/* <Col xs={12} sm={12} md={12} lg={12} xl={12}>
             <Project id={this.state.selectedOption.value}></Project>
-          </Col>
+          </Col> */}
         </Row>
       )
     } else {
@@ -51,7 +51,7 @@ class ProjectDetails extends Component {
                 <Row>
                   <Col md="12">
                     <Form.Group>
-                    <SearchDomain handleChange={selectedOption => this.setState({ selectedOption })}/>
+                    <SearchDomain cached handleChange={selectedOption => this.setState({ selectedOption })}/>
                     </Form.Group>
                     
                   </Col>
