@@ -3,3 +3,5 @@ redis
 python-dotenv
 cloudscraper
 requests
+beautifulsoup4
+lxml

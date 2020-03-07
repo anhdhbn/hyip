@@ -8,9 +8,10 @@ __author__ = 'AnhDH'
 _logger = logging.getLogger(__name__)
 
 # instantiate Celery object
-celery = Celery(include=[
-                            'celeryapp.tasks',
-                        ])
+celery = Celery(
+    include=[
+        'celeryapp.tasks',
+])
 
 # import celery config file
 celery.config_from_object('config')
