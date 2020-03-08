@@ -12,6 +12,7 @@ def check_easy(**kwargs):
 
 @celery.task(name="celeryapp.tasks.check_diff", queue='diff')
 def check_diff(**kwargs):
+    from celeryapp.driver import Wrapper
     from celeryapp.crawl_data import DiffCrawl
-    temp = DiffCrawl(**kwargs)
+    temp = Wrapper(DiffCrawl(**kwargs))
     return temp.get_only_info_project()
