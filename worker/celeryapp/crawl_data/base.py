@@ -1,10 +1,11 @@
 import requests
 import re
+from bs4 import BeautifulSoup
 
 class CrawlBase:
     def get_alexa_rank(self):
         from celeryapp.utils import get_domain
-        domain = get_domain(self.url)
+        domain = get_domain(self.url_crawl)
         txt = requests.get("http://data.alexa.com/data?cli=10&dat=s&url="+ domain).text
         if "REACH" in txt:
             result = BeautifulSoup(txt, "xml").find("REACH")['RANK']
@@ -13,7 +14,7 @@ class CrawlBase:
     
     def save_data(self, **kwargs):
         from celeryapp import celery
-        res = requests.post(celery.URL['post_data_crawled'](self.id), json=kwargs)
+        res = requests.post(celery.conf.URL['post_data_crawled'](self.id), json=kwargs)
         res.raise_for_status()
         return res.json()['data']
 

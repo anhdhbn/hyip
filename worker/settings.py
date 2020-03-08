@@ -24,8 +24,10 @@ class BaseConfig():
 
     HEADLESS = True if os.getenv("HEADLESS") == "1" else False
 
-    __API_PREFIX = '/api'
-    BACKEND_HOST = os.getenv('BACKEND_HOST', 'http://localhost:5000') + __API_PREFIX
+    __API_PREFIX = 'api'
+    global BACKEND_HOST
+    BACKEND_HOST = os.getenv('BACKEND_HOST', 'http://localhost:5000/') + __API_PREFIX
+    
     URL = {
         'get_easy_project': "{}/projects?type=easy".format(BACKEND_HOST),
         'get_diff_project': "{}/projects?type=diff".format(BACKEND_HOST),

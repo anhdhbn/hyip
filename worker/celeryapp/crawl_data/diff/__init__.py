@@ -4,7 +4,7 @@ import time
 
 class DiffCrawl(Driver):
     def get_info_project(self):
-        self.driver.get(self.url)
+        self.driver.get(self.url_crawl)
 
         self.current_scroll_position = 0
         self.max_height = int(self.driver.execute_script("return document.body.scrollHeight"))

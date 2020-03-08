@@ -13,7 +13,7 @@ class FirefoxDriver(Selenium):
 
     def init_selenium(self):
         try:
-            self.driver = webdriver.Remote(command_executor=celery.HUB_URL, desired_capabilities=self.get_options().to_capabilities())
+            self.driver = webdriver.Remote(command_executor=celery.conf.HUB_URL, desired_capabilities=self.get_options().to_capabilities())
         except Exception as e:
             self.quit()
             raise(e)

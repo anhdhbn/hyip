@@ -13,7 +13,7 @@ class EasyCrawl(CrawlBase):
 
     def get_info_project(self):
         scraper = cloudscraper.create_scraper()
-        html = scraper.get(self.url, timeout=30).text
+        html = scraper.get(self.url_crawl, timeout=30).text
         html = html_cvt.unescape(html)
         soup = BeautifulSoup(html, "lxml")
 
