@@ -18,9 +18,9 @@ class BaseConfig():
 
     MONGO_URL = f'mongodb://{MONGO_USER}:{MONGO_PASS}@{MONGO_HOST}:{MONGO_PORT}/{MONGO_DB}'
 
-    HUB_HOST=os.getenv("HUB_HOST", 'localhost')
-    HUB_PORT=os.getenv("HUB_PORT", '4444')
-    HUB_URL= f'http://{HUB_HOST}:{HUB_PORT}/wd/hub'
+    __HUB_HOST=os.getenv("HUB_HOST", 'localhost')
+    __HUB_PORT=os.getenv("HUB_PORT", '4444')
+    HUB_URL= f'http://{__HUB_HOST}:{__HUB_PORT}/wd/hub'
 
     HEADLESS = True if os.getenv("HEADLESS") == "1" else False
 

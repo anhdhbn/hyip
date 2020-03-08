@@ -15,11 +15,12 @@ class CrawlBase:
         from celeryapp import celery
         res = requests.post(celery.URL['post_data_crawled'](self.id), json=kwargs)
         res.raise_for_status()
+        return res.json()['data']
 
     def crawl(self):
         alexa_rank = self.get_alexa_rank()
         total_investments, total_paid_outs, total_members = self.get_info_project()
-        self.save_data(alexa_rank=alexa_rank, total_investments=total_investments, total_members=total_members, total_paid_outs=total_paid_outs)
+        return self.save_data(alexa_rank=alexa_rank, total_investments=total_investments, total_members=total_members, total_paid_outs=total_paid_outs)
 
     def get_only_info_project(self):
         total_investments, total_paid_outs, total_members = self.get_info_project()

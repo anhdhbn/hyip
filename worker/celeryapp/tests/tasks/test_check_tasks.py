@@ -19,3 +19,18 @@ class CheckTestCase(Base):
                     self.assertEqual(v, assert_[k])
                 else:
                     self.assertGreaterEqual(v, assert_[k])
+
+    def test_check_diff(self):
+        from celeryapp.tasks import check_diff
+        for testcase in self.data[check_diff.__name__]:
+            result = check_diff(url = testcase['url'], 
+                investment_selector=testcase['investment_selector'],
+                paid_out_selector=testcase['paid_out_selector'],
+                member_selector=testcase['member_selector'],
+                )
+            assert_ = testcase['assert']
+            for k, v in result.items():
+                if assert_[k] == -1:
+                    self.assertEqual(v, assert_[k])
+                else:
+                    self.assertGreaterEqual(v, assert_[k])
