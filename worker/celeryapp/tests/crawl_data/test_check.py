@@ -6,7 +6,7 @@ import unittest
 __author__ = 'AnhDH'
 _logger = logging.getLogger(__name__)
 
-from celeryapp.tests.crawl_data import Base
+from celeryapp.tests import Base
 
 class CheckTestCase(Base):
     def test_check_easy(self):

@@ -10,7 +10,7 @@ class Wrapper:
                     return prop(*args, **kwargs)
                 except Exception as e:
                     self.obj.quit()
-                    print(self.obj.url)
+                    print(self.obj.url_crawl)
                     raise(e)
             return unraisable
         return prop

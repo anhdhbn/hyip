@@ -4,7 +4,7 @@ import logging
 import unittest
 import requests
 from celeryapp import celery
-from celeryapp.tests.crawl_data import Base
+from celeryapp.tests import Base
 
 __author__ = 'AnhDH'
 _logger = logging.getLogger(__name__)
@@ -13,13 +13,17 @@ _logger = logging.getLogger(__name__)
 class CheckCrawlData(Base):
     def test_crawl_easy_project_every_day(self):
         result = requests.get(celery.conf.URL['get_easy_project'])
-        result.raise_for_status()
+        if not result.json()['success']:
+            print(result.json()['message'])
+            result.raise_for_status()
         result = result.json()
         self.assertGreaterEqual(len(result['data']), 0)
 
     def test_crawl_diff_project_every_day(self):
         result = requests.get(celery.conf.URL['get_diff_project'])
-        result.raise_for_status()
+        if not result.json()['success']:
+            print(result.json()['message'])
+            result.raise_for_status()
         result = result.json()
         self.assertGreaterEqual(len(result['data']), 0)
 
