@@ -9,6 +9,8 @@ class CheckScam:
         domain = get_domain(url_crawl)
         setattr(self, "project_id", obj['id'])
         setattr(self, "status_project", self.get_status_project(domain))
+        if self.status_project == -1:
+            return -1
 
         current_status_project = self.get_current_Status()
         
@@ -22,12 +24,8 @@ class CheckScam:
         return r['data']['status_project']
     
     def get_status_project(self, domain):
-        return 1
-        # from .get_status_project  import arr_func
-        # for func in arr_func:
-        #     if not func(self.domain):
-        #         return False
-        # return True
+        from .sites import arr_func
+        return min([func(domain) for func in arr_func] + [3])
 
     def update_scam_project(self):
         r = requests.post(celery.conf.URL['post_status'], json=self.__dict__)
