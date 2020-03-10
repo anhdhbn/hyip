@@ -1,0 +1,48 @@
+version: '3.7'
+services:
+  worker:
+    build: 
+      context: ./worker
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - ./worker/.env
+    command: 'celery -A celeryapp.celery worker -Q diff -E -l info'
+
+  worker-beat:
+    build:
+      context: ./worker
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - ./worker/.env
+    command: 'celery -A celeryapp.celery beat -l=INFO'
+
+  hub:
+    image: selenium/hub
+    restart: always
+    ports:
+      - 4444:4444
+
+  chrome:
+    image: selenium/node-chrome-debug
+    restart: always
+    ports:
+      - 5555:5900
+    environment:
+      HUB_HOST: hub
+      HUB_PORT: 4444
+    depends_on: 
+      - hub
+    entrypoint: bash -c 'SE_OPTS="-host $$HOSTNAME" /opt/bin/entry_point.sh'
+
+  flower:
+    build: 
+      context: ./worker
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - ./worker/.env
+    command: 'celery flower -A celeryapp.celery --address=0.0.0.0 --port=5656'
+    ports:
+      - 5656:5656
