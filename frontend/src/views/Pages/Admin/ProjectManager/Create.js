@@ -43,7 +43,7 @@ class CreateProject extends Component {
   handleBlurURL(event) {
     let url = parse(this.state.postData.url_crawl);
     if (url.hostname != null) {
-      celeryServices.checkEasy({url: this.state.postData.url_crawl}).then(checkData => {
+      celeryServices.checkEasy({url_crawl: this.state.postData.url_crawl}).then(checkData => {
         this.setState({checkData: checkData.data})
       })
     }

@@ -59,7 +59,7 @@ class Project extends Component{
 
       let url_crawl = parse(res.data.url_crawl);
       if (url_crawl.hostname !== undefined) {
-        celeryServices.checkEasy({url: res.data.url_crawl}).then(checkData => {
+        celeryServices.checkEasy({url_crawl: res.data.url_crawl}).then(checkData => {
           this.setState({...checkData.data})
         })
       }
@@ -90,7 +90,7 @@ class Project extends Component{
 
   checkSelenium(){
     const params = {
-      url: this.state.url_crawl,
+      url_crawl: this.state.url_crawl,
       investment_selector: this.state.investment_selector,
       paid_out_selector: this.state.paid_out_selector,
       member_selector: this.state.member_selector,
