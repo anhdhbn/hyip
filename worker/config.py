@@ -94,18 +94,22 @@ CELERYBEAT_SCHEDULE = {
   'auto-crawl-project-every-day': {
     'task': 'jobqueue.tasks.crawl_project',
     'schedule': crontab(minute=0, hour=0),
+    'options': {'queue': 'default'}
   },
   'auto-check-scam-every-day': {
     'task': 'jobqueue.tasks.check_scam_all',
     'schedule': crontab(minute=0, hour=2),
+    'options': {'queue': 'default'}
   },
   'crawl-easy-project-every-day': {
     'task': 'jobqueue.tasks.crawl_easy_project_every_day',
     'schedule': crontab(minute=0, hour=3),
+    'options': {'queue': 'default'}
   },
   'crawl-diff-project-every-day': {
     'task': 'jobqueue.tasks.crawl_diff_project_every_day',
     'schedule': crontab(minute=0, hour=4),
+    'options': {'queue': 'diff'}
   },
 }
 
@@ -117,6 +121,8 @@ TASKS_QUEUES = (
     Queue('default', exchange='default', routing_key='default'),
     Queue('diff', exchange='diff', routing_key='diff')
 )
+
+CELERY_CREATE_MISSING_QUEUES = True
 
 TASK_DEFAULT_QUEUE = 'default'
 CELERY_DEFAULT_QUEUE = 'default'

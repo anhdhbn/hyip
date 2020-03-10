@@ -14,7 +14,7 @@ def crawl_easy_project_every_day():
         crawl_easy_project.delay(**item)
     return len(result['data'])
 
-@celery.task(name='celeryapp.tasks.crawl_diff_project_every_day', queue='default')
+@celery.task(name='celeryapp.tasks.crawl_diff_project_every_day')
 def crawl_diff_project_every_day():
     result = requests.get(celery.conf.URL['get_diff_project'])
     result.raise_for_status()
@@ -23,7 +23,7 @@ def crawl_diff_project_every_day():
         crawl_diff_project.delay(**item)
     return len(result['data'])
 
-@celery.task(name='celeryapp.tasks.crawl_easy_project', max_retries=3, exponential_backoff=2, retry_jitter=False, autoretry_for=(Exception,), queue='default')
+@celery.task(name='celeryapp.tasks.crawl_easy_project', max_retries=3, exponential_backoff=2, retry_jitter=False, autoretry_for=(Exception,))
 def crawl_easy_project(**kwargs):
     from celeryapp.crawl_data import EasyCrawl
     temp = EasyCrawl(**kwargs)

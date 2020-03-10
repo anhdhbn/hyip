@@ -4,7 +4,7 @@ import logging
 __author__ = 'AnhDH'
 _logger = logging.getLogger(__name__)
 
-@celery.task(name="celeryapp.tasks.check_easy", queue='default')
+@celery.task(name="celeryapp.tasks.check_easy")
 def check_easy(**kwargs):
     from celeryapp.crawl_data import EasyCrawl
     temp = EasyCrawl(**kwargs)
