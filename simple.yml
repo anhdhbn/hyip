@@ -22,7 +22,7 @@ services:
     build:
       context: ./worker
       dockerfile: Dockerfile
-    restart: always
+    #restart: always
     env_file:
       - ./worker/.env
     command: 'celery -A celeryapp.celery beat -l=INFO'
