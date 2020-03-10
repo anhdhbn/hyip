@@ -1,4 +1,3 @@
-celery==4.4.0
 redis
 python-dotenv
 cloudscraper
@@ -7,3 +6,4 @@ beautifulsoup4
 lxml
 selenium
 flower
+celery==4.4.0
