@@ -28,7 +28,7 @@ services:
     image: selenium/node-chrome-debug
     restart: always
     ports:
-      - 5555:5900
+      - 5556:5900
     environment:
       HUB_HOST: hub
       HUB_PORT: 4445
@@ -45,4 +45,4 @@ services:
       - ./worker/.env
     command: 'celery flower -A celeryapp.celery --address=0.0.0.0 --port=5656'
     ports:
-      - 5656:5656
+      - 5657:5656
