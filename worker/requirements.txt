@@ -1,4 +1,4 @@
-celery
+celery==4.4.0
 redis
 python-dotenv
 cloudscraper
