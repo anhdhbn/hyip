@@ -109,7 +109,7 @@ CELERYBEAT_SCHEDULE = {
   },
 }
 
-TASK_DEFAULT_QUEUE = 'default'
+
 
 from kombu import Queue
 
@@ -117,6 +117,11 @@ TASKS_QUEUES = (
     Queue('default', exchange='default', routing_key='default'),
     Queue('diff', exchange='diff', routing_key='diff')
 )
+
+TASK_DEFAULT_QUEUE = 'default'
+CELERY_DEFAULT_QUEUE = 'default'
+CELERY_DEFAULT_EXCHANGE = 'default'
+CELERY_DEFAULT_ROUTING_KEY = 'default'
 
 # CELERY_TASK_ROUTES = {
 #   'diff.tasks.*': 'diff',
