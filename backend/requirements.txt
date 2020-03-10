@@ -19,4 +19,4 @@ requests
 pymongo
 gunicorn[gevent]
 Werkzeug==0.16.1
-celery
+celery==4.4.0
