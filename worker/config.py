@@ -90,6 +90,7 @@ CELERY_RESULT_SERIALIZER = 'json'
 
 CELERY_RESULT_BACKEND = REDIS_URL
 CELERY_ENABLE_UTC = True
+CELERY_TIMEZONE = "Europe/Paris"
 CELERYBEAT_SCHEDULE = {
   'auto-crawl-project-every-day': {
     'task': 'celeryapp.tasks.crawl_project',
