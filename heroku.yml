@@ -1,5 +1,7 @@
 build:
   docker:
     web: heroku-backend.Dockerfile
+    worker: heroku-worker.Dockerfile
 run:
   web: gunicorn -c etc/gunicorn.conf.py --worker-class gevent --workers 8 wsgi:app --max-requests 10000 --log-level info
+  worker: celery -A celeryapp.celery worker -Q default -E -l info
