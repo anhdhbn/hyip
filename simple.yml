@@ -31,7 +31,7 @@ services:
       - 5556:5900
     environment:
       HUB_HOST: hub
-      HUB_PORT: 4445
+      HUB_PORT: 4444
     depends_on: 
       - hub
     entrypoint: bash -c 'SE_OPTS="-host $$HOSTNAME" /opt/bin/entry_point.sh'
