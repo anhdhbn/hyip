@@ -10,11 +10,8 @@ RUN echo "https://dl-4.alpinelinux.org/alpine/v3.10/main" >> /etc/apk/repositori
 
 RUN apk update
 RUN apk add libxslt-dev g++ gcc bash libressl-dev musl-dev libffi-dev
-
 COPY ./worker/requirements.txt ./
 
 RUN pip install -r requirements.txt
-
 ADD ./worker /app
-
-RUN chmod 755 wait-for-it.sh
+CMD ["ls"]
