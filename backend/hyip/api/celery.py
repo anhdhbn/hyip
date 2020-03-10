@@ -20,7 +20,7 @@ class CheckEasyInfo(flask_restplus.Resource):
     @ns.expect(requests.check_easy_parser, validate=True)
     @ns.marshal_with(responses.check_selector_res(ns))
     def get(self):
-        result = cele.send_task("jobqueue.tasks.check_easy", kwargs=request.args)
+        result = cele.send_task("celeryapp.tasks.check_easy", kwargs=request.args)
         result = AsyncResult(id=result.id, app=cele)
         return result.get()
 
@@ -29,6 +29,6 @@ class Test(flask_restplus.Resource):
     @ns.expect(requests.check_selector_parser, validate=True)
     @ns.marshal_with(responses.check_selector_res(ns))
     def get(self):
-        result = cele.send_task("jobqueue.tasks.check_diff", kwargs=request.args)
+        result = cele.send_task("celeryapp.tasks.check_diff", kwargs=request.args)
         result = AsyncResult(id=result.id, app=cele)
         return result.get()
