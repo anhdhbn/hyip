@@ -79,7 +79,6 @@ CELERY_TASK_SERIALIZER = 'json'
 BROKER_URL = REDIS_URL
 CELERY_ACCEPT_CONTENT = ['json']
 
-# CELERY_IMPORTS = ('jobqueue.tasks')
 
 CELERY_TASK_RESULT_EXPIRES = 30
 
@@ -90,7 +89,7 @@ CELERY_RESULT_SERIALIZER = 'json'
 
 CELERY_RESULT_BACKEND = REDIS_URL
 CELERY_ENABLE_UTC = True
-CELERY_TIMEZONE = "Europe/Paris"
+# CELERY_TIMEZONE = "Europe/Paris"
 CELERYBEAT_SCHEDULE = {
   'auto-crawl-project-every-day': {
     'task': 'celeryapp.tasks.crawl_project',
