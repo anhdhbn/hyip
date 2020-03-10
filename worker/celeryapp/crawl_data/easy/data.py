@@ -86,7 +86,9 @@ withdrawal = [
     "payments to investors",
     "total payed",
     "total payouts",
+    "total paid",
     "paid out",
     "payout",
+    "earned",
     "paid",
 ]

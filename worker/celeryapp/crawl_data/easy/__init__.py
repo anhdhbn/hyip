@@ -67,7 +67,8 @@ class EasyCrawl(CrawlBase):
 
     def check_in_list(self, items, lst, type=float):
         result = self.check_in_list_sorted(items, lst)
-
+        if self.debug:
+            print(result)
         for item in result:
             for i in range(3):
                 for children in self.get_parent_up_lever(item, i):
