@@ -92,22 +92,22 @@ CELERY_RESULT_BACKEND = REDIS_URL
 
 CELERYBEAT_SCHEDULE = {
   'auto-crawl-project-every-day': {
-    'task': 'jobqueue.tasks.crawl_project',
+    'task': 'celeryapp.tasks.crawl_project',
     'schedule': crontab(minute=0, hour=0),
     'options': {'queue': 'default'}
   },
   'auto-check-scam-every-day': {
-    'task': 'jobqueue.tasks.check_scam_all',
+    'task': 'celeryapp.tasks.check_scam_all',
     'schedule': crontab(minute=0, hour=2),
     'options': {'queue': 'default'}
   },
   'crawl-easy-project-every-day': {
-    'task': 'jobqueue.tasks.crawl_easy_project_every_day',
+    'task': 'celeryapp.tasks.crawl_easy_project_every_day',
     'schedule': crontab(minute=0, hour=3),
     'options': {'queue': 'default'}
   },
   'crawl-diff-project-every-day': {
-    'task': 'jobqueue.tasks.crawl_diff_project_every_day',
+    'task': 'celeryapp.tasks.crawl_diff_project_every_day',
     'schedule': crontab(minute=0, hour=4),
     'options': {'queue': 'diff'}
   },
