@@ -52,7 +52,7 @@ update_projects_tracked_by_user_req = lambda ns: ns.model('update_projects_track
 
 
 check_selector_parser = reqparse.RequestParser()
-check_selector_parser.add_argument('url', required=True)
+check_selector_parser.add_argument('url_crawl', required=True)
 check_selector_parser.add_argument('investment_selector', required=True)
 check_selector_parser.add_argument('paid_out_selector', required=True)
 check_selector_parser.add_argument('member_selector', required=True)
