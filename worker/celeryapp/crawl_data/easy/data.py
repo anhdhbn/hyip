@@ -92,6 +92,7 @@ withdrawal = [
     "total paid",
     "paid out",
     "payout",
+    "withdrawn",
     "earned",
     "paid",
 ]
