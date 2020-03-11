@@ -33,7 +33,8 @@ class Project:
 # from .isp import Isp
 from .hyiplogs import HyipLogs
 from .isp import Isp
-arr_class = [HyipLogs, Isp]
+from .hstat import HStat
+arr_class = [HyipLogs, Isp, HStat]
 
 class CrawlProjects:
     def crawl(self):
