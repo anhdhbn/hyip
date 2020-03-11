@@ -25,6 +25,7 @@ account = [
     "global customer",
     "active accounts",
     "active partners",
+    "total user",
     "participants",
     "investors",
     "customers",
