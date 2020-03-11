@@ -11,6 +11,8 @@ class Project:
         if self.check_have_all_attr():
             if not self.is_exists():
                 r = requests.post(celery.conf.URL['post_create_project'], json=self.__dict__)
+                return True
+        return False
 
     def is_exists(self):
         domain = get_domain(self.url_crawl)
@@ -38,6 +40,7 @@ arr_class = [HyipLogs, Isp, HStat]
 
 class CrawlProjects:
     def crawl(self):
+        self.new = 0
         projects = []
         for func in arr_class:
             crawler = func()
@@ -45,5 +48,5 @@ class CrawlProjects:
         projects = [project for project in projects if project is not None]
         projects = list(set(projects))
         for project in projects:
-            project.save_to_db()
-        return len(projects)
+            self.new += project.save_to_db()
+        return self.new, len(projects)
