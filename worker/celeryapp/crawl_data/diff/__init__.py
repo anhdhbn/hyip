@@ -33,7 +33,7 @@ class DiffCrawl(Driver):
         self.driver.execute_script("window.scrollTo(0, {});".format(self.current_scroll_position))
 
     def get_only_info_project(self):
-        result = super(Driver, self).get_only_info_project()
+        result = Driver.get_only_info_project(self)
         self.quit()
         return result
     

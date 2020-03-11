@@ -17,7 +17,7 @@ class Driver(ChromeDriver, CrawlBase):
         self.init_selenium()
 
     def crawl(self):
-        result = super(CrawlBase, self).crawl()
+        result = CrawlBase.crawl(self)
         self.quit()
         return result
 
