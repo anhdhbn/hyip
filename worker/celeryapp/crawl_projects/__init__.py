@@ -24,9 +24,13 @@ class Project:
                 return False
         return True
 
+    def __repr__(self):
+        return self.url_crawl
+
 # from .isp import Isp
 from .hyiplogs import HyipLogs
-arr_class = [HyipLogs]
+from .isp import Isp
+arr_class = [HyipLogs, Isp]
 
 class CrawlProjects:
     def crawl(self):

@@ -37,8 +37,16 @@ class HyipLogs:
             return Project(**{
                 "url_crawl": href,
             })
+        except requests.exceptions.RequestException :
+            print(url)
+        except requests.exceptions.HTTPError:
+            print(url)
+        except requests.exceptions.ConnectionError:
+            print(url)
+        except requests.exceptions.Timeout:
+            print(url)
         except Exception as e:
-            print(e)
+            print(url, e)
 
     def get_projecs_from_page(self, i):
         try:
