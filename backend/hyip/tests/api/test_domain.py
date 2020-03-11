@@ -24,3 +24,5 @@ class CrawlDataApiTestCase(APITestCase):
         for id, domain in self.data:
             result = self.get('/api/domain/check-exists/'+ domain)
             self.assertEqual(result['data']['is_exists'], True)
+        result = self.get('/api/domain/check-exists/' + self.generate_domain())
+        self.assertEqual(result['data']['is_exists'], False)
