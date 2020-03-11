@@ -26,7 +26,7 @@ class Project(db.Model, TimestampMixin):
     is_verified = db.Column(db.Boolean(), default=False, nullable=False)
     crawlable = db.Column(db.Boolean(), default=False, nullable=False)
     tracked = db.Column(db.Boolean(), default=False, nullable=False)
-    type_currency = db.Column(db.String(3), nullable=True)
+    type_currency = db.Column(db.String(3), nullable=True, default="")
 
     created_date = db.Column(db.Date(), default=func.current_date(), nullable=False)
     # USD
