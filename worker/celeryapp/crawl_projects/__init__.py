@@ -8,11 +8,11 @@ class Project:
             setattr(self, k, v)
             
     def save_to_db(self):
-        if self.check_have_all_attr():
-            if not self.is_exists():
-                r = requests.post(celery.conf.URL['post_create_project'], json=self.__dict__)
-                return True
-        return False
+        if not self.is_exists():
+            r = requests.post(celery.conf.URL['post_create_project'], json=self.__dict__)
+            return True
+        else:
+            return False
 
     def is_exists(self):
         domain = get_domain(self.url_crawl)
