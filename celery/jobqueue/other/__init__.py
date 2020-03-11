@@ -1,2 +1,0 @@
-from .crawl_info_project import CrawlInfoProject
-from .check_selector import CheckSelector

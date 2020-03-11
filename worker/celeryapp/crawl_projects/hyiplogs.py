@@ -9,6 +9,7 @@ import  re
 from multiprocessing.dummy import Pool as ThreadPool
 import itertools
 from datetime import datetime
+from tqdm import tqdm
 
 class HyipLogs:
     def __init__(self, processes=None):
