@@ -33,7 +33,7 @@ class BaseConfig():
         'get_diff_project': "{}/projects?type=diff".format(BACKEND_HOST),
         'get_all_project': "{}/projects?type=all".format(BACKEND_HOST),
         'get_not_scam_project': "{}/projects?type=notscam".format(BACKEND_HOST),
-        'post_create_project': "{}/project".format(BACKEND_HOST),
+        'post_create_project': "{}/projects".format(BACKEND_HOST),
 
         'get_status': lambda id_project: "{}/status/{}".format(BACKEND_HOST, id_project),
         'post_status': "{}/status".format(BACKEND_HOST),
