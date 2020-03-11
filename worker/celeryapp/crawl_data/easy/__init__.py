@@ -8,6 +8,7 @@ from .data import account, investment, withdrawal
 
 class EasyCrawl(CrawlBase):
     def __init__(self, **kwargs):
+        self.debug = False
         for k, v in kwargs.items():
             setattr(self, k, v)
 
