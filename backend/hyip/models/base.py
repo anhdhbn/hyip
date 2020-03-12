@@ -4,6 +4,16 @@ from sqlalchemy import func
 from sqlalchemy.ext.declarative import declared_attr
 import uuid
 
+# from sqlalchemy.sql import expression
+# from sqlalchemy.ext.compiler import compiles
+# from sqlalchemy.types import DateTime
+
+# class utcnow(expression.FunctionElement):
+#     type = DateTime()
+
+# @compiles(utcnow, 'mysql')
+# def mysql_utcnow(element, compiler, **kw):
+#     return "UTC_TIMESTAMP"
 
 class TimestampMixin(object):
     """
@@ -14,6 +24,7 @@ class TimestampMixin(object):
     @declared_attr
     def created_at(self):
         return _sa.Column(_sa.TIMESTAMP, default=func.now(),
+                        server_default=func.now(),
                           nullable=False)
 
     @declared_attr
