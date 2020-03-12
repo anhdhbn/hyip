@@ -17,6 +17,8 @@ class EasyCrawl(CrawlBase):
         scraper = cfscrape.create_scraper()
         html = scraper.get(self.url_crawl, timeout=30).text
         html = html_cvt.unescape(html)
+        if self.debug:
+            print(html)
         soup = BeautifulSoup(html, "lxml")
 
         texts = soup.findAll(text=True)
