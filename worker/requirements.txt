@@ -1,6 +1,7 @@
 redis
 python-dotenv
 cloudscraper
+cfscrape
 requests
 beautifulsoup4
 lxml

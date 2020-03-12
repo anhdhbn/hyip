@@ -1,7 +1,8 @@
 import html as html_cvt
 from bs4 import BeautifulSoup
 from bs4.element import Comment, NavigableString, Tag
-import cloudscraper
+# import cloudscraper
+import cfscrape
 
 from celeryapp.crawl_data.base import CrawlBase
 from .data import account, investment, withdrawal
@@ -13,7 +14,7 @@ class EasyCrawl(CrawlBase):
             setattr(self, k, v)
 
     def get_info_project(self):
-        scraper = cloudscraper.create_scraper()
+        scraper = cfscrape.create_scraper()
         html = scraper.get(self.url_crawl, timeout=30).text
         html = html_cvt.unescape(html)
         soup = BeautifulSoup(html, "lxml")
