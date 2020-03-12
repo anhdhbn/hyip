@@ -37,7 +37,7 @@ class BaseConfig():
         REDIS_PASSWORD, REDIS_HOST, REDIS_PORT
     )
 
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{0}:{1}@{2}:{3}/{4}?charset=utf8mb4'.format(
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{0}:{1}@{2}:{3}/{4}?charset=utf8mb4&amp;useUnicode=true&amp;serverTimezone=UTC'.format(
         MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = True
