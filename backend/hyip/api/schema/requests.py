@@ -59,3 +59,4 @@ check_selector_parser.add_argument('member_selector', required=True)
 
 check_easy_parser = reqparse.RequestParser()
 check_easy_parser.add_argument('url_crawl', required=True)
+check_easy_parser.add_argument('debug', required=False)
