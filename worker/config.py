@@ -97,7 +97,7 @@ CELERY_TIMEZONE = "UTC"
 
 CELERYBEAT_SCHEDULE = {
   'auto-crawl-project-every-day': {
-    'task': 'celeryapp.tasks.crawl_project',
+    'task': 'celeryapp.tasks.crawl_projects',
     'schedule': crontab(minute=0, hour=0),
     'options': {'queue': 'default'}
   },
