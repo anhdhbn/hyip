@@ -15,7 +15,9 @@ class EasyCrawl(CrawlBase):
 
     def get_info_project(self):
         scraper = cfscrape.create_scraper()
-        html = scraper.get(self.url_crawl, timeout=30).text
+        res = scraper.get(self.url_crawl, timeout=30)
+        res.raise_for_status()
+        html = res.text
         html = html_cvt.unescape(html)
         if self.debug:
             print(html)
