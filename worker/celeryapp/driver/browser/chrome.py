@@ -28,4 +28,5 @@ class ChromeDriver(Selenium):
             self.driver.set_window_size(1920, 10800)
         except Exception as e:
             self.quit()
-            raise(__name__, e)
+            print(__file__)
+            raise(e)
