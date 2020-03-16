@@ -16,7 +16,7 @@ services:
     restart: always
     env_file:
       - ./worker/.env
-    command: 'celery -A celeryapp.celery worker -Q diff -E -l info'
+    command: 'celery -A celeryapp.celery worker -Q diff -E -l info --concurrency=1'
 
   worker-beat:
     build:
