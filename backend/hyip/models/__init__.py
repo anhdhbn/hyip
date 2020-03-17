@@ -33,6 +33,7 @@ from .base import TimestampMixin
 from .crawl_data import CrawlData
 from .project import Project
 from .status import StatusProject
+from .baddata import BadData
 # from .pending_register import Pending_register
 # from .password import Password
 # from .log import Log

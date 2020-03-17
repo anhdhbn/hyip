@@ -23,7 +23,14 @@ class GetDataCrawledOfProject(flask_restplus.Resource):
         return services.crawldata.get_data_crawled(project_id, **request.args)
 
     @ns.expect(requests.post_data_crawled_req(ns), validate=True)
-    @ns.marshal_with(responses.crawl_data_res(ns))
+    @ns.marshal_with(responses.pos_crawl_data_res(ns))
     def post(self, project_id):
         data = marshal(request.args or request.json, requests.post_data_crawled_req(ns))
-        return services.crawldata.create_crawldata(project_id=project_id, **data) 
+        if data['total_investments'] == -1 and data['total_paid_outs'] == -1:
+            result = services.baddata.create_bad_data(project_id)
+            setattr(result, 'is_bad_data', True)
+            return result
+        else:
+            result = services.crawldata.create_crawldata(project_id=project_id, **data)
+            setattr(result, 'is_bad_data', False)
+            return result

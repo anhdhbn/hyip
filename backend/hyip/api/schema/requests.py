@@ -60,3 +60,12 @@ check_selector_parser.add_argument('member_selector', required=True)
 check_easy_parser = reqparse.RequestParser()
 check_easy_parser.add_argument('url_crawl', required=True)
 check_easy_parser.add_argument('debug', required=False)
+
+post_bad_data_req = lambda ns: ns.model('post_bad_data_req', {
+    'project_id': fields.String(required=True),
+})
+
+put_bad_data_req = lambda ns: ns.model('post_bad_data_req', {
+    'id': fields.String(required=True),
+    'project_id': fields.String(required=True),
+})

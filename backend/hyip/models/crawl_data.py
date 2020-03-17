@@ -2,6 +2,7 @@
 from sqlalchemy import func
 import sqlalchemy  as sq
 from hyip.models import db, TimestampMixin
+import json
 
 class CrawlData(TimestampMixin, db.Model):
     __tablename__ = 'crawldata'
@@ -19,3 +20,13 @@ class CrawlData(TimestampMixin, db.Model):
     alexa_rank =  db.Column(db.Integer(), nullable=False, default=0)
 
     created_date = db.Column(db.Date(), default=func.current_date(), nullable=False)
+
+    def __repr__(self):
+        dic = {}
+        keys = [key for key in self.__dict__.keys() if '__' not in key]
+        for key in keys:
+            dic[key] = self.__dict__[key]
+        print(dic)
+        return {
+            'id': self.id
+        }

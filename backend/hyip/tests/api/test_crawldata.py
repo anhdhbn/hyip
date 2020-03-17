@@ -26,6 +26,15 @@ class CrawlDataApiTestCase(APITestCase):
             **kwargs
         }
 
+    def init_bad_data(self, **kwargs):
+        return {
+            'total_investments' : -1,
+            'total_paid_outs': -1,
+            'total_members': randint(1, 1000),
+            'alexa_rank': randint(1, 1000),
+            **kwargs
+        }
+
     def init_crawldata(self, id_project, **kwargs):
         return services.crawldata.create_crawldata(id_project, **self.init_data_crawldata(**kwargs))
 
@@ -46,4 +55,7 @@ class CrawlDataApiTestCase(APITestCase):
     def test_post_data_crawled(self):
         data = self.init_data_crawldata()
         result = self.post('/api/crawldata/' + self.id_project, data=data)
-        self.assertEqual(result['success'], True)
+        self.assertEqual(result['data']['is_bad_data'], False)
+        bad_data = self.init_bad_data()
+        result = self.post('/api/crawldata/' + self.id_project, data=bad_data)
+        self.assertEqual(result['data']['is_bad_data'], True)

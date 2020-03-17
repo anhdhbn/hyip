@@ -29,6 +29,12 @@ crawl_data_res = lambda ns: ns.model('crawl_data_res', {
     'created_date': fields.Date(),
 })
 
+pos_crawl_data_res = lambda ns: ns.model('pos_crawl_data_res', {
+    'id': fields.String(),
+    'project_id': fields.String(),
+    'is_bad_data': fields.Boolean(),
+})
+
 exist_domain_res = lambda ns: ns.model('crawl_data_res', {
     'is_exists': fields.Boolean(),
 })
@@ -57,4 +63,10 @@ check_selector_res =  lambda ns: ns.model('check_selector_res', {
     'total_investments': fields.Float(),
     'total_paid_outs': fields.Float(),
     'total_members': fields.Integer(),
+})
+
+baddata_res = lambda ns: ns.model('baddata_res', {
+    'id': fields.String(),
+    'project_id': fields.String(),
+    'solved': fields.Boolean(),
 })
