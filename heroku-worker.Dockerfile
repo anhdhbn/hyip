@@ -9,7 +9,7 @@ RUN echo "https://dl-4.alpinelinux.org/alpine/v3.10/main" >> /etc/apk/repositori
     echo "https://dl-4.alpinelinux.org/alpine/v3.10/community" >> /etc/apk/repositories
 
 RUN apk update
-RUN apk add libxslt-dev g++ gcc bash libressl-dev musl-dev libffi-dev nodejs npm nodejs-npm
+RUN apk add libxslt-dev g++ gcc bash libressl-dev musl-dev libffi-dev nodejs npm nodejs-npm ca-certificates
 COPY ./worker/requirements.txt ./
 
 RUN pip install -r requirements.txt
